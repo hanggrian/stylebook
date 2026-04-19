@@ -1,0 +1,13 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "mode": "full",
+  "prCreation": "not-pending",
+  "internalChecksFilter": "strict",
+  "ignoreDeps": [
+    // unknown error with 46.1.9
+    "renovatebot/github-action",
+    // @types/node incompatible with TypeScript 6
+    "typescript"
+  ]
+}

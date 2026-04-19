@@ -1,0 +1,6 @@
+{
+  "ordered.list.number": "Replace list number with '{0}'.",
+  "ordered.list.spaces.single": "Insert one space after list prefix.",
+  "ordered.list.spaces.multi": "Insert two spaces after list prefix.",
+  "unnecessary.blank.line.in.list": "Remove empty line between list item."
+}

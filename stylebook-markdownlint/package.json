@@ -1,0 +1,34 @@
+{
+  "name": "stylebook-eslint",
+  "version": "0.1.0",
+  "description": "Linter extensions for markup and data languages",
+  "homepage": "https://github.com/hanggrian/stylebook#readme",
+  "bugs": {
+    "url": "https://github.com/hanggrian/stylebook/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanggrian/stylebook.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Hendra Anggrian <hanggrian@proton.me>",
+  "type": "module",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "resources"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint src/",
+    "test": "vitest --run src/__tests__/**/*.ts",
+    "coverage": "vitest run --coverage src/__tests__/**/*.ts --reporter=junit --outputFile=test-report.junit.xml"
+  },
+  "peerDependencies": {
+    "markdownlint": "^0.40.0"
+  },
+  "devDependencies": {
+    "@types/node": "25.6.0",
+    "markdownlint": "0.40.0"
+  }
+}
