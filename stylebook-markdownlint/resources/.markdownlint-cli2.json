@@ -1,6 +1,6 @@
 {
   "customRules": [
-    "stylebook-markdownlint/dist/index.js"
+    "stylebook-markdownlint"
   ],
   "config": {
     "code-block-style": {
@@ -22,8 +22,8 @@
       "style": "---"
     },
     "line-length": {
-      "stern": true,
-      "code_blocks": false
+      "code_blocks": false,
+      "headings": false
     },
     "list-marker-space": false,
     "no-duplicate-heading": {

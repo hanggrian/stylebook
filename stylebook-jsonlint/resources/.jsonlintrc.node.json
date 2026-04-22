@@ -1,0 +1,15 @@
+{
+  "compact-empty-objects": true,
+  "duplicate-space": false,
+  "enforce-double-quotes": true,
+  "indent": 2,
+  "mode": "json5",
+  "patterns": [
+    "**/package.json",
+    "!**/node_modules"
+  ],
+  "prune-comments": false,
+  "single-quoted-strings": false,
+  "trailing-commas": false,
+  "trailing-newline": true
+}

@@ -3,22 +3,34 @@
   "type": "module",
   "scripts": {
     "prelint": "pnpm -r lint",
-    "lint": "markdownlint-cli2 --config .markdownlint-cli2.json *.md"
+    "lint": "stylebook-markdownlint *.md && stylebook-jsonlint -V package.json && stylebook-jsonlint *.json"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   },
   "packageManager": "pnpm@10.33.0",
+  "dependencies": {
+    "stylebook-markdownlint": "workspace:*",
+    "stylebook-stylelint": "workspace:*",
+    "stylebook-jsonlint": "workspace:*"
+  },
   "devDependencies": {
-    "@eslint/js": "9.39.4",
+    "@eslint/js": "10.0.1",
     "@stylistic/eslint-plugin": "5.10.0",
+    "@prantlf/jsonlint": "17.0.1",
     "@types/sinon": "21.0.1",
     "@vitest/coverage-v8": "4.1.4",
-    "eslint": "9.39.4",
-    "globals": "17.4.0",
+    "eslint": "10.0.1",
+    "globals": "17.5.0",
+    "jsdom": "29.0.2",
     "markdownlint-cli2": "0.22.0",
-    "sinon": "21.1.1",
-    "typedoc": "0.28.18",
-    "typescript": "~5.9.2",
-    "typescript-eslint": "8.58.1",
-    "vite": "8.0.5",
+    "sinon": "21.1.2",
+    "stylelint": "17.8.0",
+    "stylelint-config-recommended": "18.0.0",
+    "typedoc": "0.28.19",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "8.58.2",
+    "vite": "8.0.8",
     "vitest": "4.1.4",
     "vitest-dom": "0.1.1"
   }

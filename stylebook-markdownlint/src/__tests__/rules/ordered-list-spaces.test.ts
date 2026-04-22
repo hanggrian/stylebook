@@ -30,9 +30,9 @@ describe('OlSpacesTest', () => {
                 333. Baz
                 `,
             ).hasErrorMessages(
-                "1: Insert two spaces after list prefix.",
-                "2: Insert one space after list prefix.",
-                "3: Insert two spaces after list prefix.",
+                '1: Insert two spaces after list prefix.',
+                '2: Insert one space after list prefix.',
+                '3: Insert two spaces after list prefix.',
             ),
     );
 
@@ -46,9 +46,9 @@ describe('OlSpacesTest', () => {
                 333. Baz
                 `,
             ).hasErrorMessages(
-                "1: Insert two spaces after list prefix.",
-                "2: Insert one space after list prefix.",
-                "3: Insert two spaces after list prefix.",
+                '1: Insert two spaces after list prefix.',
+                '2: Insert one space after list prefix.',
+                '3: Insert two spaces after list prefix.',
             ),
     );
 });

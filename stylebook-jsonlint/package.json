@@ -1,5 +1,5 @@
 {
-  "name": "stylebook-markdownlint",
+  "name": "stylebook-jsonlint",
   "version": "0.1.0",
   "description": "Permissive linter extensions for markup and data languages",
   "homepage": "https://github.com/hanggrian/stylebook#readme",
@@ -13,9 +13,8 @@
   "license": "Apache-2.0",
   "author": "Hendra Anggrian <hanggrian@proton.me>",
   "type": "module",
-  "main": "dist/index.js",
   "bin": {
-    "stylebook-markdownlint": "bin/stylebook-markdownlint.js"
+    "stylebook-jsonlint": "bin/stylebook-jsonlint.js"
   },
   "files": [
     "bin",
@@ -23,20 +22,16 @@
     "resources"
   ],
   "scripts": {
-    "prepare": "pnpm build",
-    "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint src/ && stylebook-jsonlint -V package.json && stylebook-jsonlint *.json resources/",
-    "test": "vitest --run src/__tests__/**/*.ts",
-    "coverage": "vitest run --coverage src/__tests__/**/*.ts --reporter=junit --outputFile=test-report.junit.xml"
+    "lint": "stylebook-jsonlint -V package.json && stylebook-jsonlint resources/"
   },
   "engines": {
     "node": ">=12.0.0"
   },
   "peerDependencies": {
-    "markdownlint": "^0.40.0"
+    "@prantlf/jsonlint": "^17.0.1"
   },
   "devDependencies": {
-    "@types/node": "25.6.0",
-    "markdownlint": "0.40.0"
+    "@prantlf/jsonlint": "17.0.1",
+    "@types/node": "25.6.0"
   }
 }

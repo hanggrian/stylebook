@@ -19,6 +19,5 @@ runs:
         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
 
     - shell: bash
-      run: |
-        pnpm i
-        pnpm -r build
+      run: pnpm i
+

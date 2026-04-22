@@ -36,8 +36,8 @@ describe('UnnecessaryBlankLineInListTest', () => {
                 1. Bar
                 `,
             ).hasErrorMessages(
-                "2: Remove empty line between list item.",
-                "6: Remove empty line between list item.",
+                '2: Remove empty line between list item.',
+                '6: Remove empty line between list item.',
             ),
     );
 
@@ -97,7 +97,7 @@ describe('UnnecessaryBlankLineInListTest', () => {
                   - Nested B
                 `,
             ).hasErrorMessages(
-                "3: Remove empty line between list item.",
+                '3: Remove empty line between list item.',
             ),
     );
 });

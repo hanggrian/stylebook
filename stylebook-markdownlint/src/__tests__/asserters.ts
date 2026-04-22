@@ -1,5 +1,5 @@
 import type StylebookRule from '../rules/stylebook-rule';
-import type { RuleParams } from "markdownlint";
+import type { RuleParams } from 'markdownlint';
 import { expect } from 'vitest';
 
 class Asserter {
