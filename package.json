@@ -3,20 +3,19 @@
   "type": "module",
   "scripts": {
     "prelint": "pnpm -r lint",
-    "lint": "stylebook-markdownlint *.md && stylebook-jsonlint -V package.json && stylebook-jsonlint *.json"
+    "lint": "stylebook *.json && stylebook *.md"
   },
   "engines": {
     "node": ">=12.0.0"
   },
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "pnpm@10.33.2",
   "dependencies": {
-    "stylebook-markdownlint": "workspace:*",
-    "stylebook-stylelint": "workspace:*",
-    "stylebook-jsonlint": "workspace:*"
+    "stylebook": "workspace:*"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@stylistic/eslint-plugin": "5.10.0",
+    "@stylistic/stylelint-plugin": "5.1.0",
     "@prantlf/jsonlint": "17.0.1",
     "@types/sinon": "21.0.1",
     "@vitest/coverage-v8": "4.1.4",
@@ -25,7 +24,6 @@
     "jsdom": "29.0.2",
     "markdownlint-cli2": "0.22.0",
     "sinon": "21.1.2",
-    "stylelint": "17.8.0",
     "stylelint-config-recommended": "18.0.0",
     "typedoc": "0.28.19",
     "typescript": "~5.9.3",

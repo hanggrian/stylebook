@@ -1,6 +1,17 @@
+import orderedListNumberRule from './rules/ordered-list-number.js';
+import orderedListSpacesRule from './rules/ordered-list-spaces.js';
+import unnecessaryBlankLineInListRule from './rules/unnecessary-blank-line-in-list.js';
+import type StylebookRule from './rules/stylebook-rule.js';
+
+export const stylebookMarkdown: StylebookRule[] = [
+    orderedListNumberRule,
+    orderedListSpacesRule,
+    unnecessaryBlankLineInListRule,
+];
+
 const kebabCaseWithOptionalPeriod: string = '^[a-z][a-z0-9.-]*[a-z0-9]$';
 
-export default {
+export const stylebookStylelint = {
     rules: {
         // reverse stylelint-config-recommended
         'at-rule-no-unknown': null,
@@ -93,3 +104,5 @@ export default {
         '@stylistic/value-list-max-empty-lines': 0,
     },
 };
+
+export default stylebookMarkdown;

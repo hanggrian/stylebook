@@ -1,6 +1,6 @@
 {
   "customRules": [
-    "stylebook-markdownlint"
+    "stylebook"
   ],
   "config": {
     "code-block-style": {

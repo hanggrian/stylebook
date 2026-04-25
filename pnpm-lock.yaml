@@ -8,15 +8,9 @@ importers:
 
   .:
     dependencies:
-      stylebook-jsonlint:
+      stylebook:
         specifier: workspace:*
-        version: link:stylebook-jsonlint
-      stylebook-markdownlint:
-        specifier: workspace:*
-        version: link:stylebook-markdownlint
-      stylebook-stylelint:
-        specifier: workspace:*
-        version: link:stylebook-stylelint
+        version: link:stylebook
     devDependencies:
       '@eslint/js':
         specifier: 10.0.1
@@ -27,6 +21,9 @@ importers:
       '@stylistic/eslint-plugin':
         specifier: 5.10.0
         version: 5.10.0(eslint@10.0.1)
+      '@stylistic/stylelint-plugin':
+        specifier: 5.1.0
+        version: 5.1.0(stylelint@17.8.0(typescript@5.9.3))
       '@types/sinon':
         specifier: 21.0.1
         version: 21.0.1
@@ -48,9 +45,6 @@ importers:
       sinon:
         specifier: 21.1.2
         version: 21.1.2
-      stylelint:
-        specifier: 17.8.0
-        version: 17.8.0(typescript@5.9.3)
       stylelint-config-recommended:
         specifier: 18.0.0
         version: 18.0.0(stylelint@17.8.0(typescript@5.9.3))
@@ -75,35 +69,24 @@ importers:
 
   sample: {}
 
-  stylebook-jsonlint:
-    devDependencies:
+  stylebook:
+    dependencies:
       '@prantlf/jsonlint':
-        specifier: 17.0.1
+        specifier: ^17.0.1
         version: 17.0.1(typescript@5.9.3)
-      '@types/node':
-        specifier: 25.6.0
-        version: 25.6.0
-
-  stylebook-markdownlint:
-    devDependencies:
-      '@types/node':
-        specifier: 25.6.0
-        version: 25.6.0
-      markdownlint:
-        specifier: 0.40.0
-        version: 0.40.0
-
-  stylebook-stylelint:
-    devDependencies:
       '@stylistic/stylelint-plugin':
-        specifier: 5.1.0
+        specifier: ^5.1.0
         version: 5.1.0(stylelint@17.8.0(typescript@5.9.3))
+      markdownlint:
+        specifier: ^0.40.0
+        version: 0.40.0
+      stylelint:
+        specifier: ^17.8.0
+        version: 17.8.0(typescript@5.9.3)
+    devDependencies:
       '@types/node':
         specifier: 25.6.0
         version: 25.6.0
-      stylelint:
-        specifier: 17.8.0
-        version: 17.8.0(typescript@5.9.3)
 
 packages:
 

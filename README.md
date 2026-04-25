@@ -17,7 +17,7 @@ considered as a programming language.
 ## Download
 
 ```sh
-npm install stylebook-markdownlint \
+npm install stylebook \
   markdownlint markdownlint-cli2 --save-dev
 npm install stylebook-stylelint \
   @stylistic/stylelint-plugin stylelint-config-recommended --save-dev
@@ -35,7 +35,7 @@ No setup is necessary. However, to customize behaviors, a local
 > Default rules are overridden if `--config` is specified in the command.
 
 ```sh
-stylebook-markdownlint *.md
+stylebook *.md
 ```
 
 ### Stylelint

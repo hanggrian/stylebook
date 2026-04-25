@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "lint": "stylebook-markdownlint markdown/ && stylebook-jsonlint -V *.json json/"
+    "lint": "stylebook css && stylebook json && stylebook markdown"
   },
   "engines": {
     "node": ">=12.0.0"

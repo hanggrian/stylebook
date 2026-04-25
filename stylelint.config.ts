@@ -1,6 +1,6 @@
 import stylisticStylelintPlugin from '@stylistic/stylelint-plugin';
 import stylelintConfigRecommended from 'stylelint-config-recommended';
-import stylebookStylelint from 'stylebook-stylelint';
+import { stylebookStylelint } from 'stylebook';
 import type { Config } from 'stylelint';
 
 export default {
