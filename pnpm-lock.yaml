@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      stylebook-markup:
+      '@hanggrian/stylebook':
         specifier: workspace:*
-        version: link:stylebook-markup
+        version: link:stylebook
     devDependencies:
       '@eslint/js':
         specifier: 10.0.1
@@ -75,9 +75,7 @@ importers:
 
   sample: {}
 
-  stylebook-data: {}
-
-  stylebook-markup:
+  stylebook:
     dependencies:
       '@prantlf/jsonlint':
         specifier: ^17.0.1
@@ -98,6 +96,8 @@ importers:
       '@types/node':
         specifier: 25.6.0
         version: 25.6.0
+
+  website: {}
 
 packages:
 

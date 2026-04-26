@@ -1,0 +1,149 @@
+site_name: Stylebook
+site_url: https://hanggrian.github.io/stylebook/
+site_author: Hendra Anggrian
+site_description: Permissive linter extensions for markup and data languages
+
+repo_name: hanggrian/rulebook
+repo_url: https://github.com/hanggrian/stylebook
+
+# yamllint disable rule:line-length
+copyright: >
+  <a href="https://github.com/hanggrian/stylebook/actions/workflows/code-analysis.yaml">
+    <img
+      src="https://img.shields.io/github/actions/workflow/status/hanggrian/stylebook/code-analysis.yaml"
+      alt="GitHub Actions"/>
+  </a>
+  <a href="https://app.codecov.io/gh/hanggrian/stylebook/">
+    <img
+      src="https://img.shields.io/codecov/c/gh/hanggrian/stylebook"
+      alt="Codecov"/>
+  </a>
+  <a href="https://developer.mend.io/github/hanggrian/stylebook/">
+    <img
+      src="https://img.shields.io/badge/dependency-mend-blue"
+      alt="Renovate"/>
+  </a>
+  &emsp;
+  <a href="https://pypi.org/project/stylebook-data/">
+    <img
+      src="https://shields.io/pypi/v/stylebook-data"
+      alt="PyPI"/>
+  </a>
+  <a href="https://test.pypi.org/project/stylebook-data/">
+    <img
+      src="https://shields.io/pypi/v/stylebook-data?label=testpypi&pypiBaseUrl=https://test.pypi.org"
+      alt="TestPyPI"/>
+  </a>
+  &emsp;
+  <a href="https://www.npmjs.com/package/@hanggrian/stylebook/">
+    <img
+      src="https://shields.io/npm/v/@hanggrian/stylebook"
+      alt="NPM"/>
+  </a>
+  <a href="https://nodejs.org/en/blog/release/v12.0.0/">
+    <img
+      src="https://img.shields.io/badge/node-12+-informational"
+      alt="Node"/>
+  </a>
+# yamllint enable
+
+theme:
+  name: material
+  custom_dir: overrides
+  favicon: images/favicon.ico
+  logo: images/icon.svg
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: purple
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    repo: material/github
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.share
+    - content.code.copy
+    - content.tabs.link
+
+# yamllint disable rule:line-length
+nav:
+  - Home: index.md
+  - Rules:
+    - Markdown rules: rules/markdown.md
+    - External links:
+      - SQLFluff rules: https://docs.sqlfluff.com/en/stable/reference/rules.html?ext
+      - Taplo rules: https://taplo.tamasfe.dev/configuration/file.html?ext
+      - yamllint rules: https://yamllint.readthedocs.io/en/stable/rules.html?ext
+      - Stylelint rules: https://stylelint.io/user-guide/rules/?ext
+      - JSON Lint rules: https://www.npmjs.com/package/@prantlf/jsonlint/?ext
+      - Markdownlint rules: https://github.com/DavidAnson/markdownlint/tree/main/doc/?ext
+  - TSDoc: api/tsdoc
+# yamllint enable
+
+plugins:
+  - search
+
+extra_javascript:
+  - scripts/mermaid.min.js  # hotfix for Mermaid not loading in GitHub Pages
+extra_css:
+  - styles/colors.css
+  - styles/icons.css
+  - styles/links.css
+  - https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined
+
+hooks:
+  - hooks/archive.py
+
+validation:
+  nav:
+    omitted_files: warn
+    not_found: warn
+    absolute_links: warn
+  links:
+    not_found: warn
+    absolute_links: warn
+    unrecognized_links: warn
+
+# extra:
+#   analytics:
+#     provider: google
+#     property: !ENV GOOGLE_ANALYTICS_KEY
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - attr_list
+  - md_in_html
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - footnotes

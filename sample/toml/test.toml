@@ -1,3 +1,128 @@
-[test]
-lorem = "ipsum"
-lorem2 = "ipsum"
+# taplo-format-test.toml
+# This file tests all Taplo formatting rules
+
+# Entries in the same table should be aligned by their `=` sign
+[align_entries]
+short = "value"
+much_longer_key = "value"
+x = 1
+
+# Inline comments should be aligned within the same block
+[align_comments]
+foo = "bar" # first comment
+baz = "qux" # second comment
+x = 1       # third comment
+
+# Controls whether single-item comment blocks are aligned with others
+[align_single_comments]
+lonely = "value" # solo comment
+
+# Trailing comma in multiline arrays
+[array_trailing_comma]
+with_trailing = [
+  "one",
+  "two",
+  "three",
+]
+without_trailing = [
+  "one",
+  "two",
+  "three",
+]
+
+# Arrays exceeding column limit should expand to multiline
+[array_auto_expand]
+short = ["a", "b", "c"]
+long = [
+  "value_one",
+  "value_two",
+  "value_three",
+  "value_four",
+  "value_five",
+  "value_six",
+]
+
+# Multiline arrays that fit on one line should collapse
+[array_auto_collapse]
+fits_on_one_line = [
+  "a",
+  "b",
+]
+
+# Inline tables exceeding column limit should expand
+[inline_table_expand]
+short = { a = "b", c = "d" }
+long = { key_one = "value_one", key_two = "value_two", key_three = "value_three", key_four = "value_four" }
+
+# No spaces inside array brackets
+[compact_arrays]
+compact = ["a", "b", "c"]
+spacious = ["a", "b", "c"]
+
+# No spaces inside inline table braces
+[compact_inline_tables]
+compact = { a = "b", c = "d" }
+spacious = { a = "b", c = "d" }
+
+# No extra spaces around `=`
+[compact_entries]
+correct = "value"
+spaced = "value"
+
+# Lines should not exceed this width (default: 80)
+[column_width]
+short_line = "this is fine"
+long_line = "this line is intentionally very long and may exceed the default column width limit of eighty characters"
+
+# Sub-tables should be indented under their parent
+[indent_tables]
+top_level = "value"
+
+[indent_tables.child]
+child_key = "child_value"
+
+[indent_tables.child.grandchild]
+deep_key = "deep_value"
+
+# Entries inside dotted keys should be indented
+[indent_entries]
+parent.child = "value"
+parent.other_child = "other"
+
+# The string used for indentation (spaces or tab)
+[indent_string]
+key = "value" # controlled by indent_string = "  " (2 spaces) or "\t"
+
+# Keys should be sorted alphabetically within a table
+[reorder_keys]
+zebra = 1
+apple = 2
+mango = 3
+blueberry = 4
+
+# Array values sorted alphabetically (if enabled)
+[reorder_arrays]
+fruits = ["zebra_fruit", "apple_fruit", "mango_fruit"]
+
+# Line endings: CRLF vs LF (controlled by crlf = true/false)
+# (not visually testable in file content, enforced at save time)
+[crlf]
+note = "line endings are enforced at the file level"
+
+# Max consecutive blank lines allowed between entries
+[allowed_blank_lines]
+first = "value"
+
+second = "value"
+
+third = "value" # 3 blank lines above — likely violates allowed_blank_lines = 2
+
+# File must end with a newline (enforced at EOF, not visible here)
+[trailing_newline]
+note = "file should end with a single newline character"
+
+# Controls blank lines before/after key-value pairs
+[key_value_newlines]
+first = "value"
+second = "value"
+third = "value"

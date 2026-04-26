@@ -1,0 +1,108 @@
+import orderedListNumberRule from './rules/ordered-list-number.js';
+import orderedListSpacesRule from './rules/ordered-list-spaces.js';
+import unnecessaryBlankLineInListRule from './rules/unnecessary-blank-line-in-list.js';
+import type StylebookRule from './rules/stylebook-rule.js';
+
+export const stylebookMarkdown: StylebookRule[] = [
+    orderedListNumberRule,
+    orderedListSpacesRule,
+    unnecessaryBlankLineInListRule,
+];
+
+const kebabCaseWithOptionalPeriod: string = '^\\.?[a-z][a-z0-9._-]*[a-z0-9]$';
+
+export const stylebookStylelint = {
+    rules: {
+        // reverse stylelint-config-recommended
+        'at-rule-no-unknown': null,
+
+        // additional stylelint
+        'color-hex-length': 'short',
+        'color-no-invalid-hex': true,
+        'comment-word-disallowed-list': [
+            '/^(FIXME|TODO):/',
+            '/^(fixme|todo)/',
+        ],
+        'comment-whitespace-inside': 'always',
+        'declaration-block-single-line-max-declarations': 1,
+        'function-name-case': 'lower',
+        'length-zero-no-unit': true,
+        'selector-attribute-quotes': 'always',
+        'selector-class-pattern': kebabCaseWithOptionalPeriod,
+        'selector-id-pattern': kebabCaseWithOptionalPeriod,
+        'selector-type-case': 'lower',
+        'shorthand-property-no-redundant-values': true,
+        'unit-no-unknown': true,
+        'value-keyword-case': 'lower',
+
+        // third-party stylistic
+        '@stylistic/at-rule-name-case': 'lower',
+        '@stylistic/at-rule-name-newline-after': 'always-multi-line',
+        '@stylistic/at-rule-name-space-after': 'always-single-line',
+        '@stylistic/at-rule-semicolon-newline-after': 'always',
+        '@stylistic/at-rule-semicolon-space-before': 'never',
+        '@stylistic/color-hex-case': 'lower',
+        '@stylistic/block-closing-brace-empty-line-before': 'never',
+        '@stylistic/block-closing-brace-newline-after': 'always',
+        '@stylistic/block-closing-brace-newline-before': 'always-multi-line',
+        '@stylistic/block-closing-brace-space-before': 'always-single-line',
+        '@stylistic/block-opening-brace-newline-after': 'always-multi-line',
+        '@stylistic/block-opening-brace-space-after': 'always-single-line',
+        '@stylistic/block-opening-brace-space-before': 'always',
+        '@stylistic/declaration-bang-space-after': 'never',
+        '@stylistic/declaration-block-semicolon-newline-after': 'always',
+        '@stylistic/declaration-block-semicolon-space-before': 'never',
+        '@stylistic/declaration-colon-newline-after': 'always-multi-line',
+        '@stylistic/declaration-colon-space-before': 'never',
+        '@stylistic/declaration-colon-space-after': 'always-single-line',
+        '@stylistic/function-comma-newline-after': 'always-multi-line',
+        '@stylistic/function-comma-space-after': 'always-single-line',
+        '@stylistic/function-comma-space-before': 'never',
+        '@stylistic/function-max-empty-lines': 0,
+        '@stylistic/function-parentheses-newline-inside': 'always-multi-line',
+        '@stylistic/function-parentheses-space-inside': 'never-single-line',
+        '@stylistic/function-whitespace-after': 'always',
+        '@stylistic/indentation': 2,
+        '@stylistic/max-empty-lines': 1,
+        '@stylistic/max-line-length': [
+            80,
+            {
+                'ignorePattern': '/[a-z]+:\\/\\//',
+            },
+        ],
+        '@stylistic/media-feature-colon-space-after': 'always',
+        '@stylistic/media-feature-colon-space-before': 'never',
+        '@stylistic/media-feature-name-case': 'lower',
+        '@stylistic/media-feature-parentheses-space-inside': 'never',
+        '@stylistic/media-feature-range-operator-space-after': 'always',
+        '@stylistic/media-feature-range-operator-space-before': 'always',
+        '@stylistic/media-query-list-comma-newline-after': 'always-multi-line',
+        '@stylistic/media-query-list-comma-space-after': 'always-single-line',
+        '@stylistic/media-query-list-comma-space-before': 'never',
+        '@stylistic/no-empty-first-line': true,
+        '@stylistic/no-eol-whitespace': true,
+        '@stylistic/no-extra-semicolons': true,
+        '@stylistic/no-missing-end-of-source-newline': true,
+        '@stylistic/no-multiple-whitespaces': true,
+        '@stylistic/number-no-trailing-zeros': true,
+        '@stylistic/property-case': 'lower',
+        '@stylistic/selector-attribute-brackets-space-inside': 'never',
+        '@stylistic/selector-attribute-operator-space-after': 'never',
+        '@stylistic/selector-attribute-operator-space-before': 'never',
+        '@stylistic/selector-list-comma-newline-after': 'always-multi-line',
+        '@stylistic/selector-list-comma-space-after': 'always-single-line',
+        '@stylistic/selector-list-comma-space-before': 'never',
+        '@stylistic/selector-max-empty-lines': 0,
+        '@stylistic/selector-pseudo-class-case': 'lower',
+        '@stylistic/selector-pseudo-class-parentheses-space-inside': 'never',
+        '@stylistic/selector-pseudo-element-case': 'lower',
+        '@stylistic/string-quotes': 'double',
+        '@stylistic/unit-case': 'lower',
+        '@stylistic/value-list-comma-newline-after': 'always-multi-line',
+        '@stylistic/value-list-comma-space-after': 'always-single-line',
+        '@stylistic/value-list-comma-space-before': 'never',
+        '@stylistic/value-list-max-empty-lines': 0,
+    },
+};
+
+export default stylebookMarkdown;

@@ -4,7 +4,7 @@ requires-python = ">=3.10"
 
 [manifest]
 members = [
-    "stylebook-data",
+    "stylebook",
 ]
 
 [manifest.dependency-groups]
@@ -640,9 +640,9 @@ wheels = [
 ]
 
 [[package]]
-name = "stylebook-data"
+name = "stylebook"
 version = "0.1"
-source = { editable = "stylebook-data" }
+source = { editable = "stylebook" }
 dependencies = [
     { name = "sqlfluff" },
     { name = "taplo" },

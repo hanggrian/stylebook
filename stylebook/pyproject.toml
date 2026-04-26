@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "stylebook"
+version = "0.1"
+description = "Permissive linter extensions for markup and data languages"
+keywords = [
+  "sql",
+  "toml",
+  "yaml",
+  "lint",
+  "linter",
+]
+authors = [{ name = "Hendra Anggrian", email = "hanggrian@proton.me" }]
+license = { text = "Apache-2.0" }
+readme = "../README.md"
+requires-python = ">=3.10"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "sqlfluff==4.1.0",
+  "taplo==0.9.3",
+  "yamllint==1.38.0",
+]
+
+[project.urls]
+"Source Code" = "https://github.com/hanggrian/stylebook"
+"Bug Tracker" = "https://github.com/hanggrian/stylebook/issues"
+
+[project.scripts]
+stylebook = "stylebook.cli:run"
+
+[tool.hatch.build.targets.wheel]
+packages = ["stylebook"]
+
+[tool.hatch.build.targets.sdist]
+include = ["stylebook/resources"]

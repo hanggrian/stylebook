@@ -4,14 +4,16 @@
   "scripts": {
     "postinstall": "uv sync",
     "prelint": "pnpm -r lint",
-    "lint": "uv run stylebook-data .github/ pnpm-workspace.yaml pyproject.toml && stylebook-markup *.json *.md"
+    "lint": "uv run stylebook .github/ pnpm-workspace.yaml pyproject.toml && pnpm exec stylebook *.json *.md",
+    "build-website": "scripts/prepare_mkdocs.sh && cd website && uv run mkdocs build",
+    "preview-website": "scripts/prepare_mkdocs.sh && cd website && uv run mkdocs serve --livereload"
   },
   "engines": {
     "node": ">=12.0.0"
   },
   "packageManager": "pnpm@10.33.2",
   "dependencies": {
-    "stylebook-markup": "workspace:*"
+    "@hanggrian/stylebook": "workspace:*"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

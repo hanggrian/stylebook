@@ -1,10 +1,10 @@
 [tool.uv.workspace]
 members = [
-  "stylebook-data",
+  "stylebook",
 ]
 
 [tool.uv.sources]
-stylebook-data = { workspace = true }
+stylebook = { workspace = true }
 
 [dependency-groups]
 dev = [

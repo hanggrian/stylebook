@@ -1,6 +1,0 @@
-{
-  "private": true,
-  "scripts": {
-    "lint": "uv run stylebook-data pyproject.toml stylebook_data/resources/"
-  }
-}

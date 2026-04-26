@@ -1,3 +1,4 @@
 packages:
-  - 'stylebook-*'
+  - 'stylebook'
   - 'sample'
+  - 'website'

@@ -20,12 +20,6 @@ node_modules/
 coverage/
 test-report.junit.xml
 
-# Ruby
-.bundle/
-vendor/
-
-# Jekyll
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
+# MkDocs
+site/
+!website/docs
