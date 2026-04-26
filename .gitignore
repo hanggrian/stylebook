@@ -2,15 +2,23 @@
 .DS_Store
 ._*
 
-# WebStorm
+# PyCharm
 *.iml
 .idea/
-node_modules/
-docs/
-coverage/
+.venv/
+.pytest_cache/
+__pycache__/
+.coverage
+coverage.xml
 dist/
+wheels/
+*.egg-info
+
+# WebStorm
+node_modules/
+/docs/
+coverage/
 test-report.junit.xml
-tsconfig.tsbuildinfo
 
 # Ruby
 .bundle/

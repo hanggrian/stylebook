@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A test page covering all HTMLHint rules.">
+  <title>HTMLHint Test Page</title>
+</head>
+<body>
+<main>
+  <h1>HTMLHint Rule Coverage</h1>
+
+  <!-- alt-require: img must have alt -->
+  <img src="photo.jpg" alt="A sample photo">
+
+  <!-- src-not-empty: src must not be empty -->
+  <img src="banner.jpg" alt="A banner image">
+
+  <!-- attr-lowercase: all attributes are lowercase -->
+  <!-- attr-value-double-quotes: values use double quotes -->
+  <!-- attr-no-duplication: no duplicate attributes -->
+  <!-- attr-value-no-duplication: no duplicate attribute values -->
+  <a href="https://example.com" target="_blank">Visit example</a>
+
+  <!-- id-unique: each id appears only once -->
+  <section id="intro">
+    <p>Introduction section with unique id.</p>
+  </section>
+
+  <section id="content">
+    <p>Content section with another unique id.</p>
+  </section>
+
+  <!-- tag-pair: all tags are properly closed -->
+  <!-- tagname-lowercase: all tag names are lowercase -->
+  <p>This paragraph is properly closed.</p>
+
+  <!-- spec-char-escape: special characters are escaped -->
+  <p>Price: &lt;100 &amp; &gt;50 means between 50 &amp; 100.</p>
+
+  <!-- button-type-require: button must have type attribute -->
+  <button type="button">Click me</button>
+  <button type="submit">Submit</button>
+  <button type="reset">Reset</button>
+
+  <!-- input-requires-label: every input has an associated label -->
+  <form>
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username">
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email">
+
+    <label for="pwd">Password</label>
+    <input type="password" id="pwd" name="pwd">
+  </form>
+
+  <!-- frame-title-require: iframe must have title -->
+  <iframe src="https://example.com" title="Example iframe"></iframe>
+
+  <!-- tag-no-obsolete: no obsolete tags like <center>, <font>, <b> etc -->
+  <strong>Bold text using strong instead of b.</strong>
+  <em>Italic text using em instead of i.</em>
+</main>
+</body>
+</html>

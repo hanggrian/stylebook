@@ -2,15 +2,16 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "postinstall": "uv sync",
     "prelint": "pnpm -r lint",
-    "lint": "stylebook *.json && stylebook *.md"
+    "lint": "uv run stylebook-data .github/ pnpm-workspace.yaml pyproject.toml && stylebook-markup *.json *.md"
   },
   "engines": {
     "node": ">=12.0.0"
   },
   "packageManager": "pnpm@10.33.2",
   "dependencies": {
-    "stylebook": "workspace:*"
+    "stylebook-markup": "workspace:*"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
@@ -21,6 +22,7 @@
     "@vitest/coverage-v8": "4.1.4",
     "eslint": "10.0.1",
     "globals": "17.5.0",
+    "htmlhint": "1.9.2",
     "jsdom": "29.0.2",
     "markdownlint-cli2": "0.22.0",
     "sinon": "21.1.2",

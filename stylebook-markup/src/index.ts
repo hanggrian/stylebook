@@ -96,7 +96,7 @@ export const stylebookStylelint = {
         '@stylistic/selector-pseudo-class-case': 'lower',
         '@stylistic/selector-pseudo-class-parentheses-space-inside': 'never',
         '@stylistic/selector-pseudo-element-case': 'lower',
-        '@stylistic/string-quotes': 'single',
+        '@stylistic/string-quotes': 'double',
         '@stylistic/unit-case': 'lower',
         '@stylistic/value-list-comma-newline-after': 'always-multi-line',
         '@stylistic/value-list-comma-space-after': 'always-single-line',

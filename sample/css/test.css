@@ -1,13 +1,172 @@
-body {
-  background-color: lightblue;
+@import "other.css";
+
+/* stylelint test: comment-whitespace-inside always */
+
+/*
+  comment-word-disallowed-list: the words FIXME/TODO and fixme/todo are banned
+*/
+
+:root {
+  --color-primary: #369; /* color-hex-length: short (not #336699) */
+  --color-accent: #f0a; /* color-hex-length: short */
 }
 
-h1 {
-  color: white;
-  text-align: center;
+/* color-no-invalid-hex: all hex values below are valid */
+/* unit-no-unknown: only known units used */
+/* value-keyword-case: lower */
+/* shorthand-property-no-redundant-values: no redundant values */
+/* length-zero-no-unit: 0 not 0px */
+
+/* @stylistic/at-rule-name-case: lower */
+@media (min-width: 48em) {
+  /* @stylistic/media-feature-colon-space-after/before */
+  /* @stylistic/block-opening-brace-space-before: always */
+  /* @stylistic/block-opening-brace-newline-after: always-multi-line */
+  /* @stylistic/block-closing-brace-newline-before: always-multi-line */
+  /* @stylistic/block-closing-brace-newline-after: always */
+  .container {
+    max-width: 72em;
+  }
 }
 
-p {
-  font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
-  font-size: 20px;
+/* @stylistic/at-rule-name-newline-after: always-multi-line */
+@media
+  (min-width: 48em),
+  (max-width: 96em) {
+  /* @stylistic/media-query-list-comma-newline-after: always-multi-line */
+  .wide {
+    display: block;
+  }
 }
+
+/* selector-type-case: lower */
+/* @stylistic/selector-pseudo-class-case: lower */
+/* @stylistic/selector-pseudo-element-case: lower */
+/* selector-attribute-quotes: always */
+/* @stylistic/selector-attribute-brackets-space-inside: never */
+/* @stylistic/selector-attribute-operator-space-after/before: never */
+/* selector-class-pattern: kebab-case with optional period */
+/* selector-id-pattern: kebab-case with optional period */
+
+a,
+a:hover, /* @stylistic/selector-list-comma-newline-after: always-multi-line */
+a:focus {
+  color: #369;
+  text-decoration: none;
+}
+
+a::before { /* @stylistic/selector-pseudo-element-case: lower */
+  content: "";
+}
+
+input[type="text"] { /* selector-attribute-quotes: always */
+  border: 1px solid #ccc;
+}
+
+.my-component { /* selector-class-pattern: kebab-case */
+  /* @stylistic/declaration-colon-space-after: always-single-line */
+  /* @stylistic/declaration-colon-space-before: never */
+  /* @stylistic/declaration-block-semicolon-newline-after: always */
+  /* @stylistic/declaration-block-semicolon-space-before: never */
+  display: block;
+  margin: 0; /* length-zero-no-unit */
+  padding: 1em 0; /* shorthand-property-no-redundant-values: not 1em 0 1em 0 */
+  background-color: #fff;
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25em;
+}
+
+/* declaration-block-single-line-max-declarations: 1 */
+.icon { display: block; }
+
+#my-element { /* selector-id-pattern: kebab-case */
+  position: relative;
+}
+
+/* function-name-case: lower */
+/* @stylistic/function-comma-space-after: always-single-line */
+/* @stylistic/function-comma-space-before: never */
+/* @stylistic/function-parentheses-space-inside: never-single-line */
+/* @stylistic/function-whitespace-after: always */
+/* @stylistic/function-max-empty-lines: 0 */
+.gradient {
+  background: linear-gradient(to bottom, #369, #f0a);
+  transform: translate(10px, 20px);
+  color: rgb(51, 102, 153);
+}
+
+/* @stylistic/function-comma-newline-after: always-multi-line */
+/* @stylistic/function-parentheses-newline-inside: always-multi-line */
+.complex-gradient {
+  background:
+    linear-gradient(
+      to bottom,
+      #369,
+      #f0a
+    );
+}
+
+/* unit-no-unknown: only valid units */
+/* @stylistic/unit-case: lower */
+/* @stylistic/number-no-trailing-zeros: no 1.50 etc */
+/* @stylistic/value-list-comma-space-after: always-single-line */
+/* @stylistic/value-list-comma-space-before: never */
+/* @stylistic/value-list-max-empty-lines: 0 */
+.typography {
+  font-family: Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: .05em;
+  line-height: 1.6;
+}
+
+/* @stylistic/value-list-comma-newline-after: always-multi-line */
+.multi-bg {
+  background-image:
+    url("a.png"),
+    url("b.png");
+}
+
+/* @stylistic/string-quotes: double */
+.quoted::after {
+  content: "hello";
+}
+
+/* @stylistic/property-case: lower */
+/* @stylistic/color-hex-case: lower */
+/* value-keyword-case: lower */
+.colors {
+  color: #abc;
+  background-color: #def;
+  border-color: transparent;
+  cursor: pointer;
+}
+
+/* @stylistic/declaration-bang-space-after: never */
+.important-rule {
+  color: #369 !important;
+}
+
+/* @stylistic/indentation: 2 */
+/* @stylistic/max-empty-lines: 1 */
+/* @stylistic/no-eol-whitespace */
+/* @stylistic/no-extra-semicolons */
+/* @stylistic/no-missing-end-of-source-newline */
+/* @stylistic/no-multiple-whitespaces */
+/* @stylistic/no-empty-first-line */
+
+/* at-rule-no-unknown: null (disabled, allows unknown at-rules) */
+@unknown-rule {
+  color: red;
+}
+
+/* @stylistic/at-rule-semicolon-newline-after: always */
+/* @stylistic/at-rule-semicolon-space-before: never */
+@charset "utf-8";
+
+/*
+  @stylistic/max-line-length: 80 (URLs in comments are exempt via ignorePattern)
+*/
+/* https://www.example.com/this-is-a-very-long-url-that-exceeds-eighty-characters-but-is-exempt */

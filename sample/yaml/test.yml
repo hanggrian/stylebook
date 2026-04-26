@@ -1,0 +1,86 @@
+---
+# document-start: warning (--- present)
+
+# anchors: enable — define and reference an anchor
+defaults: &defaults
+  timeout: 30
+  retries: 3
+
+# braces: enable — inline mappings use spaces inside braces
+braces_example: {key: value, other: 123}
+
+# brackets: enable — inline sequences use spaces inside brackets
+brackets_example: [one, two, three]
+
+# colons: enable — space after colon, no space before
+colons_example: value
+
+# commas: enable — space after comma in flow sequences/mappings
+commas_example: [a, b, c]
+
+# comments: warning — comment has a space after the hash, indented correctly
+inline_comment: value  # this is an inline comment
+
+# comments-indentation: warning — comment aligns with the node it describes
+# this comment is indented at the top level
+top_level_key: data
+
+service:
+  # this comment is indented under service
+  name: my-service
+
+  # anchors: enable — merge key uses the anchor defined above
+  <<: *defaults
+
+# empty-lines: enable — no more than 2 consecutive blank lines (1 used here)
+
+# hyphens: enable — space after hyphen in block sequences
+sequence:
+  - alpha
+  - beta
+  - gamma
+
+# indentation: enable — 2-space indentation throughout
+nested:
+  level_one:
+    level_two:
+      level_three: deep
+
+# key-duplicates: enable — all keys below are unique
+unique_keys:
+  apple: 1
+  banana: 2
+  cherry: 3
+
+# key-ordering: disable — keys are NOT required to be alphabetical
+unordered:
+  zebra: last
+  alpha: first
+  mango: middle
+
+# line-length: enable — all lines kept within the default 80-character limit
+line_length_example: this value is short enough to stay within the limit
+
+# new-lines: enable — file uses unix-style LF line endings
+
+# octal-values: enable — octal-like values are not allowed
+octal_like: 777
+
+# truthy: warning — explicit true/false booleans used
+truthy_true: true
+truthy_false: false
+
+# empty-values: disable — empty values are not allowed
+empty_value: 1
+
+# float-values: disable — float-like strings are allowed (not flagged)
+float_like: 1.0
+
+# quoted-strings: disable — strings may be quoted or unquoted freely
+unquoted: hello world
+quoted: "hello world"
+
+# trailing-spaces: enable — no trailing whitespace on any line
+
+# new-line-at-end-of-file: enable — file ends with a newline (below)
+# document-end: disable — ... is not required, omitted here

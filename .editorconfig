@@ -8,12 +8,19 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{md,css}]
+[*.{sql,toml,yaml,md,json,css}]
 max_line_length = 80
 
-[*.{js,ts,tsx}]
+[*.{py,js,ts,tsx}]
 indent_size = 4
 max_line_length = 100
+
+[*.py]
+ij_python_from_import_trailing_comma_if_multiline = true
+ij_python_from_import_wrapping = on_every_item
+ij_python_use_trailing_comma_in_arguments_list = unset # allow for generator function, such as any(...)
+ij_python_use_trailing_comma_in_collections = true
+ij_python_use_trailing_comma_in_parameter_list = true
 
 [*.js]
 ij_javascript_enforce_trailing_comma = whenmultiline

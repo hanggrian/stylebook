@@ -1,6 +1,6 @@
 {
   "customRules": [
-    "stylebook"
+    "stylebook-markup"
   ],
   "config": {
     "code-block-style": {

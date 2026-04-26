@@ -1,0 +1,15 @@
+[tool.uv.workspace]
+members = [
+  "stylebook-data",
+]
+
+[tool.uv.sources]
+stylebook-data = { workspace = true }
+
+[dependency-groups]
+dev = [
+  "pdoc",
+  # test
+  "pytest",
+  "pytest-cov",
+]
