@@ -1,0 +1,61 @@
+/* MkDocs base colors */
+#primary {
+  color: var(--md-primary-fg-color);
+}
+#accent {
+  color: var(--md-accent-fg-color);
+}
+
+/* Custom admonition */
+.md-typeset .admonition.features1,
+.md-typeset details.features1,
+.md-typeset .admonition.features2,
+.md-typeset details.features2,
+.md-typeset .admonition.download,
+.md-typeset details.download,
+.md-typeset .admonition.integration,
+.md-typeset details.integration {
+  border-color: rgb(126, 86, 194);
+}
+
+.md-typeset .features1 > .admonition-title,
+.md-typeset .features1 > summary,
+.md-typeset .features2 > .admonition-title,
+.md-typeset .features2 > summary,
+.md-typeset .download > .admonition-title,
+.md-typeset .download > summary,
+.md-typeset .integration > .admonition-title,
+.md-typeset .integration > summary {
+  background-color: rgba(126, 86, 194, 0.1);
+}
+
+.md-typeset .features1 > .admonition-title::before,
+.md-typeset .features1 > summary::before {
+  background-color: rgb(255, 193, 5);
+  -webkit-mask-image: var(--md-admonition-icon--features1);
+  mask-image: var(--md-admonition-icon--features1);
+}
+.md-typeset .features2 > .admonition-title::before,
+.md-typeset .features2 > summary::before {
+  background-color: rgb(255, 193, 5);
+  -webkit-mask-image: var(--md-admonition-icon--features2);
+  mask-image: var(--md-admonition-icon--features2);
+}
+.md-typeset .download > .admonition-title::before,
+.md-typeset .download > summary::before {
+  background-color: rgb(255, 193, 5);
+  -webkit-mask-image: var(--md-admonition-icon--download);
+  mask-image: var(--md-admonition-icon--download);
+}
+.md-typeset .integration > .admonition-title::before,
+.md-typeset .integration > summary::before {
+  background-color: rgb(255, 193, 5);
+  -webkit-mask-image: var(--md-admonition-icon--integration);
+  mask-image: var(--md-admonition-icon--integration);
+}
+
+/* Fenced code highlight */
+[data-md-color-scheme="slate"] {
+  --md-code-hl-color: rgb(126, 86, 194);
+  --md-code-hl-color--light: rgba(126, 86, 194, 0.15);
+}
