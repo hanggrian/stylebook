@@ -8,6 +8,13 @@ stylebook = { workspace = true }
 
 [dependency-groups]
 dev = [
+  # lint
+  "rulebook-pylint==0.2",
+  "pylint==4.0.4",
+  "astroid==4.0.2",
+  "regex>=2025.11.3",
+  "pylint",
+  # main
   "pdoc",
   # test
   "pytest",

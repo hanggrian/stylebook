@@ -50,8 +50,8 @@ Get the artifacts from official package managers.
 
 !!! download "Download the library"
 
-    [PyPI](https://pypi.org/project/stylebook-data/){ .md-button .md-button--primary }&emsp;
-    [NPM](https://pypi.org/project/stylebook-markup/){ .md-button }
+    [PyPI](https://pypi.org/project/stylebook/){ .md-button .md-button--primary }&emsp;
+    [NPM](https://pypi.org/project/@hanggrian/stylebook/){ .md-button }
 
 ## Integration
 

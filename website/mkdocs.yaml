@@ -24,15 +24,20 @@ copyright: >
       alt="Renovate"/>
   </a>
   &emsp;
-  <a href="https://pypi.org/project/stylebook-data/">
+  <a href="https://pypi.org/project/stylebook/">
     <img
-      src="https://shields.io/pypi/v/stylebook-data"
+      src="https://shields.io/pypi/v/stylebook"
       alt="PyPI"/>
   </a>
-  <a href="https://test.pypi.org/project/stylebook-data/">
+  <a href="https://test.pypi.org/project/stylebook/">
     <img
-      src="https://shields.io/pypi/v/stylebook-data?label=testpypi&pypiBaseUrl=https://test.pypi.org"
+      src="https://shields.io/pypi/v/stylebook?label=testpypi&pypiBaseUrl=https://test.pypi.org"
       alt="TestPyPI"/>
+  </a>
+  <a href="https://docs.python.org/3.10/">
+    <img
+      src="https://img.shields.io/badge/python-3.10+-informational"
+      alt="Python"/>
   </a>
   &emsp;
   <a href="https://www.npmjs.com/package/@hanggrian/stylebook/">
@@ -91,6 +96,7 @@ nav:
       - Stylelint rules: https://stylelint.io/user-guide/rules/?ext
       - JSON Lint rules: https://www.npmjs.com/package/@prantlf/jsonlint/?ext
       - Markdownlint rules: https://github.com/DavidAnson/markdownlint/tree/main/doc/?ext
+  - Pydoc: api/pydoc
   - TSDoc: api/tsdoc
 # yamllint enable
 

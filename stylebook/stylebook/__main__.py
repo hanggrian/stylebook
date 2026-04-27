@@ -1,4 +1,4 @@
-from stylebook.cli import run
+from stylebook.main import run
 
 if __name__ == '__main__':
     run()

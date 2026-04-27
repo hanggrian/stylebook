@@ -125,19 +125,24 @@ considered as a programming language.
 ### PyPI
 
 ```sh
-pip install stylebook-data
+pip install stylebook
 ```
 
 ### NPM
 
 ```sh
-npm install stylebook-markup \
+npm i @hanggrian/stylebook \
   stylelint @stylistic/stylelint-plugin stylelint-config-recommended \
   @prantlf/jsonlint \
   markdownlint markdownlint-cli2 --save-dev
 ```
 
 ## Usage
+
+<img
+  width="480px"
+  alt="CLI screenshot"
+  src="https://github.com/hanggrian/stylebook/raw/assets/screenshot.png">
 
 Insert target paths into the command. The program will recursively search for
 qualifying file types and spawn the corresponding linter processes.
