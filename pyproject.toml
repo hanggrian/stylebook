@@ -10,7 +10,7 @@ stylebook = { workspace = true }
 dev = [
   # lint
   "rulebook-pylint==0.2",
-  "pylint==4.0.4",
+  "pylint==4.0.5",
   "astroid==4.0.2",
   "regex>=2025.11.3",
   "pylint",
