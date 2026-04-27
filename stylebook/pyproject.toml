@@ -26,6 +26,7 @@ dependencies = [
   "sqlfluff==4.1.0",
   "taplo==0.9.3",
   "yamllint==1.38.0",
+  "colorama",
 ]
 
 [project.urls]
@@ -39,4 +40,4 @@ stylebook = "stylebook.cli:run"
 packages = ["stylebook"]
 
 [tool.hatch.build.targets.sdist]
-include = ["stylebook/resources"]
+include = ["stylebook/"]

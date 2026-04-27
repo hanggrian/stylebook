@@ -4,8 +4,12 @@
   "scripts": {
     "postinstall": "uv sync",
     "prelint": "pnpm -r lint",
-    "lint": "uv run stylebook .github/ pnpm-workspace.yaml pyproject.toml && pnpm exec stylebook *.json *.md",
-    "build-website": "scripts/prepare_mkdocs.sh && cd website && uv run mkdocs build",
+    "lint": "uv run stylebook .github/ pnpm-workspace.yaml *.toml && pnpm exec stylebook *.json *.md",
+    "predocumentation": "rm -rf build/pdoc/ build/typedoc/",
+    "documentation": "uv run pdoc -o build/pdoc/ stylebook/ && typedoc --entryPointStrategy packages --out build/typedoc/ stylebook/",
+    "prepublish-website": "pnpm documentation && rm -rf website/docs/api/ && mkdir -p website/docs/api/ && mv build/pdoc website/docs/api/pydoc/ && mv build/typedoc website/docs/api/tsdoc/",
+    "publish-website": "scripts/prepare_mkdocs.sh && cd website && uv run mkdocs gh-deploy",
+    "postpublish-website": "rm -rf website/docs/api",
     "preview-website": "scripts/prepare_mkdocs.sh && cd website && uv run mkdocs serve --livereload"
   },
   "engines": {
