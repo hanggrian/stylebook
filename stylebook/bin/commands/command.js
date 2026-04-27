@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
+/** Abstract class for linter command. */
 class Command {
     constructor(binary, configFile) {
         this.binary = binary;
@@ -19,14 +20,39 @@ class Command {
                 );
     }
 
-    getArguments() {
-        throw new Error(`Not implemented.`);
+    /**
+     * Returns true if package is installed.
+     *
+     * @returns {boolean}
+     */
+    isAvailable() {
+        return spawnSync(
+            process.platform === 'win32' ? 'where' : 'which',
+            [this.binary],
+            { stdio: 'ignore' },
+        ).status === 0;
     }
 
-    execute(targetPaths) {
+    /**
+     * Abstract method to define specific lint command for this linter.
+     *
+     * @returns {string[]}
+     */
+    getArguments(silent) {
+        throw new Error(`Not implemented: ${silent}`);
+    }
+
+    /**
+     * Run lint command for the given collection of paths.
+     *
+     * @param {boolean} silent
+     * @param {path[]} targetPaths
+     * @returns {number}
+     */
+    execute(silent, targetPaths) {
         return spawnSync(
             this.binary,
-            [...this.getArguments(), ...targetPaths],
+            [...this.getArguments(silent), ...targetPaths],
             {
                 stdio: 'inherit',
                 shell: false,
