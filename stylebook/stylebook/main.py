@@ -1,26 +1,37 @@
 from os.path import splitext
 from pathlib import Path
-from sys import argv, exit as exit2, stderr
+from sys import argv, exit as exit2
 
-from stylebook.cli import cyan, blue, red, b, i
-
-from stylebook.commands import Command, SqlfluffCommand, TaploCommand, YamllintCommand
+from stylebook.cli import cyan, blue, b, d, red, i
+from stylebook.commands import Command, SQLFLUFF, TAPLO, YAMLLINT
 
 ITALIC: str = '\033[3m'
 
 APP_BINARY: str = 'stylebook'
 APP_VERSION: str = '0.2'
+IGNORED_DIRS: frozenset[str] = \
+    frozenset([
+        'node_modules',
+        'package-lock.json',
+        'pnpm-lock.yaml',
+        'venv',
+        '.venv',
+        'uv.lock',
+    ])
 
 
 def walk(target_path: Path) -> list[str]:
     """Recursively traverse directories to collect files."""
+    if any(part in IGNORED_DIRS for part in target_path.parts):
+        return []
     if target_path.is_file():
         return [str(target_path)]
     if target_path.is_dir():
-        results = []
-        for child in target_path.iterdir():
-            results.extend(walk(child))
-        return results
+        return [
+            path
+            for child in target_path.iterdir()
+            for path in walk(child)
+        ]
     return []
 
 
@@ -30,7 +41,7 @@ def run() -> None:
     input_args: list[str] = argv[1:]
     silent: bool = False
     if not input_args:
-        print(red('Need a path.'), file=stderr)
+        print(red('Need a path.'))
         exit2(1)
     if '-h' in input_args or \
         '--help' in input_args:
@@ -75,43 +86,47 @@ def run() -> None:
         silent = True
 
     # insert target paths to corresponding command
-    sqlfluff_command: Command = SqlfluffCommand()
-    taplo_command: Command = TaploCommand()
-    yamllint_command: Command = YamllintCommand()
     commands: dict[Command, list[str]] = {
-        sqlfluff_command: [],
-        taplo_command: [],
-        yamllint_command: [],
+        SQLFLUFF: [],
+        TAPLO: [],
+        YAMLLINT: [],
     }
     for target_path in [
         path for arg in input_args \
-        if arg not in ('-s', '--silent') \
+        if arg not in ('-s', '--silent', '-q', '--quiet') \
         for path in walk(Path(arg))
     ]:
         match Path(target_path).suffix.lower():
             case '.sql':
-                commands[sqlfluff_command].append(target_path)
-                
+                commands[SQLFLUFF].append(target_path)
+
             case '.toml':
-                commands[taplo_command].append(target_path)
+                commands[TAPLO].append(target_path)
 
             case '.yaml' | '.yml':
-                commands[yamllint_command].append(target_path)
+                commands[YAMLLINT].append(target_path)
     if not silent:
         for command, paths in commands.items():
             title: str = b(command.binary)
+            if not command.is_available():
+                print(f'\u274c {title}: Unavailable')
+                continue
+            if not paths:
+                print(f'\u26a0\ufe0f  {title}: Empty')
+                continue
             print(
-                *(
-                    [
-                        f'\u2705 {title}',
-                        *[
-                            f'  - {root}{i(ext)}'
-                            for path in paths
-                            # pylint: disable=consider-using-tuple
-                            for root, ext in [splitext(path)]
-                        ],
-                    ] if command.is_available() else [f'\u2718 {title}']
-                ),
+                *[
+                    f'\u2705 {title}:',
+                    *[
+                        '   ' +
+                        d(root[:root.rfind('/') + 1]) +
+                        root[root.rfind('/') + 1:] +
+                        i(ext)
+                        for path in paths
+                        # pylint: disable=consider-using-tuple
+                        for root, ext in [splitext(path)]
+                    ],
+                ],
                 sep='\n',
             )
         print()
@@ -120,6 +135,10 @@ def run() -> None:
     exit2(
         min(
             1,
-            sum(command.execute(silent, paths) for command, paths in commands.items() if paths),
+            sum(
+                command.execute(silent, paths)
+                for command, paths in commands.items()
+                if command.is_available() and paths
+            ),
         ),
     )

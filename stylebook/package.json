@@ -31,7 +31,7 @@
   "scripts": {
     "prepare": "pnpm build",
     "build": "tsc -p tsconfig.build.json",
-    "lint": "uv run pylint **/*.py --rcfile=../.pylintrc && eslint src/ && uv run stylebook pyproject.toml stylebook/resources/ && pnpm exec stylebook *.json resources/",
+    "lint": "uv run pylint **/*.py --rcfile=../.pylintrc && eslint src/",
     "test": "vitest --run src/__tests__/**/*.ts",
     "coverage": "vitest run --coverage src/__tests__/**/*.ts --reporter=junit --outputFile=test-report.junit.xml",
     "prepublishOnly": "cp ../README.md ./",

@@ -2,11 +2,20 @@
 
 import { readdirSync, statSync } from 'node:fs';
 import { extname, join } from 'node:path';
-import { b, blue, cyan, i, red } from './cli.js';
-import HtmlhintCommand from './commands/htmlhint.js';
-import JsonlintCommand from './commands/jsonlint.js';
-import MarkdownlintCommand from './commands/markdownlint.js';
-import StylelintCommand from './commands/stylelint.js';
+import { b, blue, cyan, d, i, red } from './cli.js';
+import { HTMLHINT, JSONLINT, MARKDOWNLINT, STYLELINT } from './commands/index.js';
+
+const APP_BINARY = 'stylebook';
+const APP_VERSION = '0.2';
+const IGNORED_DIRS =
+    new Set([
+        'node_modules',
+        'package-lock.json',
+        'pnpm-lock.yaml',
+        'venv',
+        '.venv',
+        'uv.lock',
+    ]);
 
 /**
  * Recursively traverse directories to collect files.
@@ -15,6 +24,9 @@ import StylelintCommand from './commands/stylelint.js';
  * @returns {path[]|*[]}
  */
 function walk(targetPath) {
+    if (targetPath.split(/[\\/]/).some(part => IGNORED_DIRS.has(part))) {
+        return [];
+    }
     const stats = statSync(targetPath);
     if (stats.isFile()) {
         return [targetPath];
@@ -36,14 +48,11 @@ function lines(...lines) {
     return lines.join('\n') + '\n';
 }
 
-const APP_BINARY = 'stylebook';
-const APP_VERSION = '0.2';
-
 // parse input arguments
 const inputArgs = process.argv.slice(2);
 let silent = false;
 if (!inputArgs.length) {
-    process.stdout.write(lines(red('Need a path.')));
+    process.stdin.write(red('Need a path.'));
     process.exit(1);
 }
 if (inputArgs.includes('-h') ||
@@ -93,76 +102,80 @@ if (inputArgs.includes('-s') ||
 }
 
 // insert target paths to corresponding command
-const stylelintCommand = new StylelintCommand();
-const htmlhintCommand = new HtmlhintCommand();
-const jsonlintCommand = new JsonlintCommand();
-const markdownlintCommand = new MarkdownlintCommand();
 const commands =
     new Map([
-        [stylelintCommand, []],
-        [htmlhintCommand, []],
-        [jsonlintCommand, []],
-        [markdownlintCommand, []],
+        [STYLELINT, []],
+        [HTMLHINT, []],
+        [JSONLINT, []],
+        [MARKDOWNLINT, []],
     ]);
 inputArgs
-    .filter(arg => !['-s', '--silent'].includes(arg))
+    .filter(arg => !['-s', '--silent', '-q', '--quiet'].includes(arg))
     .flatMap(arg => walk(arg))
     .forEach(targetPath => {
         switch (extname(targetPath).toLowerCase()) {
             case '.css':
-                commands.get(stylelintCommand).push(targetPath);
+                commands.get(STYLELINT).push(targetPath);
                 break;
             case '.html':
             case '.htm':
             case '.mhtml':
             case '.mhtm':
-                commands.get(htmlhintCommand).push(targetPath);
+                commands.get(HTMLHINT).push(targetPath);
                 break;
             case '.json':
             case '.jsonc':
             case '.cjson':
             case '.json5':
-                commands.get(jsonlintCommand).push(targetPath);
+                commands.get(JSONLINT).push(targetPath);
                 break;
             case '.md':
-                commands.get(markdownlintCommand).push(targetPath);
+                commands.get(MARKDOWNLINT).push(targetPath);
                 break;
         }
     });
 
 // filter out commands with no target files
-const filteredCommands =
-    [...commands.entries()]
-        .filter(([_, paths]) => paths.length > 0);
 if (!silent) {
-    process.stdout.write(
-        lines(
-            ...filteredCommands.flatMap(([command, paths]) => {
-                const title = b(command.binary);
-                return command.isAvailable()
-                    ? [
+    commands
+        .entries()
+        .forEach(([command, paths]) => {
+            const title = b(command.binary);
+            if (!command.isAvailable()) {
+                process.stdout.write(lines(`\u274c ${title}: Unavailable`));
+                return;
+            }
+            if (!paths.length) {
+                process.stdout.write(lines(`\u26a0\ufe0f  ${title}: Empty`));
+                return;
+            }
+            process.stdout.write(
+                lines(
+                    ...[
                         `\u2705 ${title}`,
                         ...paths.map(path => {
                             const extension = extname(path);
-                            return '  - ' +
-                                path.substring(0, path.length - extension.length) +
+                            const root = path.substring(0, path.length - extension.length);
+                            const slash = root.lastIndexOf('/') + 1;
+                            return '   ' +
+                                d(root.substring(0, slash)) +
+                                root.substring(slash) +
                                 i(extension);
                         }),
-                    ] : [
-                        `\u2718 ${title}`,
-                    ];
-            }),
-            '',
-        ),
-    );
+                    ],
+                ),
+            );
+        });
+    process.stdout.write(lines());
 }
 
 // collect exit codes, any non-zero code will be treated as failure
 process.exit(
     Math.min(
         1,
-        filteredCommands
-            .filter(([command, _]) => command.isAvailable())
+        commands
+            .entries()
+            .filter(([command, paths]) => command.isAvailable() && paths.length)
             .reduce((a, [command, paths]) => a + command.execute(silent, paths), 0),
     ),
 );

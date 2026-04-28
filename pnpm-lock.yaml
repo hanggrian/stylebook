@@ -73,8 +73,6 @@ importers:
         specifier: 0.1.1
         version: 0.1.1(vitest@4.1.4)
 
-  sample: {}
-
   stylebook:
     dependencies:
       '@prantlf/jsonlint':
@@ -99,8 +97,6 @@ importers:
       '@types/node':
         specifier: 25.6.0
         version: 25.6.0
-
-  website: {}
 
 packages:
 

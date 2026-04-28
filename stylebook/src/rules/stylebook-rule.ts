@@ -15,23 +15,23 @@ abstract class StylebookRule implements Rule {
     function: (params: RuleParams, onError: RuleOnError) => void =
         (params, onError): void => {
             const { lines } = params;
-            const filteredLines: string[] = [];
             let isCodeFence = false;
-            lines.forEach(line => {
-                if (StylebookRule.CODE_FENCE_REGEX.test(line)) {
-                    isCodeFence = !isCodeFence;
-                    return;
-                }
-                if (!isCodeFence) {
-                    filteredLines.push(line);
-                }
-            });
-            this.visit(filteredLines, onError);
+            this.visit(
+                lines.map(line => {
+                    if (StylebookRule.CODE_FENCE_REGEX.test(line)) {
+                        isCodeFence = !isCodeFence;
+                    }
+                    return isCodeFence
+                        ? ''
+                        : line;
+                }),
+                onError,
+            );
         };
 
     abstract visit(lines: readonly string[], onError: RuleOnError): void;
 
-    private static CODE_FENCE_REGEX: RegExp = /```\w*/g;
+    private static CODE_FENCE_REGEX: RegExp = /^```/;
 }
 
 export default StylebookRule;

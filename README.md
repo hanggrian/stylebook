@@ -59,8 +59,8 @@ considered as a programming language.
         </a>
       </td>
       <td>
-        <a href="https://yaml.org/spec/">
-          YAML Spec
+        <a href="https://developers.home-assistant.io/docs/documenting/yaml-style-guide/">
+          Home Assistant YAML Style Guide
         </a>
       </td>
     </tr>
@@ -122,6 +122,9 @@ considered as a programming language.
 
 ## Download
 
+PyPI transitively brings linter dependencies. In NPM, dependencies can be
+selectively imported.
+
 ### PyPI
 
 ```sh
@@ -133,6 +136,7 @@ pip install stylebook
 ```sh
 npm i @hanggrian/stylebook \
   stylelint @stylistic/stylelint-plugin stylelint-config-recommended \
+  htmlhint \
   @prantlf/jsonlint \
   markdownlint markdownlint-cli2 --save-dev
 ```
@@ -148,40 +152,19 @@ Insert target paths into the command. The program will recursively search for
 qualifying file types and spawn the corresponding linter processes.
 
 ```sh
-npm exec stylebook some-folder/ some-file.sql
-source .venv/bin/activate && stylebook **/* # or use uv run
+npx @hanggrian/stylebook some-folder/ some-file.sql
+source .venv/bin/activate && stylebook **/*
 ```
 
-### SQLFluff
+### Configuration
 
-No setup is necessary. However, to customize behaviors, a local
-`.sqlfluff` is needed.
+Configuration files are automatically picked up. If the file doesn't exist, the
+program will use default configuration.
 
-### tomllint
-
-No setup is necessary. However, to customize behaviors, a local
-`.taplo.toml` is needed.
-
-### yamllint
-
-No setup is necessary. However, to customize behaviors, a local
-`.yamllintrc.json` is needed.
-
-### Stylelint
-
-Create `.stylint.config.js` file in the root directory.
-
-### HTML Hint
-
-No setup is necessary. However, to customize behaviors, a local
-`.htmlhintrc` is needed.
-
-### JSON Lint
-
-No setup is necessary. However, to customize behaviors, a local
-`.jsonlintrc.config.json` is needed.
-
-### markdownlint
-
-No setup is necessary. However, to customize behaviors, a local
-`.markdownlint-cli2.json` is needed.
+- **SQLFluff:** `.sqlfluff`
+- **tomllint:** `.taplo.toml`
+- **yamllint:** `.yamllintrc.json`
+- **Stylelint:** `.stylint.config.js`
+- **HTMLHint:** `.htmlhintrc`
+- **JSON Lint:** `.jsonlintrc.config.json`
+- **markdownlint:** `.markdownlint-cli2.json`

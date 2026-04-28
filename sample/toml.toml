@@ -11,7 +11,7 @@ x = 1
 [align_comments]
 foo = "bar" # first comment
 baz = "qux" # second comment
-x = 1       # third comment
+x = 1 # third comment
 
 # Controls whether single-item comment blocks are aligned with others
 [align_single_comments]

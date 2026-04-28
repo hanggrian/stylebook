@@ -88,10 +88,14 @@ theme:
 nav:
   - Home: index.md
   - Rules:
+    - General: rules/index.md
+    - JSON rules: rules/json.md
     - Markdown rules: rules/markdown.md
+    - TOML rules: rules/toml.md
+    - YAML rules: rules/yaml.md
     - External links:
       - SQLFluff rules: https://docs.sqlfluff.com/en/stable/reference/rules.html?ext
-      - Taplo rules: https://taplo.tamasfe.dev/configuration/file.html?ext
+      - Taplo rules: https://taplo.tamasfe.dev/configuration/formatter-options.html?ext
       - yamllint rules: https://yamllint.readthedocs.io/en/stable/rules.html?ext
       - Stylelint rules: https://stylelint.io/user-guide/rules/?ext
       - JSON Lint rules: https://www.npmjs.com/package/@prantlf/jsonlint/?ext

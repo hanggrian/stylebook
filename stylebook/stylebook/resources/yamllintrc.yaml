@@ -10,5 +10,9 @@ rules:
     indent-sequences: whatever
   float-values: enable
   octal-values: enable
+  quoted-strings:
+    allow-quoted-quotes: true
+    quote-type: double
+    required: false
   truthy:
     check-keys: false
