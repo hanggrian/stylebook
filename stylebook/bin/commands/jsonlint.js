@@ -6,10 +6,10 @@ class JsonlintCommand extends Command {
         super('jsonlint', 'jsonlintrc.json');
     }
 
-    getArguments(silent) {
-        const args = ['-k', '-n', '-f', this.configFile];
-        return silent
-            ? ['-q', ...args]
+    getArguments(quiet, targetPaths) {
+        const args = ['-k', '-n', '-f', this.configFile, ...targetPaths];
+        return quiet
+            ? [...args, '-q']
             : args;
     }
 }

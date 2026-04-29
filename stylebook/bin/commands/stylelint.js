@@ -6,10 +6,10 @@ class StylelintCommand extends Command {
         super('stylelint', null);
     }
 
-    getArguments(silent) {
-        return silent
-            ? ['--quiet']
-            : [];
+    getArguments(quiet, targetPaths) {
+        return quiet
+            ? [...targetPaths, '--quiet']
+            : targetPaths;
     }
 }
 

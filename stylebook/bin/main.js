@@ -12,6 +12,7 @@ const IGNORED_DIRS =
         'node_modules',
         'package-lock.json',
         'pnpm-lock.yaml',
+        'yarn.lock',
         'venv',
         '.venv',
         'uv.lock',
@@ -61,11 +62,11 @@ if (inputArgs.includes('-h') ||
         lines(
             'Helper for Stylebook linter extensions',
             '',
-            b('Usage:'),
-            `  ${cyan(APP_BINARY + ' <paths>')} ${blue('[options]')}`,
+            `\u{1f680} ${b('Usage:')}`,
+            `   ${APP_BINARY} ${cyan('<paths>')} ${blue('[options]')}`,
             '',
-            b(cyan('Paths:')),
-            '  file       Supports ' +
+            `\u{1f4c4} ${b(cyan('Paths:'))}`,
+            '   file      Supports ' +
             `${i('.css')}, ` +
             `${i('.html')}, ` +
             `${i('.htm')}, ` +
@@ -77,14 +78,14 @@ if (inputArgs.includes('-h') ||
             `${i('.cjson')}, ` +
             `${i('.json5')}, ` +
             i('.md'),
-            '  dir        Recursively find files in this directory',
-            `  pattern    For example, ${i('*.json')} for all JSON files in this`,
+            '   dir       Recursively find files in this directory',
+            `   pattern   For example, ${i('*.json')} for all JSON files in this`,
             `             directory, ${i('**/*')} for all files`,
             '',
-            b(blue('Options:')),
-            '  -h  [ --help ]                    Display this message',
-            '  -s  [ --silent, -q, --quiet ]     Disable verbose output',
-            '  -v  [ --version ]                 Show app version',
+            `\u2699\ufe0f  ${b(blue('Options:'))}`,
+            '   -h  [ --help ]      Display this message',
+            '   -q  [ --quiet ]     Disable verbose output',
+            '   -v  [ --version ]   Show app version',
         ),
     );
     process.exit(0);
@@ -94,9 +95,7 @@ if (inputArgs.includes('-v') ||
     process.stdout.write(lines(`${APP_BINARY} ${b(APP_VERSION)}`));
     process.exit(0);
 }
-if (inputArgs.includes('-s') ||
-    inputArgs.includes('--silent') ||
-    inputArgs.includes('-q') ||
+if (inputArgs.includes('-q') ||
     inputArgs.includes('--quiet')) {
     silent = true;
 }
@@ -110,7 +109,7 @@ const commands =
         [MARKDOWNLINT, []],
     ]);
 inputArgs
-    .filter(arg => !['-s', '--silent', '-q', '--quiet'].includes(arg))
+    .filter(arg => !['-q', '--quiet'].includes(arg))
     .flatMap(arg => walk(arg))
     .forEach(targetPath => {
         switch (extname(targetPath).toLowerCase()) {

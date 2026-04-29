@@ -5,8 +5,6 @@ from sys import argv, exit as exit2
 from stylebook.cli import cyan, blue, b, d, red, i
 from stylebook.commands import Command, SQLFLUFF, TAPLO, YAMLLINT
 
-ITALIC: str = '\033[3m'
-
 APP_BINARY: str = 'stylebook'
 APP_VERSION: str = '0.2'
 IGNORED_DIRS: frozenset[str] = \
@@ -14,6 +12,7 @@ IGNORED_DIRS: frozenset[str] = \
         'node_modules',
         'package-lock.json',
         'pnpm-lock.yaml',
+        'yarn.lock',
         'venv',
         '.venv',
         'uv.lock',
@@ -48,11 +47,11 @@ def run() -> None:
         print(
             'Helper for Stylebook linter extensions',
             '',
-            b('Usage:'),
-            f'  {cyan('stylebook <paths>')} {blue('[options]')}',
+            f'\U0001f680 {b('Usage:')}',
+            f'   stylebook {cyan('<paths>')} {blue('[options]')}',
             '',
-            b(cyan('Paths:')),
-            f'  file       Supports '
+            f'\U0001f4c4 {b(cyan("'Paths:'"))}',
+            f'   file      Supports '
             f'{i('.css')}, '
             f'{i('.html')}, '
             f'{i('.htm')}, '
@@ -64,14 +63,14 @@ def run() -> None:
             f'{i('.cjson')}, '
             f'{i('.json5')}, '
             f'{i('.md')}',
-            '  dir        Recursively find files in this directory',
-            f'  pattern    For example, {i('*.json')} for all JSON files in this',
+            '   dir       Recursively find files in this directory',
+            f'   pattern   For example, {i('*.json')} for all JSON files in this',
             f'             directory, {i('**/*')} for all files',
             '',
-            b(blue('Options:')),
-            '  -h  [ --help ]                    Display this message',
-            '  -s  [ --silent, -q, --quiet ]     Disable verbose output',
-            '  -v  [ --version ]                 Show app version',
+            f'\u2699\ufe0f  {b(blue('Options:'))}',
+            '   -h  [ --help ]      Display this message',
+            '   -q  [ --quiet ]     Disable verbose output',
+            '   -v  [ --version ]   Show app version',
             sep='\n',
         )
         exit2(0)
@@ -79,9 +78,7 @@ def run() -> None:
         '--version' in input_args:
         print(f'{APP_BINARY} {b(APP_VERSION)}')
         exit2(0)
-    if '-s' in input_args or \
-        '--silent' in input_args or \
-        '-q' in input_args or \
+    if '-q' in input_args or \
         '--quiet' in input_args:
         silent = True
 
@@ -93,7 +90,7 @@ def run() -> None:
     }
     for target_path in [
         path for arg in input_args \
-        if arg not in ('-s', '--silent', '-q', '--quiet') \
+        if arg not in ('-q', '--quiet') \
         for path in walk(Path(arg))
     ]:
         match Path(target_path).suffix.lower():

@@ -36,23 +36,25 @@ class Command {
     /**
      * Abstract method to define specific lint command for this linter.
      *
+     * @param {boolean} quiet
+     * @param {path[]} targetPaths
      * @returns {string[]}
      */
-    getArguments(silent) {
-        throw new Error(`Not implemented: ${silent}`);
+    getArguments(quiet, targetPaths) {
+        throw new Error(`Not implemented: ${quiet}, ${targetPaths}`);
     }
 
     /**
      * Run lint command for the given collection of paths.
      *
-     * @param {boolean} silent
+     * @param {boolean} quiet
      * @param {path[]} targetPaths
      * @returns {number}
      */
-    execute(silent, targetPaths) {
+    execute(quiet, targetPaths) {
         return spawnSync(
             this.binary,
-            [...this.getArguments(silent), ...targetPaths],
+            this.getArguments(quiet, targetPaths),
             {
                 stdio: 'inherit',
                 shell: false,

@@ -5,7 +5,7 @@ function cyan(content) {
 }
 
 function blue(content) {
-    return chalk.cyan(content);
+    return chalk.blue(content);
 }
 
 function red(content) {

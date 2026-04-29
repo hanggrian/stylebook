@@ -6,8 +6,8 @@ class HtmlhintCommand extends Command {
         super('htmlhint', 'htmlhintrc');
     }
 
-    getArguments(_) {
-        return ['-c', this.configFile];
+    getArguments(_, targetPaths) {
+        return ['-c', this.configFile, ...targetPaths];
     }
 }
 

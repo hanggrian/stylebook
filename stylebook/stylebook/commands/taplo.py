@@ -7,8 +7,8 @@ class TaploCommand(Command):
     def __init__(self):
         super().__init__('taplo', 'taplo.toml')
 
-    def get_arguments(self, silent: bool) -> list[str]:
-        args: list[str] = ['fmt', '--diff', '-c', self.config_file]
+    def get_arguments(self, quiet: bool, target_paths: list[str]) -> list[str]:
+        args: list[str] = ['fmt', '--diff', '-c', self.config_file, *target_paths]
         return args \
-            if silent \
+            if quiet \
             else [*args, '--verbose']

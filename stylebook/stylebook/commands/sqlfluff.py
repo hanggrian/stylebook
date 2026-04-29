@@ -7,5 +7,5 @@ class SqlfluffCommand(Command):
     def __init__(self):
         super().__init__('sqlfluff', 'sqlfluff')
 
-    def get_arguments(self, _) -> list[str]:
-        return ['lint', '--config', self.config_file]
+    def get_arguments(self, _, target_paths: list[str]) -> list[str]:
+        return ['lint', '--config', self.config_file, *target_paths]

@@ -8,10 +8,10 @@ class MarkdownlintCommand extends Command {
         super('markdownlint-cli2', 'markdownlint-cli2.json');
     }
 
-    getArguments(silent) {
-        const args = ['--config', this.configFile];
-        return silent
-            ? ['--quiet', ...args]
+    getArguments(quiet, targetPaths) {
+        const args = ['--config', this.configFile, ...targetPaths];
+        return quiet
+            ? [...args, '--quiet']
             : args;
     }
 }

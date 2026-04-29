@@ -7,7 +7,9 @@
   "prCreation": "not-pending",
   "internalChecksFilter": "strict",
   "ignoreDeps": [
-    "typescript",
-    "eslint"
+    "eslint",
+    "typescript-eslint",
+    "pylint",
+    "astroid"
   ]
 }
