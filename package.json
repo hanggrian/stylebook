@@ -37,7 +37,7 @@
     "typedoc": "0.28.19",
     "typescript": "~5.9.3",
     "typescript-eslint": "8.59.1",
-    "vite": "8.0.8",
+    "vite": "8.0.10",
     "vitest": "4.1.4",
     "vitest-dom": "0.1.1"
   }
