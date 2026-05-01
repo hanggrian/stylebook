@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "postinstall": "uv sync",
+    "postinstall": "uv sync && uv pip install -r website/requirements.txt",
     "prelint": "pnpm -r lint",
     "lint": "uv run stylebook . && pnpm exec stylebook .",
     "predocumentation": "rm -rf build/pdoc/ build/typedoc/",
@@ -30,15 +30,15 @@
     "globals": "17.5.0",
     "htmlhint": "1.9.2",
     "jsdom": "29.1.0",
-    "markdownlint-cli2": "0.22.0",
+    "markdownlint-cli2": "0.22.1",
     "sinon": "21.1.2",
     "stylelint": "17.9.1",
     "stylelint-config-recommended": "18.0.0",
     "typedoc": "0.28.19",
     "typescript": "~5.9.3",
     "typescript-eslint": "8.59.1",
-    "vite": "8.0.8",
-    "vitest": "4.1.4",
+    "vite": "8.0.10",
+    "vitest": "4.1.5",
     "vitest-dom": "0.1.1"
   }
 }

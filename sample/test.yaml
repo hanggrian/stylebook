@@ -1,5 +1,4 @@
----
-# document-start: warning (--- present)
+# document-start: warning (--- not present)
 
 # anchors: enable — define and reference an anchor
 defaults: &defaults

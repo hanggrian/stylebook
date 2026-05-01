@@ -8,6 +8,10 @@ function blue(content) {
     return chalk.blue(content);
 }
 
+function green(content) {
+    return chalk.green(content);
+}
+
 function red(content) {
     return chalk.red(content);
 }
@@ -24,4 +28,4 @@ function i(content) {
     return chalk.italic(content);
 }
 
-export { cyan, blue, b, d, red, i };
+export { cyan, blue, b, d, i, green, red };

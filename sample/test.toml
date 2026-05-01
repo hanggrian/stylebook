@@ -1,6 +1,3 @@
-# taplo-format-test.toml
-# This file tests all Taplo formatting rules
-
 # Entries in the same table should be aligned by their `=` sign
 [align_entries]
 short = "value"

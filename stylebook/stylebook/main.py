@@ -2,26 +2,17 @@ from os.path import splitext
 from pathlib import Path
 from sys import argv, exit as exit2
 
-from stylebook.cli import cyan, blue, b, d, red, i
-from stylebook.commands import Command, SQLFLUFF, TAPLO, YAMLLINT
+from stylebook.colors import cyan, blue, b, d, green, i, red
+from stylebook.commands import Command, DOTENV_LINTER, SQLFLUFF, TAPLO, YAMLLINT
+from stylebook.files import get_config_file
 
 APP_BINARY: str = 'stylebook'
 APP_VERSION: str = '0.2'
-IGNORED_DIRS: frozenset[str] = \
-    frozenset([
-        'node_modules',
-        'package-lock.json',
-        'pnpm-lock.yaml',
-        'yarn.lock',
-        'venv',
-        '.venv',
-        'uv.lock',
-    ])
 
 
-def walk(target_path: Path) -> list[str]:
+def walk(target_path: Path, exclude: set[str]) -> list[str]:
     """Recursively traverse directories to collect files."""
-    if any(part in IGNORED_DIRS for part in target_path.parts):
+    if any(part in exclude for part in target_path.parts):
         return []
     if target_path.is_file():
         return [str(target_path)]
@@ -29,7 +20,7 @@ def walk(target_path: Path) -> list[str]:
         return [
             path
             for child in target_path.iterdir()
-            for path in walk(child)
+            for path in walk(child, exclude)
         ]
     return []
 
@@ -38,10 +29,22 @@ def run() -> None:
     """Main entry point."""
     # parse input arguments
     input_args: list[str] = argv[1:]
+    exclude: set[str] = set()
     silent: bool = False
     if not input_args:
         print(red('Need a path.'))
         exit2(1)
+    for arg in input_args.copy():
+        if not arg.startswith('-e=') and not arg.startswith('--exclude='):
+            continue
+        input_args.remove(arg)
+        exclude.update(arg.split('=')[1].split(','))
+    if not exclude:
+        with open(get_config_file('stylebookrc'), 'r', encoding='UTF-8') as file:
+            for line in [line.strip() for line in file]:
+                if not line or line.startswith('#'):
+                    continue
+                exclude.add(line.rstrip('/') if line.endswith('/') else line)
     if '-h' in input_args or \
         '--help' in input_args:
         print(
@@ -74,26 +77,31 @@ def run() -> None:
             sep='\n',
         )
         exit2(0)
+    if '-q' in input_args or \
+        '--quiet' in input_args:
+        silent = True
     if '-v' in input_args or \
         '--version' in input_args:
         print(f'{APP_BINARY} {b(APP_VERSION)}')
         exit2(0)
-    if '-q' in input_args or \
-        '--quiet' in input_args:
-        silent = True
 
     # insert target paths to corresponding command
     commands: dict[Command, list[str]] = {
+        DOTENV_LINTER: [],
         SQLFLUFF: [],
         TAPLO: [],
         YAMLLINT: [],
     }
     for target_path in [
         path for arg in input_args \
-        if arg not in ('-q', '--quiet') \
-        for path in walk(Path(arg))
+        for path in walk(Path(arg), exclude) \
+        if arg not in ('-q', '--quiet')
     ]:
-        match Path(target_path).suffix.lower():
+        target_file: Path = Path(target_path)
+        if target_file.name.startswith('.env'):
+            commands[DOTENV_LINTER].append(target_path)
+            continue
+        match target_file.suffix.lower():
             case '.sql':
                 commands[SQLFLUFF].append(target_path)
 
@@ -106,14 +114,14 @@ def run() -> None:
         for command, paths in commands.items():
             title: str = b(command.binary)
             if not command.is_available():
-                print(f'\u274c {title}: Unavailable')
+                print(f'\U0001f6ab {title}: Unavailable')
                 continue
             if not paths:
-                print(f'\u26a0\ufe0f  {title}: Empty')
+                print(f'\U0001f47b {title}: Empty')
                 continue
             print(
                 *[
-                    f'\u2705 {title}:',
+                    f'\u2705\ufe0f {title}:',
                     *[
                         '   ' +
                         d(root[:root.rfind('/') + 1]) +
@@ -128,14 +136,17 @@ def run() -> None:
             )
         print()
 
-    # collect exit codes, any non-zero code will be treated as failure
-    exit2(
-        min(
-            1,
-            sum(
-                command.execute(silent, paths)
-                for command, paths in commands.items()
-                if command.is_available() and paths
-            ),
-        ),
-    )
+    # report result
+    violating_linters: list[str] = [
+        command.binary
+        for command, paths in commands.items()
+        if command.is_available() and paths and command.execute(silent, paths)
+    ]
+    if violating_linters:
+        print(
+            '\u274c\ufe0f '
+            f'{red(f'Linter(s) reported violations: {b(f'{', '.join(violating_linters)}.')}')}',
+        )
+        exit2(1)
+    print(f'\U0001f389 {green('All linters passed, no violation found.')}')
+    exit2(0)

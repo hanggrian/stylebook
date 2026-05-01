@@ -23,6 +23,7 @@ classifiers = [
   "Operating System :: OS Independent",
 ]
 dependencies = [
+  "dotenv-linter==0.7.0",
   "sqlfluff==4.1.0",
   "taplo==0.9.3",
   "yamllint==1.38.0",

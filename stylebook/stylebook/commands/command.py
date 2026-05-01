@@ -1,22 +1,17 @@
 import platform
 from abc import ABC, abstractmethod
-from importlib.resources import files
-from pathlib import Path
 from subprocess import run
+
+from stylebook.files import get_config_file
 
 
 class Command(ABC):
     """Abstract class for linter command."""
 
-    def __init__(self, binary: str, config_file: str) -> None:
+    def __init__(self, binary: str, config_file: str | None = None) -> None:
         self.binary = binary
-        local_config_file: Path = Path.cwd() / f'.{config_file}'
-        self.config_file = \
-            str(
-                local_config_file
-                if local_config_file.exists()
-                else files('stylebook.resources').joinpath(config_file),
-            )
+        if config_file is not None:
+            self.config_file = get_config_file(config_file)
 
     def is_available(self) -> bool:
         """Returns true if package is installed."""

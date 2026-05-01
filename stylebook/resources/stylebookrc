@@ -1,0 +1,22 @@
+.git/
+.idea/
+dist/
+build/
+
+# Python
+.ipynb_checkpoints/
+.pytest_cache/
+.venv/
+__pycache__/
+venv/
+uv.lock
+
+# Node
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Ruby
+_site/
+Gemfile.lock

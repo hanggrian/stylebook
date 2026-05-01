@@ -1,23 +1,14 @@
 import { spawnSync } from 'node:child_process';
-import { dirname, join } from "node:path";
-import { existsSync } from "node:fs";
-import { fileURLToPath } from "node:url";
+import { getConfigFile } from '../files.js';
 
 /** Abstract class for linter command. */
 class Command {
     constructor(binary, configFile) {
         this.binary = binary;
-        if (configFile === null) {
-            return;
-        }
-        const localConfigFile = join(process.cwd(), `.${configFile}`);
         this.configFile =
-            existsSync(localConfigFile)
-                ? localConfigFile
-                : join(
-                    dirname(fileURLToPath(import.meta.url)),
-                    `../../resources/${configFile}`,
-                );
+            configFile !== undefined
+                ? getConfigFile(configFile)
+                : null;
     }
 
     /**

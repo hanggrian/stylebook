@@ -9,6 +9,10 @@ def blue(content: str) -> str:
     return f'{Fore.BLUE}{content}{Style.RESET_ALL}'
 
 
+def green(content: str) -> str:
+    return f'{Fore.GREEN}{content}{Style.RESET_ALL}'
+
+
 def red(content: str) -> str:
     return f'{Fore.RED}{content}{Style.RESET_ALL}'
 

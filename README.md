@@ -25,7 +25,20 @@ considered as a programming language.
   </thead>
   <tbody>
     <tr>
-      <td rowspan="3">Python</td>
+      <td rowspan="4">Python</td>
+      <td>ENV</td>
+      <td>
+        <a href="https://github.com/theskumar/python-dotenv/">
+          dotenv-linter
+        </a>
+      </td>
+      <td>
+        <a href="https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/#env-file-syntax">
+          Docker <code>.env</code> File Syntax
+        </a>
+      </td>
+    </tr>
+    <tr>
       <td>SQL</td>
       <td>
         <a href="https://github.com/sqlfluff/sqlfluff/">
