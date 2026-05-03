@@ -20,6 +20,7 @@ dev = [
     { name = "pylint", specifier = "==4.0.4" },
     { name = "pytest" },
     { name = "pytest-cov" },
+    { name = "pyyaml" },
     { name = "regex", specifier = ">=2025.11.3" },
     { name = "rulebook-pylint", specifier = "==0.2" },
 ]

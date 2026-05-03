@@ -29,7 +29,6 @@
     "resources"
   ],
   "scripts": {
-    "prepare": "pnpm build",
     "build": "tsc -p tsconfig.build.json",
     "lint": "uv run pylint **/*.py --rcfile=../.pylintrc && eslint src/",
     "test": "vitest --run src/__tests__/**/*.ts",

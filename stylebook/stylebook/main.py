@@ -30,7 +30,7 @@ def run() -> None:
     # parse input arguments
     input_args: list[str] = argv[1:]
     exclude: set[str] = set()
-    silent: bool = False
+    quiet: bool = False
     if not input_args:
         print(red('Need a path.'))
         exit2(1)
@@ -79,7 +79,7 @@ def run() -> None:
         exit2(0)
     if '-q' in input_args or \
         '--quiet' in input_args:
-        silent = True
+        quiet = True
     if '-v' in input_args or \
         '--version' in input_args:
         print(f'{APP_BINARY} {b(APP_VERSION)}')
@@ -110,7 +110,7 @@ def run() -> None:
 
             case '.yaml' | '.yml':
                 commands[YAMLLINT].append(target_path)
-    if not silent:
+    if not quiet:
         for command, paths in commands.items():
             title: str = b(command.binary)
             if not command.is_available():
@@ -140,7 +140,7 @@ def run() -> None:
     violating_linters: list[str] = [
         command.binary
         for command, paths in commands.items()
-        if command.is_available() and paths and command.execute(silent, paths)
+        if command.is_available() and paths and command.execute(quiet, paths)
     ]
     if violating_linters:
         print(

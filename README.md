@@ -26,7 +26,7 @@ considered as a programming language.
   <tbody>
     <tr>
       <td rowspan="4">Python</td>
-      <td>ENV</td>
+      <td>Dotenv</td>
       <td>
         <a href="https://github.com/theskumar/python-dotenv/">
           dotenv-linter
@@ -132,6 +132,8 @@ considered as a programming language.
     </tr>
   </tbody>
 </table>
+
+[View all rules](https://hanggrian.github.io/stylebook/rules/)
 
 ## Download
 

@@ -3,8 +3,9 @@
   "type": "module",
   "scripts": {
     "postinstall": "uv sync && uv pip install -r website/requirements.txt",
+    "prepare": "pnpm -r build",
     "prelint": "pnpm -r lint",
-    "lint": "uv run stylebook . && pnpm exec stylebook .",
+    "lint": "uv run pylint *.py && uv run stylebook . && pnpm exec stylebook .",
     "predocumentation": "rm -rf build/pdoc/ build/typedoc/",
     "documentation": "uv run pdoc -o build/pdoc/ stylebook/ && typedoc --entryPointStrategy packages --out build/typedoc/ stylebook/",
     "prepublish-website": "pnpm documentation && rm -rf website/docs/api/ && mkdir -p website/docs/api/ && mv build/pdoc website/docs/api/pydoc/ && mv build/typedoc website/docs/api/tsdoc/",

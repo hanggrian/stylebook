@@ -44,9 +44,9 @@ function lines(...lines) {
 // parse input arguments
 let inputArgs = process.argv.slice(2);
 const exclude = new Set();
-let silent = false;
+let quiet = false;
 if (!inputArgs.length) {
-    process.stdin.write(red('Need a path.'));
+    process.stderr.write(lines(red('Need a path.')));
     process.exit(1);
 }
 for (const arg of inputArgs) {
@@ -112,7 +112,7 @@ if (inputArgs.includes('-h') ||
 }
 if (inputArgs.includes('-q') ||
     inputArgs.includes('--quiet')) {
-    silent = true;
+    quiet = true;
 }
 if (inputArgs.includes('-v') ||
     inputArgs.includes('--version')) {
@@ -155,7 +155,7 @@ inputArgs
     });
 
 // filter out commands with no target files
-if (!silent) {
+if (!quiet) {
     commands
         .entries()
         .forEach(([command, paths]) => {
@@ -190,17 +190,18 @@ if (!silent) {
 
 // report result
 const violatingLinters =
-    Object
-        .entries(commands)
+    [...commands.entries()]
         .filter(([command, paths]) =>
-            command.isAvailable() && paths.length && command.execute(silent, paths),
+            command.isAvailable() && paths.length && command.execute(quiet, paths),
         ).map(([command, _]) => command.binary);
 if (violatingLinters.length) {
-    console.log(
-        '\u274C\ufe0f' +
-        `${red(`Linter(s) reported violations: ${b(`${violatingLinters.join(", ")}.`)}`)}`,
+    process.stderr.write(
+        lines(
+            '\u274C\ufe0f' +
+            `${red(`Linter(s) reported violations: ${b(`${violatingLinters.join(", ")}.`)}`)}`,
+        ),
     );
     process.exit(1);
 }
-console.log(`\u{1f389} ${green("All linters passed, no violation found.")}`);
+process.stdout.write(lines(`\u{1f389} ${green("All linters passed, no violation found.")}`));
 process.exit(0);

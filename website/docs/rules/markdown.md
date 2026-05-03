@@ -55,7 +55,7 @@ Hello **_World_**
 
 **:material-star-four-points:{ #accent } After**
 
-```mdmd
+```md
 Hello __*World*__
 ```
 

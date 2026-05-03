@@ -1,0 +1,7 @@
+# document-start: --- is optional
+
+bool: true
+number: 42
+string: "Hello, YAML!"
+
+# document-end: ... is optional

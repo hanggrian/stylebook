@@ -1,20 +1,18 @@
-# document-start: warning (--- not present)
-
-# anchors: enable — define and reference an anchor
+# anchors: define and reference an anchor
 defaults: &defaults
   timeout: 30
   retries: 3
 
-# braces: enable — inline mappings use spaces inside braces
+# braces: inline mappings use spaces inside braces
 braces_example: {key: value, other: 123}
 
-# brackets: enable — inline sequences use spaces inside brackets
+# brackets: inline sequences use spaces inside brackets
 brackets_example: [one, two, three]
 
-# colons: enable — space after colon, no space before
+# colons: space after colon, no space before
 colons_example: value
 
-# commas: enable — space after comma in flow sequences/mappings
+# commas: space after comma in flow sequences/mappings
 commas_example: [a, b, c]
 
 # comments: warning — comment has a space after the hash, indented correctly
@@ -28,24 +26,24 @@ service:
   # this comment is indented under service
   name: my-service
 
-  # anchors: enable — merge key uses the anchor defined above
+  # anchors: merge key uses the anchor defined above
   <<: *defaults
 
-# empty-lines: enable — no more than 2 consecutive blank lines (1 used here)
+# empty-lines: no more than 2 consecutive blank lines (1 used here)
 
-# hyphens: enable — space after hyphen in block sequences
+# hyphens: space after hyphen in block sequences
 sequence:
   - alpha
   - beta
   - gamma
 
-# indentation: enable — 2-space indentation throughout
+# indentation: 2-space indentation throughout
 nested:
   level_one:
     level_two:
       level_three: deep
 
-# key-duplicates: enable — all keys below are unique
+# key-duplicates: all keys below are unique
 unique_keys:
   apple: 1
   banana: 2
@@ -57,12 +55,12 @@ unordered:
   alpha: first
   mango: middle
 
-# line-length: enable — all lines kept within the default 80-character limit
+# line-length: all lines kept within the default 80-character limit
 line_length_example: this value is short enough to stay within the limit
 
-# new-lines: enable — file uses unix-style LF line endings
+# new-lines: file uses unix-style LF line endings
 
-# octal-values: enable — octal-like values are not allowed
+# octal-values: octal-like values are not allowed
 octal_like: 777
 
 # truthy: warning — explicit true/false booleans used
@@ -79,7 +77,6 @@ float_like: 1.0
 unquoted: hello world
 quoted: "hello world"
 
-# trailing-spaces: enable — no trailing whitespace on any line
+# trailing-spaces: no trailing whitespace on any line
 
-# new-line-at-end-of-file: enable — file ends with a newline (below)
-# document-end: disable — ... is not required, omitted here
+# new-line-at-end-of-file: file ends with a newline (below)

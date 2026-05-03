@@ -15,6 +15,7 @@ dev = [
   "regex>=2025.11.3",
   "pylint",
   # main
+  "PyYAML",
   "pdoc",
   # test
   "pytest",
