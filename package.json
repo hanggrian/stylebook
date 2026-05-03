@@ -30,7 +30,7 @@
     "eslint": "10.0.1",
     "globals": "17.5.0",
     "htmlhint": "1.9.2",
-    "jsdom": "29.1.0",
+    "jsdom": "29.1.1",
     "markdownlint-cli2": "0.22.1",
     "sinon": "21.1.2",
     "stylelint": "17.9.1",
