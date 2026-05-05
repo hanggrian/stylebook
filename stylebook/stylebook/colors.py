@@ -17,6 +17,10 @@ def red(content: str) -> str:
     return f'{Fore.RED}{content}{Style.RESET_ALL}'
 
 
+def yellow(content: str) -> str:
+    return f'{Fore.YELLOW}{content}{Style.RESET_ALL}'
+
+
 def d(content: str) -> str:
     return f'{Style.DIM}{content}{Style.RESET_ALL}'
 

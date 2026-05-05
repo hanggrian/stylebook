@@ -4,6 +4,8 @@ description: Checkout and install all dependencies
 runs:
   using: composite
   steps:
+    - uses: jwlawson/actions-setup-cmake@v2
+
     - uses: astral-sh/setup-uv@v8.1.0
       with:
         python-version: "3.14"

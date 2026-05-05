@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { extname, join } from 'node:path';
-import { b, blue, cyan, d, green, i, red } from './colors.js';
+import { b, blue, cyan, d, green, i, red, yellow } from './colors.js';
 import { HTMLHINT, JSONLINT, MARKDOWNLINT, STYLELINT } from './commands/index.js';
 import { getConfigFile } from './files.js';
 
@@ -17,7 +17,8 @@ const APP_VERSION = '0.2';
  * @returns {path[]|*[]}
  */
 function walk(path, exclude) {
-    if (path.split(/[\\/]/).some(part => exclude.has(part))) {
+    if (path.split(/[\\/]/).some(part => exclude.has(part)) ||
+        !existsSync(path)) {
         return [];
     }
     const stats = statSync(path);
@@ -102,10 +103,10 @@ if (inputArgs.includes('-h') ||
             `             directory, ${i('**/*')} for all files`,
             '',
             `\u2699\ufe0f  ${b(blue('Options:'))}`,
-            '   -e  [ --exclude ] arg (=[])   List of files or directories to ignore',
-            '   -h  [ --help ]                Display this message',
-            '   -q  [ --quiet ]               Disable verbose output',
-            '   -v  [ --version ]             Show app version',
+            '   -e  [ --exclude ] arg   List of files or directories to ignore',
+            '   -h  [ --help ]          Display this message',
+            '   -q  [ --quiet ]         Disable verbose output',
+            '   -v  [ --version ]       Show app version',
         ),
     );
     process.exit(0);
@@ -165,7 +166,7 @@ if (!quiet) {
                 return;
             }
             if (!paths.length) {
-                process.stdout.write(lines(`\u{1f47b} ${title}: Empty`));
+                process.stdout.write(lines(`\u{1fad9} ${title}: Empty`));
                 return;
             }
             process.stdout.write(
@@ -189,19 +190,25 @@ if (!quiet) {
 }
 
 // report result
+let totalLength = 0;
 const violatingLinters =
     [...commands.entries()]
-        .filter(([command, paths]) =>
-            command.isAvailable() && paths.length && command.execute(quiet, paths),
-        ).map(([command, _]) => command.binary);
+        .filter(([command, paths]) => {
+            totalLength += paths.length;
+            return command.isAvailable() && paths.length && command.execute(quiet, paths);
+        }).map(([command, _]) => command.binary);
 if (violatingLinters.length) {
     process.stderr.write(
         lines(
-            '\u274C\ufe0f' +
-            `${red(`Linter(s) reported violations: ${b(`${violatingLinters.join(", ")}.`)}`)}`,
+            '\u274c\ufe0f ' +
+            `${red(`Linter(s) reported violations: ${b(`${violatingLinters.join(', ')}.`)}`)}`,
         ),
     );
     process.exit(1);
 }
-process.stdout.write(lines(`\u{1f389} ${green("All linters passed, no violation found.")}`));
+if (!totalLength) {
+    process.stderr.write(lines(`\u{1f47b} ${yellow('No files to lint.')}`));
+    process.exit(1);
+}
+process.stdout.write(lines(`\u{1f389} ${green('All linters passed, no violation found.')}`));
 process.exit(0);

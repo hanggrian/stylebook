@@ -16,6 +16,10 @@ function red(content) {
     return chalk.red(content);
 }
 
+function yellow(content) {
+    return chalk.yellow(content);
+}
+
 function d(content) {
     return chalk.dim(content);
 }
@@ -28,4 +32,4 @@ function i(content) {
     return chalk.italic(content);
 }
 
-export { cyan, blue, b, d, i, green, red };
+export { cyan, blue, b, d, i, green, red, yellow };
