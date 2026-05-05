@@ -1,10 +1,12 @@
 {
+  "check": true,
   "compact-empty-objects": true,
+  "continue": true,
   "duplicate-space": false,
   "enforce-double-quotes": true,
   "indent": 2,
   "mode": "json5",
-  "prune-comments": false,
+  "prune-comments": true,
   "single-quoted-strings": false,
   "trailing-commas": false,
   "trailing-newline": true

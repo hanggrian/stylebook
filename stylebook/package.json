@@ -29,7 +29,7 @@
     "resources"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "mkdir -p build && cd build && cmake .. -G Ninja && cmake --build . && cd .. && tsc -p tsconfig.build.json",
     "lint": "uv run pylint **/*.py --rcfile=../.pylintrc && eslint src/",
     "test": "vitest --run src/__tests__/**/*.ts",
     "coverage": "vitest run --coverage src/__tests__/**/*.ts --reporter=junit --outputFile=test-report.junit.xml",

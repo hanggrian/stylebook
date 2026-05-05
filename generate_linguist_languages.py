@@ -4,8 +4,7 @@ from urllib.request import urlopen
 
 from yaml import safe_load
 
-URL: str = \
-    'https://raw.githubusercontent.com/github-linguist/linguist/master/lib/linguist/languages.yml'
+URL: str = 'https://github.com/github-linguist/linguist/raw/main/lib/linguist/languages.yml'
 
 
 def fetch_yaml(url: str) -> dict[str, Any]:

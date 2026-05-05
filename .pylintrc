@@ -153,6 +153,8 @@ disable=
   missing-module-docstring,
   missing-class-docstring,
   missing-type-doc,
+  too-many-branches,
+  too-many-statements,
 
 
 [REPORTS]

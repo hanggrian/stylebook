@@ -25,6 +25,25 @@ considered as a programming language.
   </thead>
   <tbody>
     <tr>
+      <td rowspan="2">Binary</td>
+      <td>Shell</td>
+      <td>
+        <a href="https://github.com/koalaman/shellcheck/">
+          ShellCheck
+        </a>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>XML</td>
+      <td>
+        <a href="https://github.com/GNOME/libxml2/tree/master/">
+          libxml2
+        </a>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
       <td rowspan="4">Python</td>
       <td>Dotenv</td>
       <td>
@@ -87,7 +106,7 @@ considered as a programming language.
       </td>
       <td>
         <a href="https://protocol.mozilla.org/docs/contributing/css-guide/">
-          Mozilla HTML Coding Guide
+          Mozilla CSS Coding Guide
         </a>
       </td>
     </tr>
@@ -176,10 +195,10 @@ source .venv/bin/activate && stylebook **/*
 Configuration files are automatically picked up. If the file doesn't exist, the
 program will use default configuration.
 
-- **SQLFluff:** `.sqlfluff`
-- **tomllint:** `.taplo.toml`
-- **yamllint:** `.yamllintrc.json`
-- **Stylelint:** `.stylint.config.js`
-- **HTMLHint:** `.htmlhintrc`
-- **JSON Lint:** `.jsonlintrc.config.json`
-- **markdownlint:** `.markdownlint-cli2.json`
+- `.sqlfluff`
+- `.taplo.toml`
+- `.yamllintrc.json`
+- `.stylint.config.js`
+- `.htmlhintrc`
+- `.jsonlintrc.config.json`
+- `.markdownlint-cli2.json`

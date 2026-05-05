@@ -18,6 +18,20 @@ jobs:
 
       - uses: ./.github/actions/setup-workspace
 
+      - uses: jwlawson/actions-setup-cmake@v2
+
+      - id: boost
+        uses: egor-tensin/build-boost@v2
+        with:
+          version: 1.91.0
+          libraries: program_options
+
+      - run: sudo apt-get install -y libxml2-utils
+
+      - run: pnpm -r build
+        env:
+          BOOST_ROOT: ${{ steps.boost.outputs.install_dir }}
+
       - run: pnpm lint
 
   upload-coverage:

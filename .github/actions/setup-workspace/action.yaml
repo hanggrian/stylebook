@@ -21,13 +21,5 @@ runs:
         key: uv-${{ hashFiles('uv.lock') }}
         restore-keys: uv-
 
-    - uses: actions/cache@v5
-      with:
-        path: |
-          .pnpm-store/
-          node_modules/
-        key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-        restore-keys: pnpm-
-
     - shell: bash
       run: pnpm i
