@@ -7,7 +7,7 @@ class JsonlintCommand extends Command {
     }
 
     getArguments(quiet, targetPaths) {
-        const args = ['-k', '-n', '-f', this.configFile, ...targetPaths];
+        const args = ['-f', this.configFile, ...targetPaths];
         return quiet
             ? [...args, '-q']
             : args;
