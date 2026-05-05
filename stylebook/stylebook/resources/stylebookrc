@@ -3,6 +3,9 @@
 dist/
 build/
 
+# CPP
+cmake-build-debug/
+
 # Python
 .ipynb_checkpoints/
 .pytest_cache/

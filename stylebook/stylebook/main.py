@@ -2,7 +2,7 @@ from os.path import splitext
 from pathlib import Path
 from sys import argv, exit as exit2
 
-from stylebook.colors import cyan, blue, b, d, green, i, red
+from stylebook.colors import cyan, blue, b, d, green, i, red, yellow
 from stylebook.commands import Command, DOTENV_LINTER, SQLFLUFF, TAPLO, YAMLLINT
 from stylebook.files import get_config_file
 
@@ -55,25 +55,19 @@ def run() -> None:
             '',
             f'\U0001f4c4 {b(cyan("'Paths:'"))}',
             f'   file      Supports '
-            f'{i('.css')}, '
-            f'{i('.html')}, '
-            f'{i('.htm')}, '
-            f'{i('.mhtml')}, '
-            f'{i('.mthm')}, '
-            f'{i('.json')},',
-            '             '
-            f'{i('.jsonc')}, '
-            f'{i('.cjson')}, '
-            f'{i('.json5')}, '
-            f'{i('.md')}',
+            f'{i('.env')}, '
+            f'{i('.sql')}, '
+            f'{i('.toml')}, '
+            f'{i('.yaml')}',
             '   dir       Recursively find files in this directory',
             f'   pattern   For example, {i('*.json')} for all JSON files in this',
             f'             directory, {i('**/*')} for all files',
             '',
             f'\u2699\ufe0f  {b(blue('Options:'))}',
-            '   -h  [ --help ]      Display this message',
-            '   -q  [ --quiet ]     Disable verbose output',
-            '   -v  [ --version ]   Show app version',
+            '   -e  [ --exclude ] arg   List of files or directories to ignore',
+            '   -h  [ --help ]          Display this message',
+            '   -q  [ --quiet ]         Disable verbose output',
+            '   -v  [ --version ]       Show app version',
             sep='\n',
         )
         exit2(0)
@@ -117,7 +111,7 @@ def run() -> None:
                 print(f'\U0001f6ab {title}: Unavailable')
                 continue
             if not paths:
-                print(f'\U0001f47b {title}: Empty')
+                print(f'\U0001fad9 {title}: Empty')
                 continue
             print(
                 *[
@@ -137,16 +131,20 @@ def run() -> None:
         print()
 
     # report result
-    violating_linters: list[str] = [
-        command.binary
-        for command, paths in commands.items()
-        if command.is_available() and paths and command.execute(quiet, paths)
-    ]
+    total_length: int = 0
+    violating_linters: list[str] = []
+    for command, paths in commands.items():
+        total_length += len(paths)
+        if command.is_available() and paths and command.execute(quiet, paths):
+            violating_linters.append(command.binary)
     if violating_linters:
         print(
             '\u274c\ufe0f '
             f'{red(f'Linter(s) reported violations: {b(f'{', '.join(violating_linters)}.')}')}',
         )
+        exit2(1)
+    if not total_length:
+        print(f'\U0001f47b {yellow('No files to lint.')}')
         exit2(1)
     print(f'\U0001f389 {green('All linters passed, no violation found.')}')
     exit2(0)
