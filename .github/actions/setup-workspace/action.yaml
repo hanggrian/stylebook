@@ -22,4 +22,6 @@ runs:
         restore-keys: uv-
 
     - shell: bash
-      run: pnpm i
+      run: |
+        uv sync
+        pnpm i

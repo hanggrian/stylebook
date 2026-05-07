@@ -6,6 +6,6 @@ describe('MessagesTest', () => {
         'get',
         () =>
             expect(Messages.get('ordered.list.number', 0))
-                .toBe("Replace ordered list number with '0'."),
+                .toBe("Replace list number with '0'."),
     );
 });

@@ -1,4 +1,4 @@
-from stylebook.commands import Command
+from stylebook.commands.command import Command
 
 
 class YamllintCommand(Command):

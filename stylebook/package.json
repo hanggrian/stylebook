@@ -1,7 +1,7 @@
 {
   "name": "@hanggrian/stylebook",
   "version": "0.1.0",
-  "description": "Permissive linter extensions for markup and data languages",
+  "description": "Comprehensive linter aggregator for data and tooling formats",
   "keywords": [
     "css",
     "html",
@@ -29,10 +29,10 @@
     "resources"
   ],
   "scripts": {
-    "build": "mkdir -p build && cd build && cmake .. -G Ninja && cmake --build . && cd .. && tsc -p tsconfig.build.json",
-    "lint": "uv run pylint **/*.py --rcfile=../.pylintrc && eslint src/",
-    "test": "vitest --run src/__tests__/**/*.ts",
-    "coverage": "vitest run --coverage src/__tests__/**/*.ts --reporter=junit --outputFile=test-report.junit.xml",
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint src/",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage --reporter=junit --outputFile=test-report.junit.xml",
     "prepublishOnly": "cp ../README.md ./",
     "postpublish": "rm ./README.md"
   },

@@ -17,13 +17,14 @@ class Command(ABC):
         """Returns true if package is installed."""
         return run(
             ['where' if platform == 'win32' else 'which', self.binary],
+            check=True,
             capture_output=True,
         ).returncode == 0
 
     @abstractmethod
     def get_arguments(self, quiet: bool, target_paths: list[str]) -> list[str]:
         """Abstract method to define specific lint command for this linter."""
-        pass
+        pass  # pylint: disable=unnecessary-pass
 
     def execute(self, quiet: bool, target_paths: list[str]) -> int:
         """Run lint command for the given collection of paths."""
@@ -32,5 +33,6 @@ class Command(ABC):
                 self.binary,
                 *self.get_arguments(quiet, target_paths),
             ],
+            check=True,
             capture_output=False,
         ).returncode

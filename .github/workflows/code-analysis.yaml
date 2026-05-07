@@ -20,19 +20,11 @@ jobs:
 
       - uses: jwlawson/actions-setup-cmake@v2
 
-      - id: boost
-        uses: egor-tensin/build-boost@v2
-        with:
-          version: 1.91.0
-          libraries: program_options
-
-      - run: sudo apt-get install -y libxml2-utils
-
-      - run: pnpm -r build
-        env:
-          BOOST_ROOT: ${{ steps.boost.outputs.install_dir }}
-
-      - run: pnpm lint
+      - run: |
+          sudo apt-get install -y libboost-all-dev libxml2-utils
+          uv run poe build-cpp
+          uv run poe lint
+          pnpm lint
 
   upload-coverage:
     runs-on: ubuntu-latest

@@ -2,6 +2,7 @@
 .idea/
 dist/
 build/
+coverage/
 
 # CPP
 cmake-build-debug/

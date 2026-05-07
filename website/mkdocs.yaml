@@ -1,7 +1,7 @@
 site_name: Stylebook
 site_url: https://hanggrian.github.io/stylebook/
 site_author: Hendra Anggrian
-site_description: Permissive linter extensions for markup and data languages
+site_description: Comprehensive linter aggregator for data and tooling formats
 
 repo_name: hanggrian/rulebook
 repo_url: https://github.com/hanggrian/stylebook
