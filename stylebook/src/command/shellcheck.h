@@ -6,9 +6,9 @@
 
 using namespace std;
 
-class Shellcheck : public Command {
+class ShellcheckCommand : public Command {
 public:
-    Shellcheck() : Command("shellcheck") {
+    ShellcheckCommand() : Command("shellcheck") {
     }
 
     [[nodiscard]] vector<string> get_arguments(

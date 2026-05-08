@@ -6,10 +6,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  GRADLE_USER_HOME: ${{ github.workspace }}/.gradle/
-  GRADLE_OPTS: -Dorg.gradle.daemon=false
-
 jobs:
   run-lint:
     runs-on: ubuntu-latest
@@ -21,7 +17,7 @@ jobs:
       - uses: jwlawson/actions-setup-cmake@v2
 
       - run: |
-          sudo apt-get install -y libboost-all-dev libxml2-utils
+          sudo apt-get install -y libboost-program-options libxml2-utils
           uv run poe build-cpp
           uv run poe lint
           pnpm lint

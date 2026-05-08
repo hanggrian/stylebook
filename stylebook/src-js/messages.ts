@@ -8,7 +8,7 @@ class Messages {
             readFileSync(
                 join(
                     dirname(fileURLToPath(import.meta.url)),
-                    '../resources/markdownlint_messages.json',
+                    '../resources-js/markdownlint_messages.json',
                 ),
                 'utf-8',
             ),

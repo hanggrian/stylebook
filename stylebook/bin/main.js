@@ -190,12 +190,15 @@ if (!quiet) {
 }
 
 // report result
-let totalLength = 0;
+let empty = true;
 const violatingLinters =
     [...commands.entries()]
         .filter(([command, paths]) => {
-            totalLength += paths.length;
-            return command.isAvailable() && paths.length && command.execute(quiet, paths);
+            const filter = command.isAvailable() && paths.length;
+            if (filter) {
+                empty = false;
+            }
+            return filter && command.execute(quiet, paths);
         }).map(([command, _]) => command.binary);
 if (violatingLinters.length) {
     process.stderr.write(
@@ -206,7 +209,7 @@ if (violatingLinters.length) {
     );
     process.exit(1);
 }
-if (!totalLength) {
+if (empty) {
     process.stderr.write(lines(`\u{1f47b} ${yellow('No files to lint.')}`));
     process.exit(1);
 }
