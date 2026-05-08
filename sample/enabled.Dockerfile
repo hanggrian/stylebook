@@ -79,7 +79,7 @@ RUN zypper update -y
 # DL3038: Use the -y switch with dnf
 # DL3039: Do not use dnf update
 # DL3040: Clean dnf after install
-FROM fedora:32
+FROM fedora:45
 RUN dnf update && \
   dnf install httpd -y
 
