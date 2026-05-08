@@ -99,7 +99,7 @@ LABEL valid-key.label="bar"
 RUN yarn install
 
 # DL3063: Reserved word
-FROM debian:bullseye AS scratch
+FROM debian:trixie-20260421 AS scratch
 
 # DL4001: Pick wget or curl
 RUN wget --progress=dot:giga http://google.com && \
