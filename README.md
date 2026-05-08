@@ -25,7 +25,16 @@ considered as a programming language.
   </thead>
   <tbody>
     <tr>
-      <td rowspan="2">Binary</td>
+      <td rowspan="3">Binary</td>
+      <td>Dockerfile</td>
+      <td>
+        <a href="https://github.com/hadolint/hadolint/">
+          Hadolint
+        </a>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
       <td>Shell</td>
       <td>
         <a href="https://github.com/koalaman/shellcheck/">

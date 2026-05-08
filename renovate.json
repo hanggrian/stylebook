@@ -11,6 +11,12 @@
     "eslint",
     "typescript-eslint",
     "pylint",
-    "astroid"
+    "astroid",
+    "ubuntu",
+    "debian",
+    "centos",
+    "fedora",
+    "opensuse",
+    "busybox"
   ]
 }
