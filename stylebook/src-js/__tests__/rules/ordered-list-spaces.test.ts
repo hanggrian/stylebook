@@ -3,7 +3,7 @@ import olSpacesRule from '../../rules/ordered-list-spaces';
 import { type AssertThat, assertThatRule } from '../asserters';
 import assertProperties from '../asserts';
 
-describe('OlSpacesTest', () => {
+describe('OrderedListSpacesTest', () => {
     const assertThat: AssertThat = assertThatRule(olSpacesRule);
 
     it('Rule properties', () => assertProperties(olSpacesRule));

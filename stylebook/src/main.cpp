@@ -8,10 +8,11 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include "cli.h"
-#include "colors.h"
+#include "command/hadolint.h"
 #include "command/shellcheck.h"
 #include "command/xmllint.h"
+#include "cli.h"
+#include "colors.h"
 #include "files.h"
 
 using namespace boost::program_options;
@@ -168,21 +169,35 @@ int main(const int argc, char **argv) {
         cerr << red("Need a path.") << endl;
         return 1;
     }
-    Shellcheck shellcheck;
-    Xmllint xmllint;
 
     // insert target paths to corresponding command
-    const array<Command *, 2> commands = {&shellcheck, &xmllint};
+    HadolintCommand hadolint;
+    ShellcheckCommand shellcheck;
+    XmllintCommand xmllint;
+    const array<Command *, 3> commands = {&hadolint, &shellcheck, &xmllint};
+    vector<string> hadolint_paths;
     vector<string> shellcheck_paths;
     vector<string> xmllint_paths;
     for (const auto &input_arg: input_args) {
         for (const vector<string> files = walk(path(input_arg), exclude); const auto &file: files) {
             path filepath(file);
+            if (const string filename = filepath.filename().string();
+                filename == "Containerfile" ||
+                filename == "Dockerfile") {
+                hadolint_paths.push_back(file);
+                continue;
+            }
             string ext = filepath.extension().string();
             ranges::transform(ext, ext.begin(), ::tolower);
-            if (ext == ".sh" || ext == ".bash") {
+            if (ext == ".dockerfile") {
+                hadolint_paths.push_back(file);
+            } else if (
+                ext == ".sh" ||
+                ext == ".bash") {
                 shellcheck_paths.push_back(file);
-            } else if (ext == ".xml" || ext == ".svg") {
+            } else if (
+                ext == ".xml" ||
+                ext == ".svg") {
                 xmllint_paths.push_back(file);
             }
         }
@@ -191,8 +206,14 @@ int main(const int argc, char **argv) {
     // filter out commands with no target files
     if (!quiet) {
         for (const Command *cmd: commands) {
-            const vector<string> &paths =
-                    cmd->binary == shellcheck.binary ? shellcheck_paths : xmllint_paths;
+            vector<string> paths;
+            if (cmd->binary == hadolint.binary) {
+                paths = hadolint_paths;
+            } else if (cmd->binary == shellcheck.binary) {
+                paths = shellcheck_paths;
+            } else {
+                paths = xmllint_paths;
+            }
             string title = b(cmd->binary);
             if (!cmd->is_available()) {
                 cout << "\U0001f6ab " << title << ": Unavailable" << endl;
@@ -219,16 +240,22 @@ int main(const int argc, char **argv) {
     }
 
     // report result
-    unsigned long total_length = 0;
+    bool empty = true;
     vector<string> violating_linters;
     for (Command *cmd: commands) {
-        const vector<string> &paths =
-                cmd->binary == shellcheck.binary
-                    ? shellcheck_paths
-                    : xmllint_paths;
-        total_length += paths.size();
-        if (cmd->is_available() && !paths.empty() && cmd->execute(quiet, paths)) {
-            violating_linters.push_back(cmd->binary);
+        vector<string> paths;
+        if (cmd->binary == hadolint.binary) {
+            paths = hadolint_paths;
+        } else if (cmd->binary == shellcheck.binary) {
+            paths = shellcheck_paths;
+        } else {
+            paths = xmllint_paths;
+        }
+        if (cmd->is_available() && !paths.empty()) {
+            empty = false;
+            if (cmd->execute(quiet, paths) != 0) {
+                violating_linters.push_back(cmd->binary);
+            }
         }
     }
     if (!violating_linters.empty()) {
@@ -242,7 +269,7 @@ int main(const int argc, char **argv) {
                 endl;
         return 1;
     }
-    if (total_length == 0) {
+    if (empty) {
         cout << "\U0001f47b " << yellow("No files to lint.") << endl;
         return 1;
     }
