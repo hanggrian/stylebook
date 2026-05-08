@@ -12,21 +12,23 @@ FetchContent_Declare(cmrc GIT_REPOSITORY https://github.com/vector-of-bool/cmrc.
 FetchContent_MakeAvailable(cmrc)
 cmrc_add_resource_library(
         resources
+        resources/hadolint.yaml
         resources/stylebookrc
 )
 
 find_package(Boost REQUIRED COMPONENTS program_options)
 add_executable(
         stylebook
-        cli/command/base.h
-        cli/command/shellcheck.h
-        cli/command/xmllint.h
-        cli/cli.h
-        cli/colors.cpp
-        cli/colors.h
-        cli/files.cpp
-        cli/files.h
-        cli/main.cpp
+        src/command/base.h
+        src/command/hadolint.h
+        src/command/shellcheck.h
+        src/command/xmllint.h
+        src/cli.h
+        src/colors.cpp
+        src/colors.h
+        src/files.cpp
+        src/files.h
+        src/main.cpp
 )
 target_include_directories(
         stylebook
@@ -43,9 +45,5 @@ target_compile_definitions(
         stylebook
         PRIVATE
         APP_BINARY="${BINARY}"
-)
-target_compile_definitions(
-        stylebook
-        PRIVATE
         APP_VERSION="${VERSION}"
 )

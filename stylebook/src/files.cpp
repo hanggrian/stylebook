@@ -28,6 +28,5 @@ string get_config_file(const string &config_file) {
         is_regular_file(local_config_file)) {
         return local_config_file.string();
     }
-
     return embedded_config_path(config_file).string();
 }
