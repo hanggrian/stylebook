@@ -73,7 +73,7 @@ RUN yum update -y && \
 
 # DL3035: Do not use zypper upgrade
 # DL3036: Clean zypper after install
-FROM opensuse/leap:15.2
+FROM opensuse/leap:15.6
 RUN zypper update -y
 
 # DL3038: Use the -y switch with dnf
