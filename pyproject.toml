@@ -27,6 +27,7 @@ shell = "uv pip install -r website/requirements.txt && cd website/ && mkdocs ser
 
 [dependency-groups]
 dev = [
+  "PyYAML",
   "poethepoet",
   "pdoc",
   # lint

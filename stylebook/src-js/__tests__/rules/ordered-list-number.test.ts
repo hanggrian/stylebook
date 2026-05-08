@@ -3,7 +3,7 @@ import olNumberRule from '../../rules/ordered-list-number';
 import { type AssertThat, assertThatRule } from '../asserters';
 import assertProperties from '../asserts';
 
-describe('OlNumberTest', () => {
+describe('OrderedListNumberTest', () => {
     const assertThat: AssertThat = assertThatRule(olNumberRule);
 
     it('Rule properties', () => assertProperties(olNumberRule));

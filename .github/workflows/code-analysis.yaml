@@ -7,12 +7,11 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GRADLE_USER_HOME: ${{ github.workspace }}/.gradle/
-  GRADLE_OPTS: -Dorg.gradle.daemon=false
+  HADOLINT_PATH: /usr/local/bin/hadolint
 
 jobs:
   run-lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
 
@@ -21,13 +20,17 @@ jobs:
       - uses: jwlawson/actions-setup-cmake@v2
 
       - run: |
-          sudo apt-get install -y libboost-all-dev libxml2-utils
+          sudo apt-get install -y libboost-program-options-dev libxml2-utils
+          sudo wget -qO "$HADOLINT_PATH" \
+            https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+          sudo chmod a+x "$HADOLINT_PATH"
+
           uv run poe build-cpp
           uv run poe lint
           pnpm lint
 
   upload-coverage:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
 

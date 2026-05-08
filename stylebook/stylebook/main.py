@@ -131,11 +131,13 @@ def run() -> None:
         print()
 
     # report result
-    total_length: int = 0
+    empty: bool = True
     violating_linters: list[str] = []
     for command, paths in commands.items():
-        total_length += len(paths)
-        if command.is_available() and paths and command.execute(quiet, paths):
+        if not command.is_available() or not paths:
+            continue
+        empty = False
+        if command.execute(quiet, paths) != 0:
             violating_linters.append(command.binary)
     if violating_linters:
         print(
@@ -143,7 +145,7 @@ def run() -> None:
             f'{red(f'Linter(s) reported violations: {b(f'{', '.join(violating_linters)}.')}')}',
         )
         exit2(1)
-    if not total_length:
+    if empty:
         print(f'\U0001f47b {yellow('No files to lint.')}')
         exit2(1)
     print(f'\U0001f389 {green('All linters passed, no violation found.')}')

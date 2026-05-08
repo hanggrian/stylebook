@@ -26,11 +26,11 @@
   "files": [
     "bin",
     "dist",
-    "resources"
+    "resources-js"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint src/",
+    "lint": "eslint src-js/",
     "test": "vitest run",
     "coverage": "vitest run --coverage --reporter=junit --outputFile=test-report.junit.xml",
     "prepublishOnly": "cp ../README.md ./",
@@ -49,6 +49,6 @@
     "stylelint": "^17.9.0"
   },
   "devDependencies": {
-    "@types/node": "25.6.0"
+    "@types/node": "25.6.2"
   }
 }
