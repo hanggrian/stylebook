@@ -49,7 +49,7 @@ No comments allowed in JSONC files.
 
 **:material-star-four-points-outline:{ #accent } Before**
 
-```jsonc
+```json5
 {
   // This is a comment.
   "foo": "bar"

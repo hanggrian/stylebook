@@ -15,7 +15,7 @@ function getConfigFile(configFile) {
         ? localConfigFile
         : join(
             dirname(fileURLToPath(import.meta.url)),
-            `../resources-js/${configFile}`,
+            `../resources/${configFile}`,
         );
 }
 

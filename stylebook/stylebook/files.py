@@ -4,7 +4,7 @@ from pathlib import Path
 
 def get_config_file(config_file: str) -> str:
     """
-    Returns local configuration file if it exists. Otherwise, use the default file in the resources-js
+    Returns local configuration file if it exists. Otherwise, use the default file in the resources
     directory.
     """
     local_config_file: Path = Path.cwd() / f'.{config_file}'

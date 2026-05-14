@@ -26,11 +26,11 @@
   "files": [
     "bin",
     "dist",
-    "resources-js"
+    "resources"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint src-js/",
+    "lint": "eslint src/",
     "test": "vitest run",
     "coverage": "vitest run --coverage --reporter=junit --outputFile=test-report.junit.xml",
     "prepublishOnly": "cp ../README.md ./",

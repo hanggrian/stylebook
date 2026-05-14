@@ -7,17 +7,14 @@ members = [
 stylebook = { workspace = true }
 
 [tool.poe.tasks]
+print-fenced-code-languages = "python ./generate_pygments_languages.py"
 lint1 = { cmd = "pylint **/*.py --rcfile=../.pylintrc", cwd = "stylebook" }
 lint2 = "pylint *.py"
-lint3 = "stylebook/build/stylebook sample/"
-lint4 = "stylebook ."
-lint.parallel = ["lint1", "lint2", "lint3", "lint4"]
+lint3 = "stylebook ."
+lint.parallel = ["lint1", "lint2", "lint3"]
 documentation1 = "rm -rf build/pdoc/"
 documentation2 = "pdoc -o build/pdoc/ stylebook/"
 documentation = ["documentation1", "documentation2"]
-
-[tool.poe.tasks.build-cpp]
-shell = "mkdir -p stylebook/build/ && cd stylebook/build/ && cmake .. -G Ninja && cmake --build ."
 
 [tool.poe.tasks.publish-website]
 shell = "pnpm documentation && poe documentation && rm -rf website/docs/api/ && mkdir -p website/docs/api/ && mv build/pdoc/ website/docs/api/pydoc/ && mv build/typedoc/ website/docs/api/tsdoc/ && uv pip install -r website/requirements.txt && cd website/ && mkdocs gh-deploy && rm -rf website/docs/api/"
