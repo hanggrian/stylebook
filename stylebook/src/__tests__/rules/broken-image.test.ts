@@ -1,0 +1,51 @@
+import { describe, it } from 'vitest';
+import brokenImageRule from '../../rules/broken-image';
+import { type AssertThat, assertThatRule } from '../asserters';
+import assertProperties from '../asserts';
+
+describe('BrokenImageRuleTest', () => {
+    const assertThat: AssertThat = assertThatRule(brokenImageRule);
+
+    it('Rule properties', () => assertProperties(brokenImageRule));
+
+    it(
+        'Good image',
+        () =>
+            assertThat(
+                `
+                ![Logo](https://github.com/hanggrian/stylebook/raw/assets/logo.svg)
+                `,
+            ).hasNoError(),
+    );
+
+    it(
+        'Bad image',
+        () =>
+            assertThat(
+                `
+                ![Logo](https://www.logo.svg)
+                ![Google](https://google.com/)
+                `,
+            ).hasErrorMessages(
+                "1: 'https://www.logo.svg' is unreachable.",
+                "2: 'https://google.com/' is not a valid image.",
+            ),
+    );
+
+    it(
+        'Check inline URL',
+        () =>
+            assertThat(
+                `
+                - ![Logo](https://www.logo.svg)
+
+                | foo | bar |
+                | --- | --- |
+                | Image | ![Logo](https://www.logo.svg) |
+                `,
+            ).hasErrorMessages(
+                "1: 'https://www.logo.svg' is unreachable.",
+                "5: 'https://www.logo.svg' is unreachable.",
+            ),
+    );
+});

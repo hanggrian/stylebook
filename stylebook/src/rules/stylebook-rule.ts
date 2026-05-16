@@ -1,4 +1,4 @@
-import type { Rule, RuleOnError, RuleParams } from 'markdownlint';
+import type { Rule, RuleConfiguration, RuleOnError, RuleParams } from 'markdownlint';
 
 abstract class StylebookRule implements Rule {
     readonly names: string[];
@@ -25,11 +25,12 @@ abstract class StylebookRule implements Rule {
                         ? ''
                         : line;
                 }),
+                params.config,
                 onError,
             );
         };
 
-    abstract visit(lines: readonly string[], onError: RuleOnError): void;
+    abstract visit(lines: readonly string[], config: RuleConfiguration, onError: RuleOnError): void;
 
     private static CODE_FENCE_REGEX: RegExp = /^```/;
 }
