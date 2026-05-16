@@ -39,7 +39,7 @@ jobs:
       - run: just coverage-all 2>&1 | tee coverage.log
         continue-on-error: true
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: test-report
           path: coverage.log
