@@ -1,18 +1,20 @@
-[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/hanggrian/stylebook/code-analysis.yaml)](https://github.com/hanggrian/stylebook/actions/workflows/code-analysis.yaml)
-[![Codecov](https://img.shields.io/codecov/c/gh/hanggrian/stylebook)](https://app.codecov.io/gh/hanggrian/stylebook/)
-[![Renovate](https://img.shields.io/badge/dependency-mend-blue)](https://developer.mend.io/github/hanggrian/stylebook/)\
+[![GitHub Actions](https://shields.io/github/actions/workflow/status/hanggrian/stylebook/code-analysis.yaml)](https://github.com/hanggrian/stylebook/actions/workflows/code-analysis.yaml)
+[![Codecov](https://shields.io/codecov/c/gh/hanggrian/stylebook)](https://app.codecov.io/gh/hanggrian/stylebook/)
+[![Renovate](https://shields.io/badge/dependency-mend-blue)](https://developer.mend.io/github/hanggrian/stylebook/)\
 [![PyPI](https://shields.io/pypi/v/stylebook)](https://pypi.org/project/stylebook/)
 [![TestPyPI](https://shields.io/pypi/v/stylebook?label=testpypi&pypiBaseUrl=https://test.pypi.org)](https://test.pypi.org/project/stylebook/)
-[![Python](https://img.shields.io/badge/python-3.10+-informational)](https://docs.python.org/3.10/)\
-[![NPM](https://shields.io/npm/v/@hanggrian/stylebook)](https://www.npmjs.com/package/@hanggrian/stylebook/)
-[![Node](https://img.shields.io/badge/node-12+-informational)](https://nodejs.org/en/blog/release/v12.0.0/)
+[![Python](https://shields.io/badge/python-3.10+-informational)](https://docs.python.org/3.10/)\
+[![NPM](https://shields.io/npm/v/@hanggrian/stylebook)](https://npmjs.com/package/@hanggrian/stylebook/)
+[![Node](https://shields.io/badge/node-12+-informational)](https://nodejs.org/en/blog/release/v12.0.0/)
 
 # Stylebook
 
 ![The Stylebook logo.](https://github.com/hanggrian/stylebook/raw/assets/logo.svg)
 
-Third-party linter rules and configuration for various data formats not
-considered as a programming language.
+Linter aggregator for various data formats. All rules are preconfigured with
+common rules like duplicate blank lines, trailing whitespace and consistent
+indentation. In Markdown, it has third-party rules to check dead links and
+broken images.
 
 <table>
   <thead>

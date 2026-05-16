@@ -1,13 +1,13 @@
 import messages from '../messages.js';
 import StylebookRule from './stylebook-rule.js';
-import type { RuleOnError } from 'markdownlint';
+import type { RuleConfiguration, RuleOnError } from 'markdownlint';
 
 class OrderedListNumberRule extends StylebookRule {
     constructor() {
         super('ordered-list-number', 'syntax');
     }
 
-    visit(lines: string[], onError: RuleOnError) {
+    visit(lines: string[], _: RuleConfiguration, onError: RuleOnError) {
         const prevByIndent = new Map<number, number>();
         for (let i = 0; i < lines.length; i++) {
             // non-list item, clear

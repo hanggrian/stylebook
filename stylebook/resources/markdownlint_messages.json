@@ -1,4 +1,8 @@
 {
+  "duplicate.link": "Declare inline link as variable.",
+  "broken.image.status": "'{0}' is unreachable.",
+  "broken.image.content": "'{0}' is not a valid image.",
+  "dead.link": "'{0}' cannot be reached.",
   "ordered.list.number": "Replace list number with '{0}'.",
   "ordered.list.spaces.single": "Insert one space after list prefix.",
   "ordered.list.spaces.multi": "Insert two spaces after list prefix.",

@@ -66,7 +66,7 @@ Lorem ipsum.
 
 <!-- no-reversed-links, descriptive-link-text -->
 
-[Google](https://www.google.com)
+[Google][google]
 
 <!-- no-multiple-blanks -->
 
@@ -104,17 +104,17 @@ less bar
 
 <!-- no-bare-urls, no-empty-links -->
 
-[Google](https://www.google.com)
+[Google][google]
 
 <!-- no-space-in-emphasis, no-space-in-code, no-space-in-links -->
 
 This is **bold.**
 This is `code`.
-This is [a link](https://www.google.com).
+This is [a link](https://www.google.co.id).
 
 <!-- no-alt-text -->
 
-![Image](https://www.example.com/image.png)
+![Image](https://github.com/hanggrian/stylebook/raw/assets/logo.svg)
 
 <!-- link-fragments -->
 

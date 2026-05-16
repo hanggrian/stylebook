@@ -1,14 +1,14 @@
 import { describe, it } from 'vitest';
-import olNumberRule from '../../rules/ordered-list-number';
+import orderedListNumberRule from '../../rules/ordered-list-number';
 import { type AssertThat, assertThatRule } from '../asserters';
 import assertProperties from '../asserts';
 
-describe('OrderedListNumberTest', () => {
-    const assertThat: AssertThat = assertThatRule(olNumberRule);
+describe('OrderedListNumberRuleTest', () => {
+    const assertThat: AssertThat = assertThatRule(orderedListNumberRule);
 
-    it('Rule properties', () => assertProperties(olNumberRule));
+    it('Rule properties', () => assertProperties(orderedListNumberRule));
 
-    it('passes single item', () => assertThat('1. Lorem').hasNoError());
+    it('Passes single item', () => assertThat('1. Lorem').hasNoError());
 
     it(
         'Correct format',

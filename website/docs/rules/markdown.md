@@ -1,3 +1,108 @@
+### Ordered list number
+
+Use lazy numbering in ordered lists. The prefix may start with any number, but
+the rest should follow the first one.
+
+**:material-star-four-points-outline:{ #accent } Before**
+
+```md hl_lines="2-3 8-9"
+1.  Foo
+2.  Bar
+3.  Baz
+
+---
+
+4.  Foo2
+5.  Bar2
+6.  Baz2
+```
+
+**:material-star-four-points:{ #accent } After**
+
+```md hl_lines="2-3 8-9"
+1.  Foo
+1.  Bar
+1.  Baz
+
+---
+
+4.  Foo2
+4.  Bar2
+4.  Baz2
+```
+
+## Linking
+
+### Broken image
+
+Image URLs should return a correct content type.
+
+**:material-star-four-points-outline:{ #accent } Before**
+
+```md
+![Favicon](https://google.com/)
+```
+
+**:material-star-four-points:{ #accent } After**
+
+```md
+![Favicon](https://www.google.com/favicon.ico)
+```
+
+??? Configuration
+
+    | Setting | Default value |
+    | --- | --- |
+    | `timeout` | 6,000 |
+    | `ignored_hosts` | npmjs.com, www.npmjs.com |
+
+### Dead link
+
+Link URLs should return a non-error status code.
+
+**:material-star-four-points-outline:{ #accent } Before**
+
+```md
+[Google](https://googlea.com/)
+```
+
+**:material-star-four-points:{ #accent } After**
+
+```md
+[Google](https://www.google.com/)
+```
+
+??? Configuration
+
+    | Setting | Default value |
+    | --- | --- |
+    | `timeout` | 6,000 |
+    | `ignored_hosts` | npmjs.com, www.npmjs.com |
+
+### Duplicate link
+
+Inline links should be unique. Use reference links for duplicates.
+
+**:material-star-four-points-outline:{ #accent } Before**
+
+```md
+Visit [Google](https://www.google.com).
+
+Don't forget to visit [Google](https://www.google.com).
+```
+
+**:material-star-four-points:{ #accent } After**
+
+```md
+Visit [Google][google].
+
+Don't forget to visit [Google][google].
+
+[google]: https://www.google.com
+```
+
+## Styling
+
 ### Code fence style
 
 ![markdownlint](https://img.shields.io/badge/md-code--fence--style-fff)
@@ -85,71 +190,6 @@ Foo
 Bar
 ```
 
-### Ordered list spaces
-
-The length of ordered list number and the following space should be even number.
-
-**:material-star-four-points-outline:{ #accent } Before**
-
-```md
-1. Foo
-1. Bar
-1. Baz
-
----
-
-10.  Foo2
-10.  Bar2
-10.  Baz2
-```
-
-**:material-star-four-points:{ #accent } After**
-
-```md
-1.  Foo
-1.  Bar
-1.  Baz
-
----
-
-10. Foo2
-10. Bar2
-10. Baz2
-```
-
-### Ordered list style
-
-Use lazy numbering in ordered lists. The prefix may start with any number, but
-the rest should follow the first one.
-
-**:material-star-four-points-outline:{ #accent } Before**
-
-```md hl_lines="2-3 8-9"
-1.  Foo
-2.  Bar
-3.  Baz
-
----
-
-4.  Foo2
-5.  Bar2
-6.  Baz2
-```
-
-**:material-star-four-points:{ #accent } After**
-
-```md hl_lines="2-3 8-9"
-1.  Foo
-1.  Bar
-1.  Baz
-
----
-
-4.  Foo2
-4.  Bar2
-4.  Baz2
-```
-
 ### Table style
 
 ![markdownlint](https://img.shields.io/badge/md-table--pipe--style-fff)
@@ -175,6 +215,62 @@ Qux | Quux | Quuz
 | Qux | Quux | Quuz |
 ```
 
+### Unordered list style
+
+![markdownlint](https://img.shields.io/badge/md-ul--style-fff)
+
+Dash style over asterisk and plus in unordered lists.
+
+**:material-star-four-points-outline:{ #accent } Before**
+
+```md
+* Foo
++ Bar
+```
+
+**:material-star-four-points:{ #accent } After**
+
+```md
+- Foo
+- Bar
+```
+
+## Spacing
+
+### Ordered list spaces
+
+The length of ordered list number and the following space should be even number.
+
+**:material-star-four-points-outline:{ #accent } Before**
+
+```md hl_lines="1-3 7-9"
+1. Foo
+1. Bar
+1. Baz
+
+---
+
+10.  Foo2
+10.  Bar2
+10.  Baz2
+```
+
+**:material-star-four-points:{ #accent } After**
+
+```md hl_lines="1-3 7-9"
+1.  Foo
+1.  Bar
+1.  Baz
+
+---
+
+10. Foo2
+10. Bar2
+10. Baz2
+```
+
+## Trimming
+
 ### Unnecessary blank lines in list
 
 If no list item is expanded with a paragraph, remove blank lines between them.
@@ -196,24 +292,4 @@ A blank line between one list item and a nested list is not checked.
 - Foo
 - Bar
 - Baz
-```
-
-### Unordered list style
-
-![markdownlint](https://img.shields.io/badge/md-ul--style-fff)
-
-Dash style over asterisk and plus in unordered lists.
-
-**:material-star-four-points-outline:{ #accent } Before**
-
-```md
-* Foo
-+ Bar
-```
-
-**:material-star-four-points:{ #accent } After**
-
-```md
-- Foo
-- Bar
 ```

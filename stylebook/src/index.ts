@@ -1,9 +1,15 @@
+import brokenImageRule from './rules/broken-image.js';
+import deadLinkRule from './rules/dead-link.js';
+import duplicateLinkRule from './rules/duplicate-link.js';
 import orderedListNumberRule from './rules/ordered-list-number.js';
 import orderedListSpacesRule from './rules/ordered-list-spaces.js';
 import unnecessaryBlankLineInListRule from './rules/unnecessary-blank-line-in-list.js';
 import type StylebookRule from './rules/stylebook-rule.js';
 
 export const stylebookMarkdown: StylebookRule[] = [
+    brokenImageRule,
+    deadLinkRule,
+    duplicateLinkRule,
     orderedListNumberRule,
     orderedListSpacesRule,
     unnecessaryBlankLineInListRule,

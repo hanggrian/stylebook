@@ -3,7 +3,7 @@ import unnecessaryBlankLineInListRule from '../../rules/unnecessary-blank-line-i
 import { type AssertThat, assertThatRule } from '../asserters';
 import assertProperties from '../asserts';
 
-describe('UnnecessaryBlankLineInListTest', () => {
+describe('UnnecessaryBlankLineInListRuleTest', () => {
     const assertThat: AssertThat = assertThatRule(unnecessaryBlankLineInListRule);
 
     it('Rule properties', () => assertProperties(unnecessaryBlankLineInListRule));

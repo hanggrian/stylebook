@@ -1,12 +1,12 @@
 import { describe, it } from 'vitest';
-import olSpacesRule from '../../rules/ordered-list-spaces';
+import orderedListSpacesRule from '../../rules/ordered-list-spaces';
 import { type AssertThat, assertThatRule } from '../asserters';
 import assertProperties from '../asserts';
 
-describe('OrderedListSpacesTest', () => {
-    const assertThat: AssertThat = assertThatRule(olSpacesRule);
+describe('OrderedListSpacesRuleTest', () => {
+    const assertThat: AssertThat = assertThatRule(orderedListSpacesRule);
 
-    it('Rule properties', () => assertProperties(olSpacesRule));
+    it('Rule properties', () => assertProperties(orderedListSpacesRule));
 
     it(
         'Correct format',

@@ -1,13 +1,13 @@
 import messages from '../messages.js';
 import StylebookRule from './stylebook-rule.js';
-import type { RuleOnError } from 'markdownlint';
+import type { RuleConfiguration, RuleOnError } from 'markdownlint';
 
 class OrderedListSpacesRule extends StylebookRule {
     constructor() {
         super('ordered-list-spaces', 'syntax');
     }
 
-    visit(lines: string[], onError: RuleOnError) {
+    visit(lines: string[], _: RuleConfiguration, onError: RuleOnError) {
         for (let i = 0; i < lines.length; i++) {
             // filter list item
             const line: string = lines[i];

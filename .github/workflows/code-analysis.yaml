@@ -20,20 +20,14 @@ jobs:
       - uses: jwlawson/actions-setup-cmake@v2
 
       - run: |
-          sudo apt-get install -y \
-            just libboost-program-options-dev libxml2-utils
+          sudo apt-get install -y libboost-program-options-dev libxml2-utils
           sudo wget -qO "$HADOLINT_PATH" \
             https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
           sudo chmod a+x "$HADOLINT_PATH"
 
       - run: |
           just prepare
-          just build
-
-      - run: |
-          just lint
-          uv run poe lint
-          pnpm lint
+          just lint-all
 
   upload-coverage:
     runs-on: ubuntu-24.04
@@ -42,7 +36,7 @@ jobs:
 
       - uses: ./.github/actions/setup-workspace
 
-      - run: pnpm -r coverage
+      - run: just coverage-all
 
       - if: github.ref == 'refs/heads/main'
         uses: codecov/codecov-action@v6
