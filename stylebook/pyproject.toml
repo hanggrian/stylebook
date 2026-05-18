@@ -25,7 +25,7 @@ classifiers = [
 dependencies = [
   # main
   "dotenv-linter==0.7.0",
-  "sqlfluff==4.1.0",
+  "sqlfluff==4.2.1",
   "taplo==0.9.3",
   "yamllint==1.38.0",
   "colorama",
