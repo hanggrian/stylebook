@@ -82,57 +82,60 @@ class BrokenImageRule extends StylebookRule {
 
     private static checkUrlsSync(urls: string[], timeout: number): FetchResult[] {
         try {
-            const stdout =
-                execSync('node --input-type=module', {
-                    input:
-                        `const urls = ${JSON.stringify(urls)};
-                        const TIMEOUT_MS = ${timeout};
-                        const USER_AGENT = ${JSON.stringify(BrokenImageRule.USER_AGENT)};
-                        process.stdout.write(
-                            JSON.stringify(
-                                await Promise.all(
-                                    urls.map(async (url) => {
-                                        try {
-                                            const signal = AbortSignal.timeout(TIMEOUT_MS);
-                                            const headers = { 'User-Agent': USER_AGENT };
-                                            let res =
-                                                await fetch(
-                                                    url,
-                                                    {
-                                                        method: 'HEAD',
-                                                        signal,
-                                                        headers,
-                                                        redirect: 'follow',
-                                                    },
-                                                );
-                                            if (res.status === 405) {
-                                                res =
+            return JSON.parse(
+                execSync(
+                    'node --input-type=module',
+                    {
+                        input:
+                            `const urls = ${JSON.stringify(urls)};
+                            const TIMEOUT_MS = ${timeout};
+                            const USER_AGENT = ${JSON.stringify(BrokenImageRule.USER_AGENT)};
+                            process.stdout.write(
+                                JSON.stringify(
+                                    await Promise.all(
+                                        urls.map(async (url) => {
+                                            try {
+                                                const signal = AbortSignal.timeout(TIMEOUT_MS);
+                                                const headers = { 'User-Agent': USER_AGENT };
+                                                let res =
                                                     await fetch(
                                                         url,
                                                         {
-                                                            method: 'GET',
+                                                            method: 'HEAD',
                                                             signal,
                                                             headers,
                                                             redirect: 'follow',
                                                         },
                                                     );
+                                                if (res.status === 405) {
+                                                    res =
+                                                        await fetch(
+                                                            url,
+                                                            {
+                                                                method: 'GET',
+                                                                signal,
+                                                                headers,
+                                                                redirect: 'follow',
+                                                            },
+                                                        );
+                                                }
+                                                return {
+                                                    status: res.status,
+                                                    contentType: res.headers.get('content-type'),
+                                                };
+                                            } catch {
+                                                return { status: null, contentType: null };
                                             }
-                                            return {
-                                                status: res.status,
-                                                contentType: res.headers.get('content-type'),
-                                            };
-                                        } catch {
-                                            return { status: null, contentType: null };
-                                        }
-                                    }),
+                                        }),
+                                    ),
                                 ),
-                            ),
-                        );`,
-                    timeout: timeout * urls.length + 3_000,
-                    encoding: 'utf-8',
-                    stdio: ['pipe', 'pipe', 'ignore'],
-                });
-            return JSON.parse(stdout) as FetchResult[];
+                            );`,
+                        timeout: timeout * urls.length + 3_000,
+                        encoding: 'utf-8',
+                        stdio: ['pipe', 'pipe', 'ignore'],
+                    },
+                ),
+            ) as FetchResult[];
         } catch {
             return urls.map(() => ({ status: null, contentType: null }));
         }

@@ -55,6 +55,20 @@ broken images.
       <td></td>
     </tr>
     <tr>
+      <td rowspan="1">Go</td>
+      <td>CSV</td>
+      <td>
+        <a href="https://github.com/csvlinter/csvlinter/">
+          csvlinter
+        </a>
+      </td>
+      <td>
+        <a href="https://www.rfc-editor.org/rfc/rfc4180.html">
+          RFC 4180
+        </a>
+      </td>
+    </tr>
+    <tr>
       <td rowspan="4">Python</td>
       <td>Dotenv</td>
       <td>
@@ -184,6 +198,12 @@ npm i @hanggrian/stylebook \
   htmlhint \
   @prantlf/jsonlint \
   markdownlint markdownlint-cli2 --save-dev
+```
+
+### Go
+
+```sh
+go install github.com/hanggrian/stylebook@latest
 ```
 
 ## Usage

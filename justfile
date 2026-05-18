@@ -8,6 +8,7 @@ build:
 install-all clean="false":
     uv sync {{ if clean == "true" { "--locked" } else { "" } }}
     pnpm {{ if clean == "true" { "ci" } else { "i" } }}
+    go mod tidy
 
 lint: build
     stylebook-cli/build/stylebook sample/
@@ -16,6 +17,7 @@ lint-all: lint
     just --fmt --check
     uv run poe lint
     pnpm lint
+    go run . .
 
 test-all:
     pnpm -r test

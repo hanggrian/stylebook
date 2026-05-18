@@ -11,9 +11,12 @@ insert_final_newline = true
 [*.{sh,xml,sql,toml,yaml,md,json,html,css}]
 max_line_length = 80
 
-[*.{cpp,h,py,js,ts,tsx}]
+[*.{cpp,h,py,js,ts,tsx,go,mod}]
 indent_size = 4
 max_line_length = 100
+
+[*.{go,mod}]
+indent_style = tab
 
 [*.py]
 ij_python_from_import_trailing_comma_if_multiline = true

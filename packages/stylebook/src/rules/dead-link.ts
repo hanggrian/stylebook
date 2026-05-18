@@ -70,7 +70,7 @@ class DeadLinkRule extends StylebookRule {
 
     private static checkUrlsSync(urls: string[], timeout: number): (number | null)[] {
         try {
-            const stdout =
+            return JSON.parse(
                 execSync(
                     'node --input-type=module',
                     {
@@ -118,8 +118,9 @@ class DeadLinkRule extends StylebookRule {
                         timeout: timeout * urls.length + 3_000,
                         encoding: 'utf-8',
                         stdio: ['pipe', 'pipe', 'ignore'],
-                    });
-            return JSON.parse(stdout) as (number | null)[];
+                    },
+                ),
+            ) as (number | null)[];
         } catch {
             return urls.map(() => null);
         }

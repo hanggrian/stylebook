@@ -32,22 +32,12 @@ function walk(path, exclude) {
     return [];
 }
 
-/**
- * Convenient method to collect lines into string.
- *
- * @param lines
- * @returns {string}
- */
-function lines(...lines) {
-    return lines.join('\n') + '\n';
-}
-
 // parse input arguments
 let inputArgs = process.argv.slice(2);
 const exclude = new Set();
 let quiet = false;
 if (!inputArgs.length) {
-    process.stderr.write(lines(red('Need a path.')));
+    process.stderr.write(`${red('Need a path.')}\n`);
     process.exit(1);
 }
 for (const arg of inputArgs) {
@@ -78,37 +68,34 @@ if (!exclude.size) {
 }
 if (inputArgs.includes('-h') ||
     inputArgs.includes('--help')) {
+    process.stdout.write('Helper for Stylebook linter extensions\n\n');
+    process.stdout.write(`\u{1f680} ${b('Usage:')}\n`);
+    process.stdout.write(`   ${APP_BINARY} ${cyan('<paths>')} ${blue('[options]')}\n\n`);
+    process.stdout.write(`\u{1f4c4} ${b(cyan('Paths:'))}\n`);
     process.stdout.write(
-        lines(
-            'Helper for Stylebook linter extensions',
-            '',
-            `\u{1f680} ${b('Usage:')}`,
-            `   ${APP_BINARY} ${cyan('<paths>')} ${blue('[options]')}`,
-            '',
-            `\u{1f4c4} ${b(cyan('Paths:'))}`,
-            '   file      Supports ' +
-            `${i('.css')}, ` +
-            `${i('.html')}, ` +
-            `${i('.htm')}, ` +
-            `${i('.mhtml')}, ` +
-            `${i('.mthm')}, ` +
-            `${i('.json')},`,
-            '             ' +
-            `${i('.jsonc')}, ` +
-            `${i('.cjson')}, ` +
-            `${i('.json5')}, ` +
-            i('.md'),
-            '   dir       Recursively find files in this directory',
-            `   pattern   For example, ${i('*.json')} for all JSON files in this`,
-            `             directory, ${i('**/*')} for all files`,
-            '',
-            `\u2699\ufe0f  ${b(blue('Options:'))}`,
-            '   -e  [ --exclude ] arg   List of files or directories to ignore',
-            '   -h  [ --help ]          Display this message',
-            '   -q  [ --quiet ]         Disable verbose output',
-            '   -v  [ --version ]       Show app version',
-        ),
+        '   file      Supports ' +
+        `${i('.css')}, ` +
+        `${i('.html')}, ` +
+        `${i('.htm')}, ` +
+        `${i('.mhtml')}, ` +
+        `${i('.mthm')}, ` +
+        `${i('.json')},\n`,
     );
+    process.stdout.write(
+        '             ' +
+        `${i('.jsonc')}, ` +
+        `${i('.cjson')}, ` +
+        `${i('.json5')}, ` +
+        `${i('.md')}\n`,
+    );
+    process.stdout.write('   dir       Recursively find files in this directory\n');
+    process.stdout.write(`   pattern   For example, ${i('*.json')} for all JSON files in this\n`);
+    process.stdout.write(`             directory, ${i('**/*')} for all files\n\n`);
+    process.stdout.write(`\u2699\ufe0f  ${b(blue('Options:'))}\n`);
+    process.stdout.write('   -e  [ --exclude ] arg   List of files or directories to ignore\n');
+    process.stdout.write('   -h  [ --help ]          Display this message\n');
+    process.stdout.write('   -q  [ --quiet ]         Disable verbose output\n');
+    process.stdout.write('   -v  [ --version ]       Show app version\n');
     process.exit(0);
 }
 if (inputArgs.includes('-q') ||
@@ -117,7 +104,7 @@ if (inputArgs.includes('-q') ||
 }
 if (inputArgs.includes('-v') ||
     inputArgs.includes('--version')) {
-    process.stdout.write(lines(`${APP_BINARY} ${b(APP_VERSION)}`));
+    process.stdout.write(`${APP_BINARY} ${b(APP_VERSION)}\n`);
     process.exit(0);
 }
 
@@ -162,31 +149,26 @@ if (!quiet) {
         .forEach(([command, paths]) => {
             const title = b(command.binary);
             if (!command.isAvailable()) {
-                process.stdout.write(lines(`\u{1f6ab} ${title}: Unavailable`));
+                process.stdout.write(`\u{1f6ab} ${title}: Unavailable\n`);
                 return;
             }
             if (!paths.length) {
-                process.stdout.write(lines(`\u{1fad9} ${title}: Empty`));
+                process.stdout.write(`\u{1fad9} ${title}: Empty\n`);
                 return;
             }
-            process.stdout.write(
-                lines(
-                    ...[
-                        `\u2705\ufe0f ${title}`,
-                        ...paths.map(path => {
-                            const extension = extname(path);
-                            const root = path.substring(0, path.length - extension.length);
-                            const slash = root.lastIndexOf('/') + 1;
-                            return '   ' +
-                                d(root.substring(0, slash)) +
-                                root.substring(slash) +
-                                i(extension);
-                        }),
-                    ],
-                ),
-            );
+            process.stdout.write(`\u2705\ufe0f ${title}\n`);
+            paths
+                .map(path => {
+                    const extension = extname(path);
+                    const root = path.substring(0, path.length - extension.length);
+                    const slash = root.lastIndexOf('/') + 1;
+                    return '   ' +
+                        d(root.substring(0, slash)) +
+                        root.substring(slash) +
+                        i(extension);
+                }).forEach(line => process.stdout.write(`${line}\n`));
         });
-    process.stdout.write(lines());
+    process.stdout.write('\n');
 }
 
 // report result
@@ -202,16 +184,14 @@ const violatingLinters =
         }).map(([command, _]) => command.binary);
 if (violatingLinters.length) {
     process.stderr.write(
-        lines(
-            '\u274c\ufe0f ' +
-            `${red(`Linter(s) reported violations: ${b(`${violatingLinters.join(', ')}.`)}`)}`,
-        ),
+        '\u274c\ufe0f ' +
+        `${red(`Linter(s) reported violations: ${b(`${violatingLinters.join(', ')}.`)}`)}\n`,
     );
     process.exit(1);
 }
 if (empty) {
-    process.stderr.write(lines(`\u{1f47b} ${yellow('No files to lint.')}`));
+    process.stderr.write(`\u{1f47b} ${yellow('No files to lint.')}\n`);
     process.exit(1);
 }
-process.stdout.write(lines(`\u{1f389} ${green('All linters passed, no violation found.')}`));
+process.stdout.write(`\u{1f389} ${green('All linters passed, no violation found.')}\n`);
 process.exit(0);

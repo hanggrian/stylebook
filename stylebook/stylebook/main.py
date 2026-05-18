@@ -47,29 +47,25 @@ def run() -> None:
                 exclude.add(line.rstrip('/') if line.endswith('/') else line)
     if '-h' in input_args or \
         '--help' in input_args:
+        print('Helper for Stylebook linter extensions\n')
+        print(f'\U0001f680 {b('Usage:')}')
+        print(f'   stylebook {cyan('<paths>')} {blue('[options]')}\n')
+        print(f'\U0001f4c4 {b(cyan('Paths:'))}')
         print(
-            'Helper for Stylebook linter extensions',
-            '',
-            f'\U0001f680 {b('Usage:')}',
-            f'   stylebook {cyan('<paths>')} {blue('[options]')}',
-            '',
-            f'\U0001f4c4 {b(cyan("'Paths:'"))}',
             f'   file      Supports '
             f'{i('.env')}, '
             f'{i('.sql')}, '
             f'{i('.toml')}, '
             f'{i('.yaml')}',
-            '   dir       Recursively find files in this directory',
-            f'   pattern   For example, {i('*.json')} for all JSON files in this',
-            f'             directory, {i('**/*')} for all files',
-            '',
-            f'\u2699\ufe0f  {b(blue('Options:'))}',
-            '   -e  [ --exclude ] arg   List of files or directories to ignore',
-            '   -h  [ --help ]          Display this message',
-            '   -q  [ --quiet ]         Disable verbose output',
-            '   -v  [ --version ]       Show app version',
-            sep='\n',
         )
+        print('   dir       Recursively find files in this directory')
+        print(f'   pattern   For example, {i('*.json')} for all JSON files in this')
+        print(f'             directory, {i('**/*')} for all files\n')
+        print(f'\u2699\ufe0f  {b(blue('Options:'))}')
+        print('   -e  [ --exclude ] arg   List of files or directories to ignore')
+        print('   -h  [ --help ]          Display this message')
+        print('   -q  [ --quiet ]         Disable verbose output')
+        print('   -v  [ --version ]       Show app version')
         exit2(0)
     if '-q' in input_args or \
         '--quiet' in input_args:
@@ -113,18 +109,16 @@ def run() -> None:
             if not paths:
                 print(f'\U0001fad9 {title}: Empty')
                 continue
+            print(f'\u2705\ufe0f {title}:')
             print(
                 *[
-                    f'\u2705\ufe0f {title}:',
-                    *[
-                        '   ' +
-                        d(root[:root.rfind('/') + 1]) +
-                        root[root.rfind('/') + 1:] +
-                        i(ext)
-                        for path in paths
-                        # pylint: disable=consider-using-tuple
-                        for root, ext in [splitext(path)]
-                    ],
+                    '   ' +
+                    d(root[:root.rfind('/') + 1]) +
+                    root[root.rfind('/') + 1:] +
+                    i(ext)
+                    for path in paths
+                    # pylint: disable=consider-using-tuple
+                    for root, ext in [splitext(path)]
                 ],
                 sep='\n',
             )
