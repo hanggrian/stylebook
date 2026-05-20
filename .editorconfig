@@ -8,10 +8,10 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{sh,xml,sql,toml,yaml,md,json,html,css}]
+[*.{proto,hcl,tf,sh,xml,sql,toml,yaml,css,html,json,md}]
 max_line_length = 80
 
-[*.{cpp,h,py,js,ts,tsx,go,mod}]
+[*.{go,mod,cpp,h,py,js,ts,tsx}]
 indent_size = 4
 max_line_length = 100
 

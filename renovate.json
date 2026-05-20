@@ -18,6 +18,7 @@
     "fedora",
     "opensuse",
     "opensuse/leap",
-    "busybox"
+    "busybox",
+    "aws"
   ]
 }

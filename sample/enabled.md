@@ -98,9 +98,11 @@ less bar
 
 <!-- blanks-around-lists -->
 
-- Lorem
+- Foo
+- Bar
 
-1.  Ipsum
+1.  Foo
+1.  Bar
 
 <!-- no-bare-urls, no-empty-links -->
 

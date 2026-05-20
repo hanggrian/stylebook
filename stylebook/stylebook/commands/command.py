@@ -1,11 +1,10 @@
 import platform
-from abc import ABC, abstractmethod
 from subprocess import run
 
 from stylebook.files import get_config_file
 
 
-class Command(ABC):
+class Command:
     """Abstract class for linter command."""
 
     def __init__(self, binary: str, config_file: str | None = None) -> None:
@@ -21,7 +20,6 @@ class Command(ABC):
             capture_output=True,
         ).returncode == 0
 
-    @abstractmethod
     def get_arguments(self, quiet: bool, target_paths: list[str]) -> list[str]:
         """Abstract method to define specific lint command for this linter."""
         pass  # pylint: disable=unnecessary-pass
@@ -36,3 +34,9 @@ class Command(ABC):
             check=True,
             capture_output=False,
         ).returncode
+
+    @staticmethod
+    def embed_path(file_path: str, line: int | None, col: int | None) -> str:
+        return f'\x1b]8;;file://{file_path}' + \
+            (f'#L{line}:C{col}' if line and col else (f'#L{line}' if line else '')) + \
+            f'\x1b\\{file_path}:{line}:{col}\x1b]8;;\x1b\\'

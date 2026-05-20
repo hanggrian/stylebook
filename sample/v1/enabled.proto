@@ -1,0 +1,83 @@
+// FILE_HAS_COMMENT: file starts with a doc comment
+// FILE_NAMES_LOWER_SNAKE_CASE: file is named enabled.proto
+
+// ORDER: syntax first
+syntax = "proto3";
+
+// SYNTAX_CONSISTENT: proto3
+// PACKAGE_NAME_LOWER_CASE: all lowercase
+package mypackage.v1;
+
+// IMPORTS_SORTED: sorted alphabetically
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+// QUOTE_CONSISTENT: double quotes throughout
+option java_package = "com.example";
+
+// ENUMS_HAVE_COMMENT
+// ENUM_NAMES_UPPER_CAMEL_CASE: UpperCamelCase
+enum StatusType {
+  // ENUM_FIELDS_HAVE_COMMENT
+  // ENUM_FIELD_NAMES_UPPER_SNAKE_CASE: CAPITALS_WITH_UNDERSCORES
+  // ENUM_FIELD_NAMES_ZERO_VALUE_END_WITH: zero value ends with UNSPECIFIED
+  // ENUM_FIELD_NAMES_PREFIX: prefixed with STATUS_TYPE_
+  // FIELD_NUMBERS_ORDER_ASCENDING: 0, 1, 2
+  STATUS_TYPE_UNSPECIFIED = 0;
+  // ENUM_FIELDS_HAVE_COMMENT
+  STATUS_TYPE_ACTIVE = 1;
+  // ENUM_FIELDS_HAVE_COMMENT
+  STATUS_TYPE_INACTIVE = 2;
+}
+
+// MESSAGES_HAVE_COMMENT
+// MESSAGE_NAMES_UPPER_CAMEL_CASE: UpperCamelCase
+// MESSAGE_NAMES_EXCLUDE_PREPOSITIONS: no prepositions
+message GetUserRequest {
+  // FIELDS_HAVE_COMMENT
+  // FIELD_NAMES_LOWER_SNAKE_CASE: underscore_separated
+  // FIELD_NAMES_EXCLUDE_PREPOSITIONS: no prepositions
+  // FIELD_NUMBERS_ORDER_ASCENDING: 1, 2, 3
+  string user_name = 1;
+  // FIELDS_HAVE_COMMENT
+  int32 user_id = 2;
+  // FIELDS_HAVE_COMMENT
+  // REPEATED_FIELD_NAMES_PLURALIZED: plural name
+  repeated string tags = 3;
+  // FIELDS_HAVE_COMMENT
+  // PROTO3_FIELDS_AVOID_REQUIRED: no required keyword
+  google.protobuf.Timestamp creation_time = 4;
+}
+
+// MESSAGES_HAVE_COMMENT
+// MESSAGE_NAMES_UPPER_CAMEL_CASE: UpperCamelCase
+message GetUserResponse {
+  // FIELDS_HAVE_COMMENT
+  string name = 1;
+  // FIELDS_HAVE_COMMENT
+  StatusType status = 2;
+}
+
+// MESSAGES_HAVE_COMMENT
+// MESSAGE_NAMES_UPPER_CAMEL_CASE: UpperCamelCase
+// PROTO3_GROUPS_AVOID: no groups used
+message CreateUserRequest {
+  // FIELDS_HAVE_COMMENT
+  string user_name = 1;
+  // FIELDS_HAVE_COMMENT
+  string email = 2;
+}
+
+// SERVICES_HAVE_COMMENT
+// SERVICE_NAMES_UPPER_CAMEL_CASE: UpperCamelCase
+// SERVICE_NAMES_END_WITH: ends with Service
+service UserApiService {
+  // RPCS_HAVE_COMMENT
+  // RPC_NAMES_UPPER_CAMEL_CASE: UpperCamelCase
+  // RPC_NAMES_CASE: conforms to configured convention
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  // RPCS_HAVE_COMMENT
+  rpc CreateUser(CreateUserRequest) returns (GetUserResponse);
+  // RPCS_HAVE_COMMENT
+  rpc DeleteUser(GetUserRequest) returns (google.protobuf.Empty);
+}
