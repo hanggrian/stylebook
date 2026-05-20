@@ -7,7 +7,7 @@ rules:
   empty-values: enable
   indentation:
     spaces: 2
-    indent-sequences: whatever
+    indent-sequences: false
   float-values: enable
   new-lines: disable
   octal-values: enable

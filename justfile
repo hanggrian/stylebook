@@ -1,38 +1,31 @@
-prepare:
-    mkdir -p stylebook-cli/build/
-    cd stylebook-cli/build/ && cmake .. -G Ninja
-
-build:
-    cd stylebook-cli/build/ && cmake --build .
-
-install-all clean="false":
+install clean="false":
+    go mod {{ if clean == "true" { "download" } else { "tidy" } }}
     uv sync {{ if clean == "true" { "--locked" } else { "" } }}
     pnpm {{ if clean == "true" { "ci" } else { "i" } }}
-    go mod tidy
 
-lint: build
-    stylebook-cli/build/stylebook sample/
-
-lint-all: lint
-    just --fmt --check
+lint:
+    go run . .
     uv run poe lint
     pnpm lint
-    go run . .
 
-test-all:
+format:
+    just --fmt
+    gofmt -w .
+
+test:
     pnpm -r test
 
-coverage-all:
+coverage:
     pnpm -r coverage
 
-documentation-all:
+documentation:
     uv run poe documentation
     pnpm documentation
 
 prepare-website:
     uv pip install -r website/requirements.txt
 
-publish-website: prepare-website documentation-all
+publish-website: prepare-website documentation
     rm -rf website/docs/api/
     mkdir -p website/docs/api/
     mv build/pdoc/ website/docs/api/pydoc/

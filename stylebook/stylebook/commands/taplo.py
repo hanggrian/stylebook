@@ -2,7 +2,7 @@ from stylebook.commands.command import Command
 
 
 class TaploCommand(Command):
-    """CLI executor for <a href="https://taplo.tamasfe.dev/">Taplo</b>."""
+    """CLI executor for <a href="https://taplo.tamasfe.dev/">Taplo</a>."""
 
     def __init__(self):
         super().__init__('taplo', 'taplo.toml')

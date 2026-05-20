@@ -87,6 +87,9 @@ importers:
       htmlhint:
         specifier: ^1.9.2
         version: 1.9.2
+      markdown-it:
+        specifier: ^14.1.1
+        version: 14.1.1
       markdownlint:
         specifier: ^0.40.0
         version: 0.40.0

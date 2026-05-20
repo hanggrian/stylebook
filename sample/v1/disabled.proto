@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package mypackage.v1;
+
+// ENUMS_HAVE_COMMENT, ENUM_FIELDS_HAVE_COMMENT
+enum StatusType {
+  STATUS_TYPE_UNSPECIFIED = 0;
+  STATUS_TYPE_ACTIVE = 1;
+}
+
+// MESSAGES_HAVE_COMMENT, FIELDS_HAVE_COMMENT
+message GetUserRequest {
+  string user_name = 1;
+  int32 user_id = 2;
+  repeated string tags = 3;
+}
+
+message GetUserResponse {
+  string name = 1;
+}
+
+// SERVICES_HAVE_COMMENT, RPCS_HAVE_COMMENT
+service UserApi {
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc CreateUser(GetUserRequest) returns (GetUserResponse);
+}

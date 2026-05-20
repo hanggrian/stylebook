@@ -58,71 +58,58 @@ theme:
   favicon: images/favicon.ico
   logo: images/icon.svg
   palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: purple
-      accent: amber
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: deep purple
-      accent: amber
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
+  - medght mode
   icon:
     repo: material/github
   features:
-    - navigation.tabs
-    - navigation.sections
-    - navigation.expand
-    - navigation.top
-    - search.suggest
-    - search.share
-    - content.code.copy
-    - content.tabs.link
+  - navigation.tabs
+  - navigation.sections
+  - navigation.expand
+  - navigation.top
+  - search.suggest
+  - search.share
+  - content.code.copy
+  - content.tabs.link
 
 # yamllint disable rule:line-length
 nav:
-  - Home: index.md
-  - Rules:
-    - General: rules/index.md
-    - CSS rules: rules/css.md
-    - Dockerfile rules: rules/dockerfile.md
-    - HTML rules: rules/html.md
-    - JSON rules: rules/json.md
-    - Markdown rules: rules/markdown.md
-    - SQL rules: rules/sql.md
-    - TOML rules: rules/toml.md
-    - YAML rules: rules/yaml.md
-    - External links:
-      - Hadolint rules: https://github.com/hadolint/hadolint#rules?ext
-      - HTMLHint rules: https://htmlhint.com/rules/?ext
-      - JSON Lint rules: https://www.npmjs.com/package/@prantlf/jsonlint/?ext
-      - Markdownlint rules: https://github.com/DavidAnson/markdownlint/tree/main/doc/?ext
-      - SQLFluff rules: https://docs.sqlfluff.com/en/stable/reference/rules.html?ext
-      - Stylelint rules: https://stylelint.io/user-guide/rules/?ext
-      - Taplo rules: https://taplo.tamasfe.dev/configuration/formatter-options.html?ext
-      - yamllint rules: https://yamllint.readthedocs.io/en/stable/rules.html?ext
-  - Pydoc: api/pydoc
-  - TSDoc: api/tsdoc
+- Home: index.md
+- Rules:
+  - General: rules/index.md
+  - CSS rules: rules/css.md
+  - Dockerfile rules: rules/dockerfile.md
+  - HTML rules: rules/html.md
+  - JSON rules: rules/json.md
+  - Markdown rules: rules/markdown.md
+  - SQL rules: rules/sql.md
+  - TOML rules: rules/toml.md
+  - YAML rules: rules/yaml.md
+  - External links:
+    - Hadolint rules: https://github.com/hadolint/hadolint#rules?ext
+    - HTMLHint rules: https://htmlhint.com/rules/?ext
+    - JSON Lint rules: https://www.npmjs.com/package/@prantlf/jsonlint/?ext
+    - Markdownlint rules: https://github.com/DavidAnson/markdownlint/tree/main/doc/?ext
+    - SQLFluff rules: https://docs.sqlfluff.com/en/stable/reference/rules.html?ext
+    - Stylelint rules: https://stylelint.io/user-guide/rules/?ext
+    - Taplo rules: https://taplo.tamasfe.dev/configuration/formatter-options.html?ext
+    - yamllint rules: https://yamllint.readthedocs.io/en/stable/rules.html?ext
+- Pydoc: api/pydoc
+- TSDoc: api/tsdoc
 # yamllint enable
 
 plugins:
-  - search
+- search
 
 extra_javascript:
-  - scripts/mermaid.min.js  # hotfix for Mermaid not loading in GitHub Pages
+- scripts/mermaid.min.js  # hotfix for Mermaid not loading in GitHub Pages
 extra_css:
-  - styles/colors.css
-  - styles/icons.css
-  - styles/links.css
-  - https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined
+- styles/colors.css
+- styles/icons.css
+- styles/links.css
+- https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined
 
 hooks:
-  - hooks/archive.py
+- hooks/archive.py
 
 validation:
   nav:
@@ -140,26 +127,26 @@ validation:
 #     property: !ENV GOOGLE_ANALYTICS_KEY
 
 markdown_extensions:
-  - toc:
-      permalink: true
-  - admonition
-  - pymdownx.details
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.mark
-  - pymdownx.smartsymbols
-  - attr_list
-  - md_in_html
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - footnotes
+- toc:
+    permalink: true
+- admonition
+- pymdownx.details
+- pymdownx.emoji:
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
+- pymdownx.highlight:
+    anchor_linenums: true
+- pymdownx.mark
+- pymdownx.smartsymbols
+- attr_list
+- md_in_html
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+      format: !!python/name:pymdownx.superfences.fence_code_format
+- pymdownx.tabbed:
+    alternate_style: true
+- pymdownx.tasklist:
+    custom_checkbox: true
+- footnotes

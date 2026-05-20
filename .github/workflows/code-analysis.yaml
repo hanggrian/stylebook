@@ -13,34 +13,32 @@ jobs:
   run-lint:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6
+    - uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-workspace
+    - uses: ./.github/actions/setup-workspace
 
-      - uses: jwlawson/actions-setup-cmake@v2
+    - run: |
+        sudo apt-get install -y chktex libxml2-utils
+        go install github.com/checkmake/checkmake/cmd/checkmake@latest \
+          github.com/yoheimuta/protolint/cmd/protolint@latest \
+          github.com/terraform-linters/tflint@latest
+        sudo wget -qO "$HADOLINT_PATH" \
+          https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+        sudo chmod a+x "$HADOLINT_PATH"
 
-      - run: |
-          sudo apt-get install -y libboost-program-options-dev libxml2-utils
-          sudo wget -qO "$HADOLINT_PATH" \
-            https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
-          sudo chmod a+x "$HADOLINT_PATH"
-          go install github.com/Clever/csvlint/cmd/csvlint@latest
-
-      - run: |
-          just prepare
-          just lint-all
+    - run: just lint
 
   upload-coverage:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6
+    - uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-workspace
+    - uses: ./.github/actions/setup-workspace
 
-      - run: just coverage-all
+    - run: just coverage
 
-      - if: github.ref == 'refs/heads/main'
-        uses: codecov/codecov-action@v6
-        with:
-          fail_ci_if_error: true
-          token: ${{ secrets.CODECOV_TOKEN }}
+    - if: github.ref == 'refs/heads/main'
+      uses: codecov/codecov-action@v6
+      with:
+        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}

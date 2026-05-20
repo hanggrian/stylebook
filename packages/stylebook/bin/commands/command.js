@@ -52,6 +52,23 @@ class Command {
             },
         ).status ?? 1;
     }
+
+    /**
+     * Mask file path with visitable link.
+     *
+     * @param filePath file to link to.
+     * @param line violation line number.
+     * @param col violation column number.
+     * @returns {string}
+     */
+    static embedPath(filePath, line, col) {
+        return `\x1b]8;;file://${filePath}${
+                line
+                    ? (col ? `#L${line}:C${col}` : `#L${line}`)
+                    : ''
+            }` +
+            `\x1b\\${filePath}:${line}:${col}\x1b]8;;\x1b\\`;
+    }
 }
 
 export default Command;

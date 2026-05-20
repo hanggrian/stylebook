@@ -1,35 +1,35 @@
 package cmd
 
-import "fmt"
+import "github.com/fatih/color"
 
 func Bold(text string) string {
-	return fmt.Sprintf("\033[1m%s\033[22m", text)
+	return color.New(color.Bold).Sprint(text)
 }
 
 func Dim(text string) string {
-	return fmt.Sprintf("\033[2m%s\033[22m", text)
+	return color.New(color.Faint).Sprint(text)
 }
 
 func Italic(text string) string {
-	return fmt.Sprintf("\033[3m%s\033[23m", text)
+	return color.New(color.Italic).Sprint(text)
 }
 
 func Red(text string) string {
-	return fmt.Sprintf("\033[31m%s\033[39m", text)
+	return color.New(color.FgRed).Sprint(text)
 }
 
 func Green(text string) string {
-	return fmt.Sprintf("\033[32m%s\033[39m", text)
+	return color.New(color.FgGreen).Sprint(text)
 }
 
 func Yellow(text string) string {
-	return fmt.Sprintf("\033[33m%s\033[39m", text)
+	return color.New(color.FgYellow).Sprint(text)
 }
 
 func Blue(text string) string {
-	return fmt.Sprintf("\033[34m%s\033[39m", text)
+	return color.New(color.FgBlue).Sprint(text)
 }
 
 func Cyan(text string) string {
-	return fmt.Sprintf("\033[36m%s\033[39m", text)
+	return color.New(color.FgCyan).Sprint(text)
 }

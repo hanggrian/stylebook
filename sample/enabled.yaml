@@ -33,9 +33,9 @@ service:
 
 # hyphens: space after hyphen in block sequences
 sequence:
-  - alpha
-  - beta
-  - gamma
+- alpha
+- beta
+- gamma
 
 # indentation: 2-space indentation throughout
 nested:
