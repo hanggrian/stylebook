@@ -20,7 +20,6 @@ jobs:
     - run: |
         sudo apt-get install -y chktex libxml2-utils
         go install github.com/checkmake/checkmake/cmd/checkmake@latest
-        go install github.com/yoheimuta/protolint/cmd/protolint@latest
         go install github.com/terraform-linters/tflint@latest
         sudo wget -qO "$HADOLINT_PATH" \
           https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64

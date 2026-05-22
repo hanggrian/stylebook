@@ -1,5 +1,5 @@
-import StylebookRule from './stylebook-rule.js';
-import messages from '../messages.js';
+import messages from '../../messages.js';
+import StylebookMarkdownlintRule from './stylebook-markdown-rule.js';
 import { execSync } from 'node:child_process';
 import type { RuleConfiguration, RuleOnError } from 'markdownlint';
 
@@ -14,7 +14,7 @@ interface FetchResult {
     contentType: string | null;
 }
 
-class BrokenImageRule extends StylebookRule {
+class BrokenImageRule extends StylebookMarkdownlintRule {
     constructor() {
         super('broken-image', 'url');
     }
@@ -71,7 +71,6 @@ class BrokenImageRule extends StylebookRule {
                 });
             }
         }
-
     }
 
     private static MSG_STATUS: string = 'broken.image.status';

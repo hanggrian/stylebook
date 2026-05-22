@@ -1,8 +1,8 @@
-import messages from '../messages.js';
-import StylebookRule from './stylebook-rule.js';
+import messages from '../../messages.js';
+import StylebookMarkdownlintRule from './stylebook-markdown-rule.js';
 import type { RuleConfiguration, RuleOnError } from 'markdownlint';
 
-class OrderedListSpacesRule extends StylebookRule {
+class OrderedListSpacesRule extends StylebookMarkdownlintRule {
     constructor() {
         super('ordered-list-spaces', 'syntax');
     }

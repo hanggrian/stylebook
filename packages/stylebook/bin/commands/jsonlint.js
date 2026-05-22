@@ -8,6 +8,10 @@ class JsonlintCommand extends Command {
         super('jsonlint', 'jsonlintrc.json');
     }
 
+    isAvailable() {
+        return true;
+    }
+
     execute(_, targetPaths) {
         let hasErrors = false;
         const config = JSON.parse(readFileSync(this.configFile, 'UTF-8'));

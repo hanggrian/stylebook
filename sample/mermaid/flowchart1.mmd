@@ -1,0 +1,24 @@
+flowchart TD
+  %% FL-DIR-MISSING: flowchart without direction
+  %% FL-DIR-INVALID: invalid direction token
+
+  %% FL-ARROW-INVALID: ->
+  A --> B
+
+  %% FL-LINK-UNSUPPORTED-MARKER: --x-->
+  B --> C
+
+  %% FL-LABEL-ESCAPED-QUOTE: \"
+  C["test &quot; label"]
+
+  %% FL-LABEL-DOUBLE-IN-DOUBLE: "hello "world""
+  D -->|hello &quot;world&quot;| E
+
+  %% FL-LABEL-DOUBLE-IN-SINGLE: '""'
+  E["inner &quot; quote"]
+
+  %% FL-LABEL-BACKTICK: `
+  F[backtick]
+
+  %% FL-LABEL-QUOTE-IN-UNQUOTED: quote without outer wrap
+  G["unquoted &quot; quote"]

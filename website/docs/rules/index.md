@@ -49,6 +49,7 @@ bar: '"bar"'
 
 ### Duplicate blank line
 
+![css](https://img.shields.io/badge/css-max--empty--lines-663399)
 ![markdownlint](https://img.shields.io/badge/md-no--multiple--blanks-fff)
 
 No more than one consecutive blank line.
@@ -184,6 +185,25 @@ No trailing spaces at the end of lines.
 
 ```md
 Foo␣
+```
+
+**:material-star-four-points:{ #accent } After**
+
+```md
+Foo
+```
+
+### Unnecessary leading blank line
+
+![css](https://img.shields.io/badge/css-no--missing--end--of--source--newline-663399)
+
+Files should not start with blank lines.
+
+**:material-star-four-points-outline:{ #accent } Before**
+
+```md
+
+Foo
 ```
 
 **:material-star-four-points:{ #accent } After**

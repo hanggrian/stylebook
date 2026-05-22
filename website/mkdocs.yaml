@@ -34,16 +34,21 @@ copyright: >
       src="https://shields.io/pypi/v/stylebook?label=testpypi&pypiBaseUrl=https://test.pypi.org"
       alt="TestPyPI"/>
   </a>
-  <a href="https://docs.python.org/3.10/">
-    <img
-      src="https://img.shields.io/badge/python-3.10+-informational"
-      alt="Python"/>
-  </a>
-  &emsp;
   <a href="https://www.npmjs.com/package/@hanggrian/stylebook/">
     <img
       src="https://shields.io/npm/v/@hanggrian/stylebook"
       alt="NPM"/>
+  </a>
+  &emsp;
+  <a href="https://go.dev/doc/go1.26/">
+    <img
+      src="https://img.shields.io/github/go-mod/go-version/hanggrian/stylebook"
+      alt="Go"/>
+  </a>
+  <a href="https://docs.python.org/3.10/">
+    <img
+      src="https://img.shields.io/badge/python-3.10+-informational"
+      alt="Python"/>
   </a>
   <a href="https://nodejs.org/en/blog/release/v12.0.0/">
     <img
@@ -98,12 +103,15 @@ nav:
   - TOML rules: rules/toml.md
   - YAML rules: rules/yaml.md
   - External links:
-    - Checkmake rules: https://github.com/checkmake/checkmake/tree/main/rules?ext
+    - Blinter rules: https://github.com/tboy1337/Blinter/blob/main/docs/Batch-File-Linter-Requirements.md?ext
+    - Checkmake rules: https://github.com/checkmake/checkmake/tree/main/rules/?ext
     - Hadolint rules: https://github.com/hadolint/hadolint#rules?ext
     - HTMLHint rules: https://htmlhint.com/rules/?ext
+    - PyINILint rules: https://gitlab.com/danieljrmay/pyinilint/?ext
     - JSON Lint rules: https://www.npmjs.com/package/@prantlf/jsonlint/?ext
-    - Markdownlint rules: https://github.com/DavidAnson/markdownlint/tree/main/doc/?ext
-    - Protolint rules: https://github.com/yoheimuta/protolint/?ext
+    - markdownlint rules: https://github.com/DavidAnson/markdownlint/tree/main/doc/?ext
+    - propertieslint rules: https://github.com/hanggrian/propertieslint/?ext
+    - protolint rules: https://github.com/yoheimuta/protolint/?ext
     - SQLFluff rules: https://docs.sqlfluff.com/en/stable/reference/rules.html?ext
     - Stylelint rules: https://stylelint.io/user-guide/rules/?ext
     - TFLint rules: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/main/docs/rules/README.md?ext

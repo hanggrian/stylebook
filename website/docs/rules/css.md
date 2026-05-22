@@ -54,32 +54,3 @@ body {
   background-color: red;
 }
 ```
-
-## Trimming
-
-### Duplicate blank line
-
-![css](https://img.shields.io/badge/css-max--empty--lines-663399)
-
-No more than one consecutive blank line.
-
-**:material-star-four-points-outline:{ #accent } Before**
-
-```css hl_lines="3-4"
-body {
-  background-color: red;
-
-
-  text-align: center;
-}
-```
-
-**:material-star-four-points:{ #accent } After**
-
-```css hl_lines="3"
-body {
-  background-color: red;
-
-  text-align: center;
-}
-```

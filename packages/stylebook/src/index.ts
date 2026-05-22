@@ -1,18 +1,20 @@
-import brokenImageRule from './rules/broken-image.js';
-import deadLinkRule from './rules/dead-link.js';
-import duplicateLinkRule from './rules/duplicate-link.js';
-import orderedListNumberRule from './rules/ordered-list-number.js';
-import orderedListSpacesRule from './rules/ordered-list-spaces.js';
-import unnecessaryBlankLineInListRule from './rules/unnecessary-blank-line-in-list.js';
-import type StylebookRule from './rules/stylebook-rule.js';
+import brokenImageRule from './rules/markdownlint/broken-image.js';
+import deadLinkRule from './rules/markdownlint/dead-link.js';
+import duplicateLinkRule from './rules/markdownlint/duplicate-link.js';
+import orderedListNumberRule from './rules/markdownlint/ordered-list-number.js';
+import orderedListSpacesRule from './rules/markdownlint/ordered-list-spaces.js';
+import unnecessaryBlankLineInListRule from './rules/markdownlint/unnecessary-blank-line-in-list.js';
+import unnecessaryLeadingBlankLineRule from './rules/markdownlint/unnecessary-leading-blank-line.js';
+import type StylebookMarkdownlintRule from './rules/markdownlint/stylebook-markdown-rule';
 
-export const stylebookMarkdown: StylebookRule[] = [
+export const stylebookMarkdown: StylebookMarkdownlintRule[] = [
     brokenImageRule,
     deadLinkRule,
     duplicateLinkRule,
     orderedListNumberRule,
     orderedListSpacesRule,
     unnecessaryBlankLineInListRule,
+    unnecessaryLeadingBlankLineRule,
 ];
 
 const kebabCaseWithOptionalPeriod: string = '^\\.?[a-z][a-z0-9._-]*[a-z0-9]$';

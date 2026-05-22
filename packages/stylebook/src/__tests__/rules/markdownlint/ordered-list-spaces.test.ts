@@ -1,12 +1,12 @@
 import { describe, it } from 'vitest';
-import orderedListSpacesRule from '../../rules/ordered-list-spaces';
-import { type AssertThat, assertThatRule } from '../asserters';
-import assertProperties from '../asserts';
+import orderedListSpacesRule from '../../../rules/markdownlint/ordered-list-spaces';
+import { type AssertThat, assertThatMarkdownlintRule } from '../../asserters';
+import { assertMarkdownlintProperties } from '../../asserts';
 
 describe('OrderedListSpacesRuleTest', () => {
-    const assertThat: AssertThat = assertThatRule(orderedListSpacesRule);
+    const assertThat: AssertThat = assertThatMarkdownlintRule(orderedListSpacesRule);
 
-    it('Rule properties', () => assertProperties(orderedListSpacesRule));
+    it('Rule properties', () => assertMarkdownlintProperties(orderedListSpacesRule));
 
     it(
         'Correct format',

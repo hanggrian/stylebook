@@ -1,5 +1,5 @@
-import StylebookRule from './stylebook-rule.js';
-import messages from '../messages.js';
+import messages from '../../messages.js';
+import StylebookMarkdownlintRule from './stylebook-markdown-rule.js';
 import { execSync } from 'node:child_process';
 import type { RuleConfiguration, RuleOnError } from 'markdownlint';
 
@@ -9,7 +9,7 @@ interface LinkOccurrence {
     context: string;
 }
 
-class DeadLinkRule extends StylebookRule {
+class DeadLinkRule extends StylebookMarkdownlintRule {
     constructor() {
         super('dead-link', 'url');
     }

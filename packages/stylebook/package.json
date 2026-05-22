@@ -41,13 +41,14 @@
   },
   "dependencies": {
     "@prantlf/jsonlint": "^17.0.1",
+    "@probelabs/maid": "^0.0.29",
     "@stylistic/stylelint-plugin": "^5.1.0",
     "chalk": "^5.6.2",
     "htmlhint": "^1.9.2",
+    "lockfile-lint-api": "^5.9.2",
     "markdown-it": "^14.1.1",
     "markdownlint": "^0.40.0",
-    "markdownlint-cli2": "^0.22.1",
-    "stylelint": "^17.9.0"
+    "markdownlint-cli2": "^0.22.1"
   },
   "devDependencies": {
     "@types/node": "25.6.2"

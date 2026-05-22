@@ -6,5 +6,7 @@
   "ordered.list.number": "Replace list number with '{0}'.",
   "ordered.list.spaces.single": "Insert one space after list prefix.",
   "ordered.list.spaces.multi": "Insert two spaces after list prefix.",
-  "unnecessary.blank.line.in.list": "Remove empty line between list item."
+  "trailing.newline": "Put a blank line at the end of the file.",
+  "unnecessary.blank.line.in.list": "Remove empty line between list item.",
+  "unnecessary.leading.blank.line": "Remove blank line at the beginning."
 }

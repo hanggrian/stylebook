@@ -1,0 +1,26 @@
+sequenceDiagram
+  %% SE-AUTONUMBER-MALFORMED: junk following autonumber keyword
+  %% SE-AUTONUMBER-NON-NUMERIC: non-numeric value for autonumber configuration
+  autonumber
+
+  %% SE-AUTONUMBER-EXTRANEOUS: participant declaration on same line as autonumber
+  participant Alice
+
+  %% SE-CREATE-MALFORMED: malformed create statement
+  %% SE-CREATE-MISSING-NAME: create keyword with no target name
+  create participant Bob
+  Alice->>Bob: Hello
+
+  %% SE-DESTROY-MALFORMED: malformed destroy statement
+  %% SE-DESTROY-MISSING-NAME: destroy keyword with no target name
+  destroy Bob
+  Alice->>Bob: Stop
+
+  %% SE-LABEL-ESCAPED-QUOTE: escaped quote in participant name
+  participant A as "test &quot; label"
+
+  %% SE-LABEL-DOUBLE-IN-DOUBLE: nested double quotes in participant name
+  participant B as "hello &quot;world&quot;"
+
+  %% SE-QUOTE-UNCLOSED: unclosed quote at end of line
+  participant C as "unclosed"

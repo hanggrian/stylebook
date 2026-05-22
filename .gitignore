@@ -27,3 +27,6 @@ test-report.junit.xml
 # MkDocs
 site/
 !website/docs
+
+# GoLand
+coverage.out

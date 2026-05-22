@@ -19,5 +19,7 @@
   "tag-no-obsolete": true,
   "tag-pair": true,
   "tagname-lowercase": true,
-  "title-require": true
+  "title-require": true,
+  "trailing-newline": true,
+  "unnecessary-leading-blank-line": true
 }

@@ -1,12 +1,12 @@
 import { describe, it } from 'vitest';
-import brokenImageRule from '../../rules/broken-image';
-import { type AssertThat, assertThatRule } from '../asserters';
-import assertProperties from '../asserts';
+import brokenImageRule from '../../../rules/markdownlint/broken-image';
+import { type AssertThat, assertThatMarkdownlintRule } from '../../asserters';
+import { assertMarkdownlintProperties } from '../../asserts';
 
 describe('BrokenImageRuleTest', () => {
-    const assertThat: AssertThat = assertThatRule(brokenImageRule);
+    const assertThat: AssertThat = assertThatMarkdownlintRule(brokenImageRule);
 
-    it('Rule properties', () => assertProperties(brokenImageRule));
+    it('Rule properties', () => assertMarkdownlintProperties(brokenImageRule));
 
     it(
         'Good image',

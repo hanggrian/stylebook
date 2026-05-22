@@ -28,7 +28,7 @@ class Command {
      * Abstract method to define specific lint command for this linter.
      *
      * @param {boolean} quiet
-     * @param {path[]} targetPaths
+     * @param {string[]} targetPaths
      * @returns {string[]}
      */
     getArguments(quiet, targetPaths) {
@@ -39,7 +39,7 @@ class Command {
      * Run lint command for the given collection of paths.
      *
      * @param {boolean} quiet
-     * @param {path[]} targetPaths
+     * @param {string[]} targetPaths
      * @returns {number}
      */
     execute(quiet, targetPaths) {

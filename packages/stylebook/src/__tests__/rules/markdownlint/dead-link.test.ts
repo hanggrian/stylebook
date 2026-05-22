@@ -1,12 +1,12 @@
 import { describe, it } from 'vitest';
-import deadLinkRule from '../../rules/dead-link';
-import { type AssertThat, assertThatRule } from '../asserters';
-import assertProperties from '../asserts';
+import deadLinkRule from '../../../rules/markdownlint/dead-link';
+import { type AssertThat, assertThatMarkdownlintRule } from '../../asserters';
+import { assertMarkdownlintProperties } from '../../asserts';
 
 describe('DeadLinkRuleTest', () => {
-    const assertThat: AssertThat = assertThatRule(deadLinkRule);
+    const assertThat: AssertThat = assertThatMarkdownlintRule(deadLinkRule);
 
-    it('Rule properties', () => assertProperties(deadLinkRule));
+    it('Rule properties', () => assertMarkdownlintProperties(deadLinkRule));
 
     it(
         'Live link',

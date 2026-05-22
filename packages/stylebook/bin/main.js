@@ -1,11 +1,18 @@
 #!/usr/bin/env node
 
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
-import { dirname, extname, join } from 'node:path';
+import { basename, dirname, extname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { b, blue, cyan, d, green, i, red, yellow } from './colors.js';
-import { HTMLHINT, JSONLINT, MARKDOWNLINT, STYLELINT } from './commands/index.js';
+import {
+    HTMLHINT,
+    JSONLINT,
+    LOCKFILE_LINT,
+    MAID,
+    MARKDOWNLINT,
+    STYLELINT,
+} from './commands/index.js';
 import { getConfigFile } from './files.js';
-import { fileURLToPath } from "node:url";
 
 /**
  * Recursively traverse directories to collect files.
@@ -72,22 +79,16 @@ if (inputArgs.includes('-h') ||
     process.stdout.write(`\u{1f4c4} ${b(cyan('Paths:'))}\n`);
     process.stdout.write(
         '   file      Supports ' +
-        `${i('.css')}, ` +
-        `${i('.html')}, ` +
-        `${i('.htm')}, ` +
-        `${i('.mhtml')}, ` +
-        `${i('.mthm')}, ` +
-        `${i('.json')},\n`,
+        `${i('CSS')}, ` +
+        `${i('HTML')}, ` +
+        `${i('JSON')}, ` +
+        `${i('Lockfile')}, ` +
+        `${i('Markdown')}, ` +
+        `${i('Mermaid')} and their\n`,
     );
-    process.stdout.write(
-        '             ' +
-        `${i('.jsonc')}, ` +
-        `${i('.cjson')}, ` +
-        `${i('.json5')}, ` +
-        `${i('.md')}\n`,
-    );
+    process.stdout.write('             variants\n');
     process.stdout.write('   dir       Recursively find files in this directory\n');
-    process.stdout.write(`   pattern   For example, ${i('*.json')} for all JSON files in this\n`);
+    process.stdout.write(`   pattern   For example, ${i('*.css')} for all CSS files in this\n`);
     process.stdout.write(`             directory, ${i('**/*')} for all files\n\n`);
     process.stdout.write(`\u2699\ufe0f  ${b(blue('Options:'))}\n`);
     process.stdout.write('   -e  [ --exclude ] arg   List of files or directories to ignore\n');
@@ -120,16 +121,26 @@ const commands =
         [STYLELINT, []],
         [HTMLHINT, []],
         [JSONLINT, []],
+        [LOCKFILE_LINT, []],
+        [MAID, []],
         [MARKDOWNLINT, []],
     ]);
 inputArgs
     .filter(arg => !['-q', '--quiet'].includes(arg))
     .flatMap(arg => walk(arg, exclude))
+    .filter((path, index, self) => self.indexOf(path) === index)
     .forEach(targetPath => {
+        const filename = basename(targetPath);
+        if (filename === 'package-lock.json' ||
+            filename === 'npm-shrink.json' ||
+            filename === 'yarn.lock') {
+            commands.get(LOCKFILE_LINT).push(targetPath);
+            return;
+        }
         switch (extname(targetPath).toLowerCase()) {
             case '.css':
                 commands.get(STYLELINT).push(targetPath);
-                break;
+                break
 
             case '.html':
             case '.htm':
@@ -147,6 +158,11 @@ inputArgs
 
             case '.md':
                 commands.get(MARKDOWNLINT).push(targetPath);
+                break;
+
+            case '.mmd':
+            case '.mermaid':
+                commands.get(MAID).push(targetPath);
                 break;
         }
     });
@@ -202,5 +218,7 @@ if (empty) {
     process.stderr.write(`\u{1f47b} ${yellow('No files to lint.')}\n`);
     process.exit(1);
 }
-process.stdout.write(`\u{1f389} ${green('All linters passed, no violation found.')}\n`);
+if (!quiet) {
+    process.stdout.write(`\u{1f389} ${green('All linters passed, no violation found.')}\n`);
+}
 process.exit(0);

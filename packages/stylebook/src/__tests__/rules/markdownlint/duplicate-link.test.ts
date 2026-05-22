@@ -1,12 +1,12 @@
 import { describe, it } from 'vitest';
-import duplicateLinkRule from '../../rules/duplicate-link';
-import { type AssertThat, assertThatRule } from '../asserters';
-import assertProperties from '../asserts';
+import duplicateLinkRule from '../../../rules/markdownlint/duplicate-link';
+import { type AssertThat, assertThatMarkdownlintRule } from '../../asserters';
+import { assertMarkdownlintProperties } from '../../asserts';
 
 describe('DuplicateLinkRuleTest', () => {
-    const assertThat: AssertThat = assertThatRule(duplicateLinkRule);
+    const assertThat: AssertThat = assertThatMarkdownlintRule(duplicateLinkRule);
 
-    it('Rule properties', () => assertProperties(duplicateLinkRule));
+    it('Rule properties', () => assertMarkdownlintProperties(duplicateLinkRule));
 
     it(
         'Unique links',

@@ -12,6 +12,10 @@ class MarkdownlintCommand extends Command {
         super('markdownlint-cli2', 'markdownlint-cli2.json');
     }
 
+    isAvailable() {
+        return true;
+    }
+
     execute(_, targetPaths) {
         let hasErrors = false;
         for (const [filePath, errors] of Object.entries(

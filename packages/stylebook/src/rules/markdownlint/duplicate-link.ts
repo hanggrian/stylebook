@@ -1,5 +1,5 @@
-import StylebookRule from './stylebook-rule.js';
-import messages from '../messages.js';
+import messages from '../../messages.js';
+import StylebookMarkdownlintRule from './stylebook-markdown-rule.js';
 import type { RuleConfiguration, RuleOnError } from 'markdownlint';
 
 interface LinkOccurrence {
@@ -7,7 +7,7 @@ interface LinkOccurrence {
     context: string;
 }
 
-class DuplicateLinkRule extends StylebookRule {
+class DuplicateLinkRule extends StylebookMarkdownlintRule {
     constructor() {
         super('duplicate-link', 'links');
     }

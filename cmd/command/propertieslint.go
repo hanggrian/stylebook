@@ -2,8 +2,9 @@ package command
 
 import (
 	"fmt"
+	"os"
 
-	"github.com/hanggrian/propertieslint/propertieslint"
+	"github.com/hanggrian/propertieslint/linter"
 )
 
 type PropertieslintCommand struct {
@@ -14,7 +15,7 @@ type PropertieslintCommand struct {
 var Propertieslint = PropertieslintCommand{
 	BaseCommand: BaseCommand{
 		Binary:     "propertieslint",
-		ConfigFile: nil,
+		ConfigFile: ptr("propertieslint.json"),
 	},
 }
 
@@ -22,29 +23,29 @@ func (c *PropertieslintCommand) IsAvailable() bool {
 	return true
 }
 
-func (c *PropertieslintCommand) Execute(l Linter, _ bool, targetPaths []string) int {
-	config, err := propertieslint.LoadConfig(propertieslint.ResolveConfigPath(c.GetConfigFile()))
+func (c *PropertieslintCommand) Execute(_ Linter, _ bool, targetPaths []string) int {
+	config, err := linter.LoadConfig(linter.ResolveConfigPath(c.GetConfigFile()))
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		return 1
 	}
 
-	result, err := propertieslint.Targets(targetPaths, config)
+	result, err := linter.Targets(targetPaths, config)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		return 2
 	}
 
 	for _, issue := range result.Issues {
-		fmt.Printf("%s: %s\n", embedPath(issue.Path, issue.Line, issue.Column), issue.Message)
+		fmt.Fprintf(
+			os.Stderr,
+			"%s: %s\n",
+			embedPath(issue.Path, issue.Line, issue.Column),
+			issue.Message,
+		)
 	}
 	if len(result.Issues) > 0 {
 		return 1
 	}
-	if result.CheckedFiles == 0 {
-		fmt.Println("no properties files found")
-		return 1
-	}
-	fmt.Printf("lint ok: %d file(s) checked\n", result.CheckedFiles)
 	return 0
 }

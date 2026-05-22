@@ -6,7 +6,7 @@
 [![NPM](https://shields.io/npm/v/@hanggrian/stylebook)](https://npmjs.com/package/@hanggrian/stylebook/)\
 [![Python](https://shields.io/badge/python-3.10+-informational)](https://docs.python.org/3.10/)
 [![Node](https://shields.io/badge/node-12+-informational)](https://nodejs.org/en/blog/release/v12.0.0/)
-[![Go](https://img.shields.io/github/go-mod/go-version/hanggrian/stylebook)](https://go.dev/doc/go1.24)
+[![Go](https://img.shields.io/github/go-mod/go-version/hanggrian/stylebook)](https://go.dev/doc/go1.26/)
 
 # Stylebook
 
@@ -29,7 +29,7 @@ broken images.
   </thead>
   <tbody>
     <tr>
-      <td rowspan="9">Go</td>
+      <td rowspan="10">Go</td>
       <td>Makefile</td>
       <td>
         <a href="https://github.com/checkmake/checkmake/">
@@ -78,14 +78,14 @@ broken images.
       <td><code>.hadolint.yaml</code></td>
     </tr>
     <tr>
-      <td>Shell</td>
+      <td>go.mod</td>
       <td>
-        <a href="https://github.com/koalaman/shellcheck/">
-          ShellCheck
+        <a href="https://github.com/ldez/gomoddirectives/">
+          gomoddirectives
         </a>
       </td>
       <td></td>
-      <td><code>.shellcheckrc</code></td>
+      <td></td>
     </tr>
     <tr>
       <td>Properties</td>
@@ -98,7 +98,7 @@ broken images.
       <td><code>.propertieslint.json</code></td>
     </tr>
     <tr>
-      <td>Proto</td>
+      <td>Protobuf</td>
       <td>
         <a href="https://github.com/yoheimuta/protolint/">
           protolint
@@ -110,6 +110,16 @@ broken images.
         </a>
       </td>
       <td><code>.buf.yaml</code></td>
+    </tr>
+    <tr>
+      <td>Shell</td>
+      <td>
+        <a href="https://github.com/koalaman/shellcheck/">
+          ShellCheck
+        </a>
+      </td>
+      <td></td>
+      <td><code>.shellcheckrc</code></td>
     </tr>
     <tr>
       <td>Terraform</td>
@@ -209,7 +219,7 @@ broken images.
       <td><code>.yamllintrc.yaml</code></td>
     </tr>
     <tr>
-      <td rowspan="4">Node</td>
+      <td rowspan="6">Node</td>
       <td>CSS</td>
       <td>
         <a href="https://github.com/stylelint/stylelint/">
@@ -252,6 +262,26 @@ broken images.
       <td><code>.jsonlintrc.json</code></td>
     </tr>
     <tr>
+      <td>Lockfile</td>
+      <td>
+        <a href="https://github.com/lirantal/lockfile-lint/">
+          lockfile-lint
+        </a>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Mermaid</td>
+      <td>
+        <a href="https://github.com/probelabs/maid/">
+          Maid
+        </a>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
       <td>Markdown</td>
       <td>
         <a href="https://github.com/davidanson/markdownlint/">
@@ -281,8 +311,8 @@ Several linters must be installed separatedly, preferably at OS level:
 
 ### Go
 
-csvlint and protolint are brought in as dependencies. Other linters need to be
-installed to get the binaries.
+Most linters are brought in as dependencies, but others need to be installed to
+get the binaries.
 
 ```sh
 go install github.com/hanggrian/stylebook@latest
@@ -300,14 +330,12 @@ pip install stylebook
 
 ### NPM
 
-In NPM, dependencies can be selectively imported.
+Most linters are brought in as dependencies, except for Stylelint, which needs
+to be installed in the root `package.json`.
 
 ```sh
 npm i @hanggrian/stylebook \
-  stylelint @stylistic/stylelint-plugin stylelint-config-recommended \
-  htmlhint \
-  @prantlf/jsonlint \
-  markdownlint markdownlint-cli2 --save-dev
+  stylelint @stylistic/stylelint-plugin stylelint-config-recommended --save-dev
 ```
 
 ## Usage

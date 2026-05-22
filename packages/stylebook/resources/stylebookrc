@@ -17,9 +17,7 @@ uv.lock
 
 # Node
 node_modules/
-package-lock.json
 pnpm-lock.yaml
-yarn.lock
 
 # Ruby
 _site/

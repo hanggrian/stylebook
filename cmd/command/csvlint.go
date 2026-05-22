@@ -3,6 +3,8 @@ package command
 import (
 	"fmt"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/Clever/csvlint"
 )
@@ -23,34 +25,39 @@ func (c *CsvlintCommand) IsAvailable() bool {
 	return true
 }
 
-func (c *CsvlintCommand) Execute(l Linter, _ bool, targetPaths []string) int {
+func (c *CsvlintCommand) Execute(_ Linter, _ bool, targetPaths []string) int {
 	finalCode := 0
-	for _, p := range targetPaths {
-		file, err := os.Open(p)
+	for _, path := range targetPaths {
+		delimiter := ','
+		if strings.ToLower(filepath.Ext(path)) == ".tsv" {
+			delimiter = '\t'
+		}
+
+		file, err := os.Open(path)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error opening file %s: %v\n", p, err)
+			fmt.Fprintf(os.Stderr, "Error opening file %s: %v\n", path, err)
 			finalCode = 1
 			continue
 		}
 		defer file.Close()
 
-		invalids, halted, err := csvlint.Validate(file, ',', false)
+		invalids, halted, err := csvlint.Validate(file, delimiter, false)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error validating %s: %v\n", p, err)
+			fmt.Fprintf(os.Stderr, "Error validating %s: %v\n", path, err)
 			finalCode = 1
 			continue
 		}
 
 		if len(invalids) > 0 {
-			fmt.Printf("%s\n", p)
+			fmt.Printf("%s\n", path)
 			for _, invalid := range invalids {
-				fmt.Printf("  %s\n", invalid.Error())
+				fmt.Fprintf(os.Stderr, "  %s\n", invalid.Error())
 			}
 			finalCode = 1
 		}
 
 		if halted {
-			fmt.Printf("  (unable to parse any further)\n")
+			fmt.Fprintf(os.Stderr, "  (unable to parse any further)\n")
 		}
 	}
 	return finalCode

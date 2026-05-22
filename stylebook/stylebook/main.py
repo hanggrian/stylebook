@@ -51,13 +51,15 @@ def run() -> None:
         print(f'\U0001f4c4 {b(cyan('Paths:'))}')
         print(
             f'   file      Supports '
-            f'{i('.env')}, '
-            f'{i('.sql')}, '
-            f'{i('.toml')}, '
-            f'{i('.yaml')}',
+            f'{i('Batch')}, '
+            f'{i('Dotenv')}, '
+            f'{i('INI')}, '
+            f'{i('SQL')}, '
+            f'{i('TOML')}, '
+            f'{i('YAML')} and their variants',
         )
         print('   dir       Recursively find files in this directory')
-        print(f'   pattern   For example, {i('*.json')} for all JSON files in this')
+        print(f'   pattern   For example, {i('*.bat')} for all Batch files in this')
         print(f'             directory, {i('**/*')} for all files\n')
         print(f'\u2699\ufe0f  {b(blue('Options:'))}')
         print('   -e  [ --exclude ] arg   List of files or directories to ignore')
@@ -82,11 +84,13 @@ def run() -> None:
         TAPLO: [],
         YAMLLINT: [],
     }
-    for target_path in [
-        path for arg in input_args \
-        for path in walk(Path(arg), exclude) \
-        if arg not in ('-q', '--quiet')
-    ]:
+    for target_path in list(
+        dict.fromkeys(
+            path for arg in input_args
+            for path in walk(Path(arg), exclude)
+            if arg not in ('-q', '--quiet')
+        ),
+    ):
         filename: Path = Path(target_path)
         if filename.name == '.env' or \
             filename.name.startswith('.env.'):
@@ -149,5 +153,6 @@ def run() -> None:
     if empty:
         print(f'\U0001f47b {yellow('No files to lint.')}')
         exit2(1)
-    print(f'\U0001f389 {green('All linters passed, no violation found.')}')
+    if not quiet:
+        print(f'\U0001f389 {green('All linters passed, no violation found.')}')
     exit2(0)

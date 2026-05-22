@@ -2,10 +2,10 @@
   "duplicate-blank-line": true,
   "duplicate-key": true,
   "invalid-escape": true,
-  "missing-separator": true,
+  "missing-key-value-separator": true,
   "missing-value": true,
   "no-leading-blank-line": true,
   "trailing-newline": true,
-  "unterminated-continuation": true,
+  "unterminated-line-continuation": true,
   "untrimmed-entry": true
 }

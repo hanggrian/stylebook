@@ -1,0 +1,8 @@
+sequenceDiagram
+  %% SE-BLOCK-MISSING-END: critical block missing end tag
+  %% SE-ELSE-IN-CRITICAL: else inside critical block
+  critical action
+      Alice->>Bob: message
+  option alternative
+      Alice->>Bob: message
+  end

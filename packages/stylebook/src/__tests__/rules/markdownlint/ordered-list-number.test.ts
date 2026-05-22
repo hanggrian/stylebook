@@ -1,12 +1,12 @@
 import { describe, it } from 'vitest';
-import orderedListNumberRule from '../../rules/ordered-list-number';
-import { type AssertThat, assertThatRule } from '../asserters';
-import assertProperties from '../asserts';
+import orderedListNumberRule from '../../../rules/markdownlint/ordered-list-number';
+import { type AssertThat, assertThatMarkdownlintRule } from '../../asserters';
+import { assertMarkdownlintProperties } from '../../asserts';
 
 describe('OrderedListNumberRuleTest', () => {
-    const assertThat: AssertThat = assertThatRule(orderedListNumberRule);
+    const assertThat: AssertThat = assertThatMarkdownlintRule(orderedListNumberRule);
 
-    it('Rule properties', () => assertProperties(orderedListNumberRule));
+    it('Rule properties', () => assertMarkdownlintProperties(orderedListNumberRule));
 
     it('Passes single item', () => assertThat('1. Lorem').hasNoError());
 

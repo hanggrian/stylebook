@@ -1,0 +1,18 @@
+sequenceDiagram
+  %% SE-MSG-COLON-MISSING: missing colon after target
+  Alice->>Bob: message
+
+  %% SE-NOTE-MALFORMED: missing colon after note
+  Note over Alice: note text
+
+  %% SE-ARROW-INVALID: invalid sequence arrow token
+  Alice->>Bob: message
+
+  %% SE-ELSE-OUTSIDE-ALT: else block without alt container
+  %% SE-AND-OUTSIDE-PAR: and block without par container
+  %% SE-END-WITHOUT-BLOCK: end without starting block
+  alt condition
+      Alice->>Bob: test
+  else alternative
+      Alice->>Bob: test
+  end

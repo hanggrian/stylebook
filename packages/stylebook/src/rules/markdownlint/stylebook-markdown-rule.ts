@@ -1,6 +1,6 @@
 import type { Rule, RuleConfiguration, RuleOnError, RuleParams } from 'markdownlint';
 
-abstract class StylebookRule implements Rule {
+abstract class StylebookMarkdownlintRule implements Rule {
     readonly names: string[];
     readonly description: string;
     readonly tags: string[];
@@ -18,7 +18,7 @@ abstract class StylebookRule implements Rule {
             let isCodeFence = false;
             this.visit(
                 lines.map(line => {
-                    if (StylebookRule.CODE_FENCE_REGEX.test(line)) {
+                    if (StylebookMarkdownlintRule.CODE_FENCE_REGEX.test(line)) {
                         isCodeFence = !isCodeFence;
                     }
                     return isCodeFence
@@ -35,4 +35,4 @@ abstract class StylebookRule implements Rule {
     private static CODE_FENCE_REGEX: RegExp = /^```/;
 }
 
-export default StylebookRule;
+export default StylebookMarkdownlintRule;

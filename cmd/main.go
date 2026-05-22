@@ -12,8 +12,6 @@ import (
 	"github.com/hanggrian/stylebook/cmd/files"
 )
 
-var Version = "dev"
-
 func walk(targetPath string, exclude []string) []string {
 	cleaned := filepath.Clean(targetPath)
 	parts := strings.Split(cleaned, string(os.PathSeparator))
@@ -43,6 +41,7 @@ func walk(targetPath string, exclude []string) []string {
 }
 
 func Execute() error {
+	// parse input arguments
 	inputArgs := os.Args[1:]
 	if len(inputArgs) == 0 {
 		fmt.Fprintln(os.Stderr, Red("Need a path."))
@@ -80,24 +79,32 @@ func Execute() error {
 		if arg == "-h" ||
 			arg == "--help" {
 			fmt.Printf("Go runner for Stylebook linter aggregator\n\n")
-			fmt.Printf("\U0001f680 %s\n", Bold("Usage:"))
+			fmt.Printf("\U0001f680 %s\n", B("Usage:"))
 			fmt.Printf("   stylebook %s %s\n\n", Cyan("<paths>"), Blue("[options]"))
-			fmt.Printf("\U0001f4c4 %s\n", Bold(Cyan("Paths:")))
+			fmt.Printf("\U0001f4c4 %s\n", B(Cyan("Paths:")))
 			fmt.Printf(
-				"   file      Supports %s, %s, %s, %s, %s\n",
-				Italic(".csv"),
-				Italic(".dockerfile"),
-				Italic(".proto"),
-				Italic(".sh"),
-				Italic(".xml"),
+				"   file      Supports %s, %s, %s, %s, %s, %s,\n",
+				I("CSV"),
+				I("LaTeX"),
+				I("Dockerfile"),
+				I("go.mod"),
+				I("Makefile"),
+				I("Properties"),
+			)
+			fmt.Printf(
+				"             %s, %s, %s, %s and their variants \n",
+				I("Protobuf"),
+				I("Shell"),
+				I("Terraform"),
+				I("XML"),
 			)
 			fmt.Printf("   dir       Recursively find files in this directory\n")
 			fmt.Printf(
 				"   pattern   For example, %s for all CSV files in this\n",
-				Italic("*.csv"),
+				I("*.csv"),
 			)
-			fmt.Printf("             directory, %s for all files\n\n", Italic("**/*"))
-			fmt.Printf("\u2699\ufe0f  %s\n", Bold(Blue("Options:")))
+			fmt.Printf("             directory, %s for all files\n\n", I("**/*"))
+			fmt.Printf("\u2699\ufe0f  %s\n", B(Blue("Options:")))
 			fmt.Printf("   -e  [ --exclude ] arg   List of files or directories to ignore\n")
 			fmt.Printf("   -h  [ --help ]          Display this message\n")
 			fmt.Printf("   -q  [ --quiet ]         Disable verbose output\n")
@@ -106,7 +113,13 @@ func Execute() error {
 		}
 		if arg == "-v" ||
 			arg == "--version" {
-			fmt.Printf("stylebook %s\n", Bold(resolveVersion()))
+			version := "dev"
+			if info, ok := debug.ReadBuildInfo(); ok {
+				if info.Main.Version != "(devel)" {
+					version = info.Main.Version
+				}
+			}
+			fmt.Printf("stylebook %s\n", B(version))
 			return nil
 		}
 		if arg == "-q" ||
@@ -114,10 +127,13 @@ func Execute() error {
 			quiet = true
 		}
 	}
+
+	// insert target paths to corresponding command
 	commands := make(map[string][]string)
 	commands[command.Checkmake.GetBinary()] = []string{}
 	commands[command.Chktex.GetBinary()] = []string{}
 	commands[command.Csvlint.GetBinary()] = []string{}
+	commands[command.Gomoddirectives.GetBinary()] = []string{}
 	commands[command.Hadolint.GetBinary()] = []string{}
 	commands[command.Propertieslint.GetBinary()] = []string{}
 	commands[command.Protolint.GetBinary()] = []string{}
@@ -129,6 +145,7 @@ func Execute() error {
 			command.Checkmake.GetBinary(),
 			command.Chktex.GetBinary(),
 			command.Csvlint.GetBinary(),
+			command.Gomoddirectives.GetBinary(),
 			command.Hadolint.GetBinary(),
 			command.Propertieslint.GetBinary(),
 			command.Protolint.GetBinary(),
@@ -136,12 +153,17 @@ func Execute() error {
 			command.Tflint.GetBinary(),
 			command.Xmllint.GetBinary(),
 		}
+	seen := make(map[string]bool)
 	for _, arg := range remainingArgs {
 		if arg == "-q" ||
 			arg == "--quiet" {
 			continue
 		}
 		for _, path := range walk(arg, exclude) {
+			if seen[path] {
+				continue
+			}
+			seen[path] = true
 			filename := filepath.Base(path)
 			if filename == "Makefile" ||
 				filename == "makefile" ||
@@ -158,8 +180,13 @@ func Execute() error {
 					append(commands[command.Hadolint.GetBinary()], path)
 				continue
 			}
+			if filename == "go.mod" {
+				commands[command.Gomoddirectives.GetBinary()] =
+					append(commands[command.Gomoddirectives.GetBinary()], path)
+				continue
+			}
 			switch strings.ToLower(filepath.Ext(path)) {
-			case ".csv":
+			case ".csv", ".tsv":
 				commands[command.Csvlint.GetBinary()] =
 					append(commands[command.Csvlint.GetBinary()], path)
 
@@ -191,7 +218,7 @@ func Execute() error {
 	}
 	if !quiet {
 		for _, binaryName := range order {
-			title := Bold(binaryName)
+			title := B(binaryName)
 			paths := commands[binaryName]
 			var cmd command.Linter
 			switch binaryName {
@@ -201,6 +228,8 @@ func Execute() error {
 				cmd = &command.Chktex
 			case command.Csvlint.GetBinary():
 				cmd = &command.Csvlint
+			case command.Gomoddirectives.GetBinary():
+				cmd = &command.Gomoddirectives
 			case command.Hadolint.GetBinary():
 				cmd = &command.Hadolint
 			case command.Propertieslint.GetBinary():
@@ -227,11 +256,13 @@ func Execute() error {
 				ext := filepath.Ext(path)
 				root := path[:len(path)-len(ext)]
 				slash := strings.LastIndex(root, "/") + 1
-				fmt.Printf("   %s%s%s\n", Dim(root[:slash]), root[slash:], Italic(ext))
+				fmt.Printf("   %s%s%s\n", D(root[:slash]), root[slash:], I(ext))
 			}
 		}
 		fmt.Println()
 	}
+
+	// report result
 	empty := true
 	var violatingLinters []string
 	for _, binaryName := range order {
@@ -244,6 +275,8 @@ func Execute() error {
 			cmd = &command.Chktex
 		case command.Csvlint.GetBinary():
 			cmd = &command.Csvlint
+		case command.Gomoddirectives.GetBinary():
+			cmd = &command.Gomoddirectives
 		case command.Hadolint.GetBinary():
 			cmd = &command.Hadolint
 		case command.Propertieslint.GetBinary():
@@ -274,7 +307,7 @@ func Execute() error {
 			Red(
 				fmt.Sprintf(
 					"Linter(s) reported violations: %s.",
-					Bold(strings.Join(violatingLinters, ", ")),
+					B(strings.Join(violatingLinters, ", ")),
 				),
 			),
 		)
@@ -284,16 +317,9 @@ func Execute() error {
 		fmt.Printf("\U0001f47b %s\n", Yellow("No files to lint."))
 		os.Exit(1)
 	}
-	fmt.Printf("\U0001f389 %s\n", Green("All linters passed, no violation found."))
+	if !quiet {
+		fmt.Printf("\U0001f389 %s\n", Green("All linters passed, no violation found."))
+	}
 	os.Exit(0)
 	return nil
-}
-
-func resolveVersion() string {
-	if info, ok := debug.ReadBuildInfo(); ok {
-		if info.Main.Version != "(devel)" {
-			return info.Main.Version
-		}
-	}
-	return "dev"
 }

@@ -1,12 +1,12 @@
 import { describe, it } from 'vitest';
-import unnecessaryBlankLineInListRule from '../../rules/unnecessary-blank-line-in-list';
-import { type AssertThat, assertThatRule } from '../asserters';
-import assertProperties from '../asserts';
+import unnecessaryBlankLineInListRule from '../../../rules/markdownlint/unnecessary-blank-line-in-list';
+import { type AssertThat, assertThatMarkdownlintRule } from '../../asserters';
+import { assertMarkdownlintProperties } from '../../asserts';
 
 describe('UnnecessaryBlankLineInListRuleTest', () => {
-    const assertThat: AssertThat = assertThatRule(unnecessaryBlankLineInListRule);
+    const assertThat: AssertThat = assertThatMarkdownlintRule(unnecessaryBlankLineInListRule);
 
-    it('Rule properties', () => assertProperties(unnecessaryBlankLineInListRule));
+    it('Rule properties', () => assertMarkdownlintProperties(unnecessaryBlankLineInListRule));
 
     it(
         'Correct lists',

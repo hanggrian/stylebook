@@ -1,0 +1,32 @@
+flowchart TD
+  %% FL-DIR-KW-INVALID: wrong keyword before direction
+  direction TD
+
+  %% FL-LINK-MISSING: two nodes on one line without link
+  J --> K
+
+  %% FL-META-UNSUPPORTED: title tag inside flowchart
+  %% FL-END-WITHOUT-SUBGRAPH: end without subgraph block
+  %% FL-SUBGRAPH-MISSING-HEADER: subgraph without header name
+  subgraph Box
+      L --> M
+  end
+
+  %% FL-NODE-UNCLOSED-BRACKET: [ without ]
+  %% FL-NODE-MIXED-BRACKETS: ({ })
+  N([mixed])
+
+  %% FL-NODE-EMPTY: empty brackets
+  O
+
+  %% FL-QUOTE-UNCLOSED: unclosed quote in node
+  P["closed"]
+
+  %% FL-CLASS-MALFORMED: invalid class syntax
+  %% FL-LINKSTYLE-ID-UNKNOWN: linkStyle references non-existent link ID
+  %% FL-EDGE-ATTR-ID-UNKNOWN: edge attribute references non-existent link ID
+  Q --> R
+  linkStyle 0 stroke:#f00
+
+  %% FL-STRICT-LABEL-QUOTES-REQUIRED: strict quotes formatting rule violation
+  S["strict text"]

@@ -1,8 +1,8 @@
-import messages from '../messages.js';
-import StylebookRule from './stylebook-rule.js';
+import messages from '../../messages.js';
+import StylebookMarkdownlintRule from './stylebook-markdown-rule.js';
 import type { RuleConfiguration, RuleOnError } from 'markdownlint';
 
-class UnnecessaryBlankLineInListRule extends StylebookRule {
+class UnnecessaryBlankLineInListRule extends StylebookMarkdownlintRule {
     constructor() {
         super('unnecessary-blank-line-in-list', 'syntax');
     }
@@ -11,7 +11,7 @@ class UnnecessaryBlankLineInListRule extends StylebookRule {
         for (let i = 0; i < lines.length; i++) {
             // target blank lines
             const line: string = lines[i];
-            if (!this.isBlank(line)) {
+            if (!UnnecessaryBlankLineInListRule.isBlank(line)) {
                 continue;
             }
 
@@ -20,7 +20,7 @@ class UnnecessaryBlankLineInListRule extends StylebookRule {
                 lines
                     .slice(0, i)
                     .reverse()
-                    .find(l => !this.isBlank(l));
+                    .find(l => !UnnecessaryBlankLineInListRule.isBlank(l));
             if (!prevLine ||
                 !UnnecessaryBlankLineInListRule.ANY_ITEM.test(prevLine)) {
                 continue;
@@ -28,7 +28,8 @@ class UnnecessaryBlankLineInListRule extends StylebookRule {
 
             // collect non-blank lines
             const remaining: string[] = lines.slice(i + 1);
-            const nextNonEmpty: string | undefined = remaining.find(l => !this.isBlank(l));
+            const nextNonEmpty: string | undefined =
+                remaining.find(l => !UnnecessaryBlankLineInListRule.isBlank(l));
             if (!nextNonEmpty) {
                 continue;
             }
@@ -47,13 +48,14 @@ class UnnecessaryBlankLineInListRule extends StylebookRule {
                             : undefined,
                     ).some(
                         l =>
-                            !this.isBlank(l) &&
+                            !UnnecessaryBlankLineInListRule.isBlank(l) &&
                             !UnnecessaryBlankLineInListRule.ANY_ITEM.test(l),
                     ) ||
                 !UnnecessaryBlankLineInListRule.ANY_ITEM.test(nextNonEmpty) ||
                 UnnecessaryBlankLineInListRule.ORDERED_ITEM.test(prevLine) !==
                 UnnecessaryBlankLineInListRule.ORDERED_ITEM.test(nextNonEmpty) ||
-                this.indent(prevLine) !== this.indent(nextNonEmpty)) {
+                UnnecessaryBlankLineInListRule.indent(prevLine) !==
+                UnnecessaryBlankLineInListRule.indent(nextNonEmpty)) {
                 continue;
             }
 
@@ -70,18 +72,18 @@ class UnnecessaryBlankLineInListRule extends StylebookRule {
         }
     }
 
-    isBlank(s: string): boolean {
-        return s.trim() === '';
-    }
-
-    indent(line: string): number {
-        return line.match(/^(\s*)/)?.[1].length ?? 0;
-    }
-
     private static MSG: string = 'unnecessary.blank.line.in.list';
 
     private static ANY_ITEM: RegExp = /^\s*(\d+\.|[-*+])\s/;
     private static ORDERED_ITEM: RegExp = /^\s*\d+\.\s/;
+
+    private static isBlank(s: string): boolean {
+        return s.trim() === '';
+    }
+
+    private static indent(line: string): number {
+        return line.match(/^(\s*)/)?.[1].length ?? 0;
+    }
 }
 
 export default new UnnecessaryBlankLineInListRule();

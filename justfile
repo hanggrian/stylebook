@@ -13,14 +13,16 @@ format:
     gofmt -w .
 
 test:
+    go test ./rules/...
     pnpm -r test
 
 coverage:
+    go test -coverprofile=coverage.out ./rules/...
     pnpm -r coverage
 
 documentation:
     rm -rf build/doc2go/
-    doc2go -out build/doc2go/ ./...
+    doc2go -out build/doc2go/ ./rules/...
     uv run poe documentation
     pnpm documentation
 

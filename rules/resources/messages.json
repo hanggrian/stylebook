@@ -1,0 +1,5 @@
+{
+  "duplicate.blank.line": "Remove consecutive blank line.",
+  "trailing.newline": "Put a blank line at the end of the file.",
+  "unnecessary.leading.blank.line": "Remove blank line at the beginning."
+}
