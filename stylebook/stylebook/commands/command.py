@@ -16,7 +16,7 @@ class Command:
         """Returns true if package is installed."""
         return run(
             ['where' if platform == 'win32' else 'which', self.binary],
-            check=True,
+            check=False,
             capture_output=True,
         ).returncode == 0
 
@@ -31,7 +31,7 @@ class Command:
                 self.binary,
                 *self.get_arguments(quiet, target_paths),
             ],
-            check=True,
+            check=False,
             capture_output=False,
         ).returncode
 

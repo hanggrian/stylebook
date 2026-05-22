@@ -29,7 +29,7 @@ broken images.
   </thead>
   <tbody>
     <tr>
-      <td rowspan="8">Go</td>
+      <td rowspan="9">Go</td>
       <td>Makefile</td>
       <td>
         <a href="https://github.com/checkmake/checkmake/">
@@ -85,7 +85,17 @@ broken images.
         </a>
       </td>
       <td></td>
+      <td><code>.shellcheckrc</code></td>
+    </tr>
+    <tr>
+      <td>Properties</td>
+      <td>
+        <a href="https://github.com/hanggrian/propertieslint/">
+          propertieslint
+        </a>
+      </td>
       <td></td>
+      <td><code>.propertieslint.json</code></td>
     </tr>
     <tr>
       <td>Proto</td>
@@ -126,11 +136,31 @@ broken images.
       <td></td>
     </tr>
     <tr>
-      <td rowspan="4">Python</td>
+      <td rowspan="6">Python</td>
+      <td>Batch</td>
+      <td>
+        <a href="https://github.com/tboy1337/Blinter/">
+          Blinter
+        </a>
+      </td>
+      <td></td>
+      <td><code>blinter.ini</code></td>
+    </tr>
+    <tr>
       <td>Dotenv</td>
       <td>
         <a href="https://github.com/wemake-services/dotenv-linter/">
           dotenv-linter
+        </a>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>INI</td>
+      <td>
+        <a href="https://gitlab.com/danieljrmay/pyinilint/">
+          PyINILint
         </a>
       </td>
       <td></td>

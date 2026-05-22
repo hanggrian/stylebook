@@ -58,7 +58,20 @@ theme:
   favicon: images/favicon.ico
   logo: images/icon.svg
   palette:
-  - medght mode
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: purple
+    accent: amber
+    toggle:
+      icon: material/brightness-7
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: deep purple
+    accent: amber
+    toggle:
+      icon: material/brightness-4
+      name: Switch to light mode
   icon:
     repo: material/github
   features:
@@ -85,14 +98,18 @@ nav:
   - TOML rules: rules/toml.md
   - YAML rules: rules/yaml.md
   - External links:
+    - Checkmake rules: https://github.com/checkmake/checkmake/tree/main/rules?ext
     - Hadolint rules: https://github.com/hadolint/hadolint#rules?ext
     - HTMLHint rules: https://htmlhint.com/rules/?ext
     - JSON Lint rules: https://www.npmjs.com/package/@prantlf/jsonlint/?ext
     - Markdownlint rules: https://github.com/DavidAnson/markdownlint/tree/main/doc/?ext
+    - Protolint rules: https://github.com/yoheimuta/protolint/?ext
     - SQLFluff rules: https://docs.sqlfluff.com/en/stable/reference/rules.html?ext
     - Stylelint rules: https://stylelint.io/user-guide/rules/?ext
+    - TFLint rules: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/main/docs/rules/README.md?ext
     - Taplo rules: https://taplo.tamasfe.dev/configuration/formatter-options.html?ext
     - yamllint rules: https://yamllint.readthedocs.io/en/stable/rules.html?ext
+- GoDoc: api/godoc
 - Pydoc: api/pydoc
 - TSDoc: api/tsdoc
 # yamllint enable

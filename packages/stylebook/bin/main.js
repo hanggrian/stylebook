@@ -1,13 +1,11 @@
 #!/usr/bin/env node
 
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
-import { extname, join } from 'node:path';
+import { dirname, extname, join } from 'node:path';
 import { b, blue, cyan, d, green, i, red, yellow } from './colors.js';
 import { HTMLHINT, JSONLINT, MARKDOWNLINT, STYLELINT } from './commands/index.js';
 import { getConfigFile } from './files.js';
-
-const APP_BINARY = 'stylebook';
-const APP_VERSION = '0.2';
+import { fileURLToPath } from "node:url";
 
 /**
  * Recursively traverse directories to collect files.
@@ -68,9 +66,9 @@ if (!exclude.size) {
 }
 if (inputArgs.includes('-h') ||
     inputArgs.includes('--help')) {
-    process.stdout.write('Helper for Stylebook linter extensions\n\n');
+    process.stdout.write('Node runner for Stylebook linter aggregator\n\n');
     process.stdout.write(`\u{1f680} ${b('Usage:')}\n`);
-    process.stdout.write(`   ${APP_BINARY} ${cyan('<paths>')} ${blue('[options]')}\n\n`);
+    process.stdout.write(`   stylebook ${cyan('<paths>')} ${blue('[options]')}\n\n`);
     process.stdout.write(`\u{1f4c4} ${b(cyan('Paths:'))}\n`);
     process.stdout.write(
         '   file      Supports ' +
@@ -104,7 +102,15 @@ if (inputArgs.includes('-q') ||
 }
 if (inputArgs.includes('-v') ||
     inputArgs.includes('--version')) {
-    process.stdout.write(`${APP_BINARY} ${b(APP_VERSION)}\n`);
+    process.stdout.write(
+        'stylebook ' +
+        `${b(JSON.parse(
+            readFileSync(
+                join(dirname(fileURLToPath(import.meta.url)), `../package.json`),
+                'utf-8',
+            ),
+        ).version)}\n`,
+    );
     process.exit(0);
 }
 
@@ -124,18 +130,21 @@ inputArgs
             case '.css':
                 commands.get(STYLELINT).push(targetPath);
                 break;
+
             case '.html':
             case '.htm':
             case '.mhtml':
             case '.mhtm':
                 commands.get(HTMLHINT).push(targetPath);
                 break;
+
             case '.json':
             case '.jsonc':
             case '.cjson':
             case '.json5':
                 commands.get(JSONLINT).push(targetPath);
                 break;
+
             case '.md':
                 commands.get(MARKDOWNLINT).push(targetPath);
                 break;

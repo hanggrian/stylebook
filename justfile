@@ -19,6 +19,8 @@ coverage:
     pnpm -r coverage
 
 documentation:
+    rm -rf build/doc2go/
+    doc2go -out build/doc2go/ ./...
     uv run poe documentation
     pnpm documentation
 
@@ -28,6 +30,7 @@ prepare-website:
 publish-website: prepare-website documentation
     rm -rf website/docs/api/
     mkdir -p website/docs/api/
+    mv build/doc2go/ website/docs/api/godoc/
     mv build/pdoc/ website/docs/api/pydoc/
     mv build/typedoc/ website/docs/api/tsdoc/
     cd website/ && uv run mkdocs gh-deploy

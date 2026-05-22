@@ -5,13 +5,14 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime/debug"
 	"strings"
 
 	"github.com/hanggrian/stylebook/cmd/command"
 	"github.com/hanggrian/stylebook/cmd/files"
 )
 
-var Version = "0.2"
+var Version = "dev"
 
 func walk(targetPath string, exclude []string) []string {
 	cleaned := filepath.Clean(targetPath)
@@ -78,7 +79,7 @@ func Execute() error {
 	for _, arg := range remainingArgs {
 		if arg == "-h" ||
 			arg == "--help" {
-			fmt.Printf("Helper for Stylebook linter extensions\n\n")
+			fmt.Printf("Go runner for Stylebook linter aggregator\n\n")
 			fmt.Printf("\U0001f680 %s\n", Bold("Usage:"))
 			fmt.Printf("   stylebook %s %s\n\n", Cyan("<paths>"), Blue("[options]"))
 			fmt.Printf("\U0001f4c4 %s\n", Bold(Cyan("Paths:")))
@@ -101,12 +102,12 @@ func Execute() error {
 			fmt.Printf("   -h  [ --help ]          Display this message\n")
 			fmt.Printf("   -q  [ --quiet ]         Disable verbose output\n")
 			fmt.Printf("   -v  [ --version ]       Show app version\n")
-			os.Exit(0)
+			return nil
 		}
 		if arg == "-v" ||
 			arg == "--version" {
-			fmt.Printf("stylebook %s\n", Bold(Version))
-			os.Exit(0)
+			fmt.Printf("stylebook %s\n", Bold(resolveVersion()))
+			return nil
 		}
 		if arg == "-q" ||
 			arg == "--quiet" {
@@ -118,6 +119,7 @@ func Execute() error {
 	commands[command.Chktex.GetBinary()] = []string{}
 	commands[command.Csvlint.GetBinary()] = []string{}
 	commands[command.Hadolint.GetBinary()] = []string{}
+	commands[command.Propertieslint.GetBinary()] = []string{}
 	commands[command.Protolint.GetBinary()] = []string{}
 	commands[command.ShellCheck.GetBinary()] = []string{}
 	commands[command.Tflint.GetBinary()] = []string{}
@@ -128,6 +130,7 @@ func Execute() error {
 			command.Chktex.GetBinary(),
 			command.Csvlint.GetBinary(),
 			command.Hadolint.GetBinary(),
+			command.Propertieslint.GetBinary(),
 			command.Protolint.GetBinary(),
 			command.ShellCheck.GetBinary(),
 			command.Tflint.GetBinary(),
@@ -140,14 +143,20 @@ func Execute() error {
 		}
 		for _, path := range walk(arg, exclude) {
 			filename := filepath.Base(path)
-			switch filename {
-			case "Makefile", "makefile", "GNUmakefile":
+			if filename == "Makefile" ||
+				filename == "makefile" ||
+				filename == "GNUmakefile" {
 				commands[command.Checkmake.GetBinary()] =
 					append(commands[command.Checkmake.GetBinary()], path)
-
-			case "Containerfile", "Dockerfile":
+				continue
+			}
+			if filename == "Containerfile" ||
+				filename == "Dockerfile" ||
+				strings.HasPrefix(filename, "Containerfile.") ||
+				strings.HasPrefix(filename, "Dockerfile.") {
 				commands[command.Hadolint.GetBinary()] =
 					append(commands[command.Hadolint.GetBinary()], path)
+				continue
 			}
 			switch strings.ToLower(filepath.Ext(path)) {
 			case ".csv":
@@ -158,9 +167,9 @@ func Execute() error {
 				commands[command.Chktex.GetBinary()] =
 					append(commands[command.Chktex.GetBinary()], path)
 
-			case ".dockerfile":
-				commands[command.Hadolint.GetBinary()] =
-					append(commands[command.Hadolint.GetBinary()], path)
+			case ".properties":
+				commands[command.Propertieslint.GetBinary()] =
+					append(commands[command.Propertieslint.GetBinary()], path)
 
 			case ".proto":
 				commands[command.Protolint.GetBinary()] =
@@ -170,7 +179,7 @@ func Execute() error {
 				commands[command.ShellCheck.GetBinary()] =
 					append(commands[command.ShellCheck.GetBinary()], path)
 
-			case ".xml", ".xhtml", ".xsl", ".xslt", ".svg":
+			case ".xml", ".xhtml", ".xsl", ".xslt", ".svg", ".xaml", ".plist":
 				commands[command.Xmllint.GetBinary()] =
 					append(commands[command.Xmllint.GetBinary()], path)
 
@@ -194,6 +203,8 @@ func Execute() error {
 				cmd = &command.Csvlint
 			case command.Hadolint.GetBinary():
 				cmd = &command.Hadolint
+			case command.Propertieslint.GetBinary():
+				cmd = &command.Propertieslint
 			case command.Protolint.GetBinary():
 				cmd = &command.Protolint
 			case command.ShellCheck.GetBinary():
@@ -235,6 +246,8 @@ func Execute() error {
 			cmd = &command.Csvlint
 		case command.Hadolint.GetBinary():
 			cmd = &command.Hadolint
+		case command.Propertieslint.GetBinary():
+			cmd = &command.Propertieslint
 		case command.Protolint.GetBinary():
 			cmd = &command.Protolint
 		case command.ShellCheck.GetBinary():
@@ -274,4 +287,13 @@ func Execute() error {
 	fmt.Printf("\U0001f389 %s\n", Green("All linters passed, no violation found."))
 	os.Exit(0)
 	return nil
+}
+
+func resolveVersion() string {
+	if info, ok := debug.ReadBuildInfo(); ok {
+		if info.Main.Version != "(devel)" {
+			return info.Main.Version
+		}
+	}
+	return "dev"
 }

@@ -32,19 +32,13 @@ func (c *ProtolintCommand) Execute(l Linter, _ bool, targetPaths []string) int {
 	args = append(args, targetPaths...)
 
 	err := lib.Lint(args, &stdout, &stderr)
-
-	// print violations regardless
 	if stdout.Len() > 0 {
 		fmt.Print(stdout.String())
 	}
-
-	// real errors (parsing, runtime) go to stderr
 	if stderr.Len() > 0 {
 		fmt.Fprintf(os.Stderr, "Error executing protolint: %s\n", stderr.String())
 		return 1
 	}
-
-	// err just means violations were found
 	if err != nil {
 		return 1
 	}

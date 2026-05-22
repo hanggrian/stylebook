@@ -1,13 +1,11 @@
+from importlib.metadata import version
 from os.path import splitext
 from pathlib import Path
 from sys import argv, exit as exit2
 
 from stylebook.colors import cyan, blue, b, d, green, i, red, yellow
-from stylebook.commands import Command, DOTENV_LINTER, SQLFLUFF, TAPLO, YAMLLINT
+from stylebook.commands import Command, BLINTER, DOTENV_LINTER, PYINILINT, SQLFLUFF, TAPLO, YAMLLINT
 from stylebook.files import get_config_file
-
-APP_BINARY: str = 'stylebook'
-APP_VERSION: str = '0.2'
 
 
 def walk(target_path: Path, exclude: set[str]) -> list[str]:
@@ -47,7 +45,7 @@ def run() -> None:
                 exclude.add(line.rstrip('/') if line.endswith('/') else line)
     if '-h' in input_args or \
         '--help' in input_args:
-        print('Helper for Stylebook linter extensions\n')
+        print('Python runner for Stylebook linter aggregator\n')
         print(f'\U0001f680 {b('Usage:')}')
         print(f'   stylebook {cyan('<paths>')} {blue('[options]')}\n')
         print(f'\U0001f4c4 {b(cyan('Paths:'))}')
@@ -72,12 +70,14 @@ def run() -> None:
         quiet = True
     if '-v' in input_args or \
         '--version' in input_args:
-        print(f'{APP_BINARY} {b(APP_VERSION)}')
+        print(f'stylebook {b(version('stylebook'))}')
         exit2(0)
 
     # insert target paths to corresponding command
     commands: dict[Command, list[str]] = {
+        BLINTER: [],
         DOTENV_LINTER: [],
+        PYINILINT: [],
         SQLFLUFF: [],
         TAPLO: [],
         YAMLLINT: [],
@@ -87,11 +87,18 @@ def run() -> None:
         for path in walk(Path(arg), exclude) \
         if arg not in ('-q', '--quiet')
     ]:
-        target_file: Path = Path(target_path)
-        if target_file.name.startswith('.env'):
+        filename: Path = Path(target_path)
+        if filename.name == '.env' or \
+            filename.name.startswith('.env.'):
             commands[DOTENV_LINTER].append(target_path)
             continue
-        match target_file.suffix.lower():
+        match filename.suffix.lower():
+            case '.bat' | '.cmd':
+                commands[BLINTER].append(target_path)
+
+            case '.ini' | '.cfg' | '.conf':
+                commands[PYINILINT].append(target_path)
+
             case '.sql':
                 commands[SQLFLUFF].append(target_path)
 

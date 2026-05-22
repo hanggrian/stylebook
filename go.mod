@@ -6,6 +6,8 @@ require github.com/fatih/color v1.19.0
 
 require github.com/Clever/csvlint v0.3.0
 
+require github.com/hanggrian/propertieslint v0.1.1
+
 require github.com/yoheimuta/protolint v0.56.4
 
 require (
