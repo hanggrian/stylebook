@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="doc2go">
+    <link href="../../../../../_/css/main.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../../../_/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../../../_/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../../../_/icons/favicon-16x16.png">
+    <link rel="shortcut icon" href="../../../../../_/icons/favicon.ico"><title>protolint</title>
+</head>
+  <body>
+    <nav>
+        <a href="../../../..">github.com</a>/<a href="../../..">hanggrian</a>/<a href="../..">stylebook</a>/<a href="..">rules</a>/protolint<span class="navbar-right">
+          <a href="../../../../..">Root</a> | <a href="#pkg-index">Index</a></span>
+      </nav>
+    <main>
+<h2 id="pkg-overview">package protolint</h2>
+
+<pre class="chroma"><span class="kn">import</span><span class="w"> </span><span class="s">&#34;github.com/hanggrian/stylebook/rules/protolint&#34;</span></pre>
+<h3 id="pkg-index">Index</h3>
+<ul>
+  <li>
+      <a href="#DuplicateBlankLineRule">type DuplicateBlankLineRule</a>
+      <ul>
+          <li><a href="#NewDuplicateBlankLineRule">func NewDuplicateBlankLineRule() DuplicateBlankLineRule</a></li>
+          <li><a href="#DuplicateBlankLineRule.Apply">func (r DuplicateBlankLineRule) Apply(proto *parser.Proto) ([]report.Failure, error)</a></li>
+          <li><a href="#DuplicateBlankLineRule.ID">func (r DuplicateBlankLineRule) ID() string</a></li>
+          <li><a href="#DuplicateBlankLineRule.IsOfficial">func (r DuplicateBlankLineRule) IsOfficial() bool</a></li>
+          <li><a href="#DuplicateBlankLineRule.Purpose">func (r DuplicateBlankLineRule) Purpose() string</a></li>
+          <li><a href="#DuplicateBlankLineRule.Severity">func (r DuplicateBlankLineRule) Severity() rule.Severity</a></li>
+          </ul>
+      </li>
+  <li>
+      <a href="#TrailingNewlineRule">type TrailingNewlineRule</a>
+      <ul>
+          <li><a href="#NewTrailingNewlineRule">func NewTrailingNewlineRule() TrailingNewlineRule</a></li>
+          <li><a href="#TrailingNewlineRule.Apply">func (r TrailingNewlineRule) Apply(proto *parser.Proto) ([]report.Failure, error)</a></li>
+          <li><a href="#TrailingNewlineRule.ID">func (r TrailingNewlineRule) ID() string</a></li>
+          <li><a href="#TrailingNewlineRule.IsOfficial">func (r TrailingNewlineRule) IsOfficial() bool</a></li>
+          <li><a href="#TrailingNewlineRule.Purpose">func (r TrailingNewlineRule) Purpose() string</a></li>
+          <li><a href="#TrailingNewlineRule.Severity">func (r TrailingNewlineRule) Severity() rule.Severity</a></li>
+          </ul>
+      </li>
+  <li>
+      <a href="#UnnecessaryLeadingBlankLineRule">type UnnecessaryLeadingBlankLineRule</a>
+      <ul>
+          <li><a href="#NewNoLeadingNewlineRule">func NewNoLeadingNewlineRule() UnnecessaryLeadingBlankLineRule</a></li>
+          <li><a href="#NewUnnecessaryLeadingBlankLineRule">func NewUnnecessaryLeadingBlankLineRule() UnnecessaryLeadingBlankLineRule</a></li>
+          <li><a href="#UnnecessaryLeadingBlankLineRule.Apply">func (r UnnecessaryLeadingBlankLineRule) Apply(proto *parser.Proto) ([]report.Failure, error)</a></li>
+          <li><a href="#UnnecessaryLeadingBlankLineRule.ID">func (r UnnecessaryLeadingBlankLineRule) ID() string</a></li>
+          <li><a href="#UnnecessaryLeadingBlankLineRule.IsOfficial">func (r UnnecessaryLeadingBlankLineRule) IsOfficial() bool</a></li>
+          <li><a href="#UnnecessaryLeadingBlankLineRule.Purpose">func (r UnnecessaryLeadingBlankLineRule) Purpose() string</a></li>
+          <li><a href="#UnnecessaryLeadingBlankLineRule.Severity">func (r UnnecessaryLeadingBlankLineRule) Severity() rule.Severity</a></li>
+          </ul>
+      </li>
+  </ul><h3 id="pkg-types">Types</h3>
+  
+  <h4 id="DuplicateBlankLineRule">type DuplicateBlankLineRule</h4>
+    
+    <pre class="chroma"><span class="kd">type</span><span class="w"> </span><span class="nx">DuplicateBlankLineRule</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="p">}</span></pre>
+    <h5 id="NewDuplicateBlankLineRule">func NewDuplicateBlankLineRule</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="nf">NewDuplicateBlankLineRule</span><span class="p">()</span><span class="w"> </span><a href="#DuplicateBlankLineRule"><span class="nx">DuplicateBlankLineRule</span></a></pre>
+  <h5 id="DuplicateBlankLineRule.Apply">func (DuplicateBlankLineRule) Apply</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#DuplicateBlankLineRule"><span class="nx">DuplicateBlankLineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">Apply</span><span class="p">(</span><span class="nx">proto</span><span class="w"> </span><span class="o">*</span><a href="https://pkg.go.dev/github.com/yoheimuta/go-protoparser/v4@v4.14.2/parser"><span class="nx">parser</span></a><span class="p">.</span><a href="https://pkg.go.dev/github.com/yoheimuta/go-protoparser/v4@v4.14.2/parser#Proto"><span class="nx">Proto</span></a><span class="p">)</span><span class="w"> </span><span class="p">([]</span><a href="https://pkg.go.dev/github.com/yoheimuta/protolint@v0.56.4/linter/report"><span class="nx">report</span></a><span class="p">.</span><a href="https://pkg.go.dev/github.com/yoheimuta/protolint@v0.56.4/linter/report#Failure"><span class="nx">Failure</span></a><span class="p">,</span><span class="w"> </span><a href="https://pkg.go.dev/builtin#error"><span class="kt">error</span></a><span class="p">)</span></pre>
+  <h5 id="DuplicateBlankLineRule.ID">func (DuplicateBlankLineRule) ID</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#DuplicateBlankLineRule"><span class="nx">DuplicateBlankLineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">ID</span><span class="p">()</span><span class="w"> </span><a href="https://pkg.go.dev/builtin#string"><span class="kt">string</span></a></pre>
+  <h5 id="DuplicateBlankLineRule.IsOfficial">func (DuplicateBlankLineRule) IsOfficial</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#DuplicateBlankLineRule"><span class="nx">DuplicateBlankLineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">IsOfficial</span><span class="p">()</span><span class="w"> </span><a href="https://pkg.go.dev/builtin#bool"><span class="kt">bool</span></a></pre>
+  <h5 id="DuplicateBlankLineRule.Purpose">func (DuplicateBlankLineRule) Purpose</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#DuplicateBlankLineRule"><span class="nx">DuplicateBlankLineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">Purpose</span><span class="p">()</span><span class="w"> </span><a href="https://pkg.go.dev/builtin#string"><span class="kt">string</span></a></pre>
+  <h5 id="DuplicateBlankLineRule.Severity">func (DuplicateBlankLineRule) Severity</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#DuplicateBlankLineRule"><span class="nx">DuplicateBlankLineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">Severity</span><span class="p">()</span><span class="w"> </span><a href="https://pkg.go.dev/github.com/yoheimuta/protolint@v0.56.4/linter/rule"><span class="nx">rule</span></a><span class="p">.</span><a href="https://pkg.go.dev/github.com/yoheimuta/protolint@v0.56.4/linter/rule#Severity"><span class="nx">Severity</span></a></pre>
+  <h4 id="TrailingNewlineRule">type TrailingNewlineRule</h4>
+    
+    <pre class="chroma"><span class="kd">type</span><span class="w"> </span><span class="nx">TrailingNewlineRule</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="p">}</span></pre>
+    <h5 id="NewTrailingNewlineRule">func NewTrailingNewlineRule</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="nf">NewTrailingNewlineRule</span><span class="p">()</span><span class="w"> </span><a href="#TrailingNewlineRule"><span class="nx">TrailingNewlineRule</span></a></pre>
+  <h5 id="TrailingNewlineRule.Apply">func (TrailingNewlineRule) Apply</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#TrailingNewlineRule"><span class="nx">TrailingNewlineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">Apply</span><span class="p">(</span><span class="nx">proto</span><span class="w"> </span><span class="o">*</span><a href="https://pkg.go.dev/github.com/yoheimuta/go-protoparser/v4@v4.14.2/parser"><span class="nx">parser</span></a><span class="p">.</span><a href="https://pkg.go.dev/github.com/yoheimuta/go-protoparser/v4@v4.14.2/parser#Proto"><span class="nx">Proto</span></a><span class="p">)</span><span class="w"> </span><span class="p">([]</span><a href="https://pkg.go.dev/github.com/yoheimuta/protolint@v0.56.4/linter/report"><span class="nx">report</span></a><span class="p">.</span><a href="https://pkg.go.dev/github.com/yoheimuta/protolint@v0.56.4/linter/report#Failure"><span class="nx">Failure</span></a><span class="p">,</span><span class="w"> </span><a href="https://pkg.go.dev/builtin#error"><span class="kt">error</span></a><span class="p">)</span></pre>
+  <h5 id="TrailingNewlineRule.ID">func (TrailingNewlineRule) ID</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#TrailingNewlineRule"><span class="nx">TrailingNewlineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">ID</span><span class="p">()</span><span class="w"> </span><a href="https://pkg.go.dev/builtin#string"><span class="kt">string</span></a></pre>
+  <h5 id="TrailingNewlineRule.IsOfficial">func (TrailingNewlineRule) IsOfficial</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#TrailingNewlineRule"><span class="nx">TrailingNewlineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">IsOfficial</span><span class="p">()</span><span class="w"> </span><a href="https://pkg.go.dev/builtin#bool"><span class="kt">bool</span></a></pre>
+  <h5 id="TrailingNewlineRule.Purpose">func (TrailingNewlineRule) Purpose</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#TrailingNewlineRule"><span class="nx">TrailingNewlineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">Purpose</span><span class="p">()</span><span class="w"> </span><a href="https://pkg.go.dev/builtin#string"><span class="kt">string</span></a></pre>
+  <h5 id="TrailingNewlineRule.Severity">func (TrailingNewlineRule) Severity</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#TrailingNewlineRule"><span class="nx">TrailingNewlineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">Severity</span><span class="p">()</span><span class="w"> </span><a href="https://pkg.go.dev/github.com/yoheimuta/protolint@v0.56.4/linter/rule"><span class="nx">rule</span></a><span class="p">.</span><a href="https://pkg.go.dev/github.com/yoheimuta/protolint@v0.56.4/linter/rule#Severity"><span class="nx">Severity</span></a></pre>
+  <h4 id="UnnecessaryLeadingBlankLineRule">type UnnecessaryLeadingBlankLineRule</h4>
+    
+    <pre class="chroma"><span class="kd">type</span><span class="w"> </span><span class="nx">UnnecessaryLeadingBlankLineRule</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="p">}</span></pre>
+    <h5 id="NewNoLeadingNewlineRule">func NewNoLeadingNewlineRule</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="nf">NewNoLeadingNewlineRule</span><span class="p">()</span><span class="w"> </span><a href="#UnnecessaryLeadingBlankLineRule"><span class="nx">UnnecessaryLeadingBlankLineRule</span></a></pre>
+  <p>Backwards-compatible constructor expected by tests and callers.
+<h5 id="NewUnnecessaryLeadingBlankLineRule">func NewUnnecessaryLeadingBlankLineRule</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="nf">NewUnnecessaryLeadingBlankLineRule</span><span class="p">()</span><span class="w"> </span><a href="#UnnecessaryLeadingBlankLineRule"><span class="nx">UnnecessaryLeadingBlankLineRule</span></a></pre>
+  <h5 id="UnnecessaryLeadingBlankLineRule.Apply">func (UnnecessaryLeadingBlankLineRule) Apply</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#UnnecessaryLeadingBlankLineRule"><span class="nx">UnnecessaryLeadingBlankLineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">Apply</span><span class="p">(</span><span class="nx">proto</span><span class="w"> </span><span class="o">*</span><a href="https://pkg.go.dev/github.com/yoheimuta/go-protoparser/v4@v4.14.2/parser"><span class="nx">parser</span></a><span class="p">.</span><a href="https://pkg.go.dev/github.com/yoheimuta/go-protoparser/v4@v4.14.2/parser#Proto"><span class="nx">Proto</span></a><span class="p">)</span><span class="w"> </span><span class="p">([]</span><a href="https://pkg.go.dev/github.com/yoheimuta/protolint@v0.56.4/linter/report"><span class="nx">report</span></a><span class="p">.</span><a href="https://pkg.go.dev/github.com/yoheimuta/protolint@v0.56.4/linter/report#Failure"><span class="nx">Failure</span></a><span class="p">,</span><span class="w"> </span><a href="https://pkg.go.dev/builtin#error"><span class="kt">error</span></a><span class="p">)</span></pre>
+  <h5 id="UnnecessaryLeadingBlankLineRule.ID">func (UnnecessaryLeadingBlankLineRule) ID</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#UnnecessaryLeadingBlankLineRule"><span class="nx">UnnecessaryLeadingBlankLineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">ID</span><span class="p">()</span><span class="w"> </span><a href="https://pkg.go.dev/builtin#string"><span class="kt">string</span></a></pre>
+  <h5 id="UnnecessaryLeadingBlankLineRule.IsOfficial">func (UnnecessaryLeadingBlankLineRule) IsOfficial</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#UnnecessaryLeadingBlankLineRule"><span class="nx">UnnecessaryLeadingBlankLineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">IsOfficial</span><span class="p">()</span><span class="w"> </span><a href="https://pkg.go.dev/builtin#bool"><span class="kt">bool</span></a></pre>
+  <h5 id="UnnecessaryLeadingBlankLineRule.Purpose">func (UnnecessaryLeadingBlankLineRule) Purpose</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#UnnecessaryLeadingBlankLineRule"><span class="nx">UnnecessaryLeadingBlankLineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">Purpose</span><span class="p">()</span><span class="w"> </span><a href="https://pkg.go.dev/builtin#string"><span class="kt">string</span></a></pre>
+  <h5 id="UnnecessaryLeadingBlankLineRule.Severity">func (UnnecessaryLeadingBlankLineRule) Severity</h5>
+  
+  <pre class="chroma"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><a href="#UnnecessaryLeadingBlankLineRule"><span class="nx">UnnecessaryLeadingBlankLineRule</span></a><span class="p">)</span><span class="w"> </span><span class="nf">Severity</span><span class="p">()</span><span class="w"> </span><a href="https://pkg.go.dev/github.com/yoheimuta/protolint@v0.56.4/linter/rule"><span class="nx">rule</span></a><span class="p">.</span><a href="https://pkg.go.dev/github.com/yoheimuta/protolint@v0.56.4/linter/rule#Severity"><span class="nx">Severity</span></a></pre>
+  </main>
+    <hr>
+    <footer>
+      <small id="generated-by-footer">
+        Generated with <a href="https://abhinav.github.io/doc2go/">doc2go</a>
+      </small>
+    </footer>
+    <script src="../../../../../_/js/permalink.js"></script></body>
+</html>

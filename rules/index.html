@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Permissive linter extensions for markup and data languages">
+        <meta name="description" content="Comprehensive linter aggregator for data and tooling formats">
       
       
         <meta name="author" content="Hendra Anggrian">
@@ -18,7 +18,7 @@
         <link rel="prev" href="..">
       
       
-        <link rel="next" href="json/">
+        <link rel="next" href="css/">
       
       
         
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#indent-style" class="md-skip">
+        <a href="#decimal-values" class="md-skip">
           Skip to content
         </a>
       
@@ -271,6 +271,25 @@
         </a>
       </li>
     
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../api/godoc" class="md-tabs__link">
+        
+  
+  
+    
+  
+  GoDoc
+
+      </a>
+    </li>
   
 
       
@@ -503,6 +522,39 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#decimal-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decimal values
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#double-quotes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Double quotes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#duplicate-blank-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duplicate blank line
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#indent-style" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -524,10 +576,138 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#trailing-comma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trailing comma
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trailing-newline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trailing newline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trailing-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trailing space
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unnecessary-leading-blank-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unnecessary leading blank line
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="css/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSS rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dockerfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dockerfile rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="html/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTML rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -595,6 +775,90 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="toml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TOML rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="yaml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    YAML rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -614,10 +878,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_10" >
         
           
-          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="">
             
   
   
@@ -635,8 +899,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -653,14 +917,14 @@
   
   
     <li class="md-nav__item">
-      <a href="https://docs.sqlfluff.com/en/stable/reference/rules.html?ext" class="md-nav__link">
+      <a href="https://github.com/tboy1337/Blinter/blob/main/docs/Batch-File-Linter-Requirements.md?ext" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    SQLFluff rules
+    Blinter rules
   
 
     
@@ -681,14 +945,14 @@
   
   
     <li class="md-nav__item">
-      <a href="https://taplo.tamasfe.dev/configuration/file.html?ext" class="md-nav__link">
+      <a href="https://github.com/checkmake/checkmake/tree/main/rules/?ext" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Taplo rules
+    Checkmake rules
   
 
     
@@ -709,14 +973,14 @@
   
   
     <li class="md-nav__item">
-      <a href="https://yamllint.readthedocs.io/en/stable/rules.html?ext" class="md-nav__link">
+      <a href="https://github.com/hadolint/hadolint#rules?ext" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    yamllint rules
+    Hadolint rules
   
 
     
@@ -737,14 +1001,42 @@
   
   
     <li class="md-nav__item">
-      <a href="https://stylelint.io/user-guide/rules/?ext" class="md-nav__link">
+      <a href="https://htmlhint.com/rules/?ext" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Stylelint rules
+    HTMLHint rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://gitlab.com/danieljrmay/pyinilint/?ext" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PyINILint rules
   
 
     
@@ -800,7 +1092,203 @@
   <span class="md-ellipsis">
     
   
-    Markdownlint rules
+    markdownlint rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/hanggrian/propertieslint/?ext" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    propertieslint rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/yoheimuta/protolint/?ext" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    protolint rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://docs.sqlfluff.com/en/stable/reference/rules.html?ext" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQLFluff rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://stylelint.io/user-guide/rules/?ext" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stylelint rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/terraform-linters/tflint-ruleset-terraform/blob/main/docs/rules/README.md?ext" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TFLint rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://taplo.tamasfe.dev/configuration/formatter-options.html?ext" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Taplo rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://yamllint.readthedocs.io/en/stable/rules.html?ext" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    yamllint rules
   
 
     
@@ -825,6 +1313,33 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/godoc" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GoDoc
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -908,6 +1423,39 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#decimal-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decimal values
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#double-quotes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Double quotes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#duplicate-blank-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duplicate blank line
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#indent-style" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -923,6 +1471,50 @@
     <span class="md-ellipsis">
       
         Line length
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trailing-comma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trailing comma
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trailing-newline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trailing newline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trailing-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trailing space
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unnecessary-leading-blank-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unnecessary leading blank line
       
     </span>
   </a>
@@ -951,26 +1543,83 @@
 
   <h1>General</h1>
 
+<h3 id="decimal-values">Decimal values<a class="headerlink" href="#decimal-values" title="Permanent link">&para;</a></h3>
+<p><img alt="toml" src="https://img.shields.io/badge/toml-float--values-9c4121" /></p>
+<p>Omit leading and trailing zeros in decimal values.</p>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 6.7 1.45 3.85L17.3 12l-3.85 1.45L12 17.3l-1.45-3.85L6.7 12l3.85-1.45zM12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> Before</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">foo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">bar</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+</code></pre></div>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> After</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">foo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.5</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">bar</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This rule is inverted on JSON5.</p>
+</div>
+<h3 id="double-quotes">Double quotes<a class="headerlink" href="#double-quotes" title="Permanent link">&para;</a></h3>
+<p><img alt="yaml" src="https://img.shields.io/badge/yaml-quoted--strings-cb171e" /></p>
+<p>Double quotes for strings. Quotes are optional in YAML, but must not be single
+quotes, unless the string itself contains double quotes.</p>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 6.7 1.45 3.85L17.3 12l-3.85 1.45L12 17.3l-1.45-3.85L6.7 12l3.85-1.45zM12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> Before</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">foo</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;foo&#39;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">bar</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;\&quot;bar\&quot;&quot;</span>
+</code></pre></div>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> After</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">foo</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;foo&quot;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">bar</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&quot;bar&quot;&#39;</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Expressions in GitHub Actions must be wrapped in single quotes.</p>
+</div>
+<h3 id="duplicate-blank-line">Duplicate blank line<a class="headerlink" href="#duplicate-blank-line" title="Permanent link">&para;</a></h3>
+<p><img alt="css" src="https://img.shields.io/badge/css-max--empty--lines-663399" />
+<img alt="md" src="https://img.shields.io/badge/md-no--multiple--blanks-fff" />
+<img alt="properties" src="https://img.shields.io/badge/properties-duplicate--blank--line-ED8B00" />
+<img alt="sql" src="https://img.shields.io/badge/sql-layout--newlines-003B57" /></p>
+<p>No more than one consecutive blank line.</p>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 6.7 1.45 3.85L17.3 12l-3.85 1.45L12 17.3l-1.45-3.85L6.7 12l3.85-1.45zM12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> Before</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Foo
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="hll">
+</span><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="hll">
+</span><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Bar
+</code></pre></div>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> After</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Foo
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="hll">
+</span><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Bar
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In JSON, no blank lines are allowed at all.</p>
+</div>
 <h3 id="indent-style">Indent style<a class="headerlink" href="#indent-style" title="Permanent link">&para;</a></h3>
+<p><img alt="md" src="https://img.shields.io/badge/md-list--indent-fff" />
+<img alt="md" src="https://img.shields.io/badge/md-ul--indent-fff" /></p>
 <p>Spaces over hard tabs for indentation, default 2 spaces.</p>
 <p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 6.7 1.45 3.85L17.3 12l-3.85 1.45L12 17.3l-1.45-3.85L6.7 12l3.85-1.45zM12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> Before</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">-</span><span class="w"> </span>Foo
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">-</span><span class="w"> </span>Bar
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="k">-</span><span class="w"> </span>Baz
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">-</span><span class="w"> </span>Foo
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">-</span><span class="w"> </span>Bar
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">        </span><span class="k">-</span><span class="w"> </span>Baz
 </code></pre></div>
 <p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> After</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">-</span><span class="w"> </span>Foo
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>Bar
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">-</span><span class="w"> </span>Baz
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">-</span><span class="w"> </span>Foo
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>Bar
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="k">-</span><span class="w"> </span>Baz
 </code></pre></div>
 <h3 id="line-length">Line length<a class="headerlink" href="#line-length" title="Permanent link">&para;</a></h3>
+<p><img alt="md" src="https://img.shields.io/badge/md-list--length-fff" />
+<img alt="toml" src="https://img.shields.io/badge/toml-column--width-9c4121" />
+<img alt="yaml" src="https://img.shields.io/badge/yaml-line--length-cb171e" /></p>
 <p>The column limit is 80 characters.</p>
 <p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 6.7 1.45 3.85L17.3 12l-3.85 1.45L12 17.3l-1.45-3.85L6.7 12l3.85-1.45zM12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> Before</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum.
 </code></pre></div>
 <p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> After</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus.
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Sed sit amet ipsum.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus.
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>Sed sit amet ipsum.
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -981,6 +1630,56 @@
 <li>Ignored in JSON.</li>
 </ul>
 </div>
+<h3 id="trailing-comma">Trailing comma<a class="headerlink" href="#trailing-comma" title="Permanent link">&para;</a></h3>
+<p><img alt="toml" src="https://img.shields.io/badge/toml-array--trailing--comma-9c4121" /></p>
+<p>In languages that support trailing commas, they should be used in multi-line
+structures.</p>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 6.7 1.45 3.85L17.3 12l-3.85 1.45L12 17.3l-1.45-3.85L6.7 12l3.85-1.45zM12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> Before</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">[parent]</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">child</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="hll"><span class="w">    </span><span class="s2">&quot;bar&quot;</span>
+</span><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">]</span>
+</code></pre></div>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> After</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">[parent]</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">child</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="hll"><span class="w">    </span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+</span><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">]</span>
+</code></pre></div>
+<h3 id="trailing-newline">Trailing newline<a class="headerlink" href="#trailing-newline" title="Permanent link">&para;</a></h3>
+<p><img alt="md" src="https://img.shields.io/badge/md-single--trailing--newline-fff" />
+<img alt="properties" src="https://img.shields.io/badge/properties-trailing--newline-ED8B00" />
+<img alt="toml" src="https://img.shields.io/badge/toml-trailing--newline-9c4121" /></p>
+<p>Files should end with a single newline character.</p>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 6.7 1.45 3.85L17.3 12l-3.85 1.45L12 17.3l-1.45-3.85L6.7 12l3.85-1.45zM12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> Before</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Foo
+</code></pre></div>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> After</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Foo
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="hll">↵
+</span></code></pre></div>
+<h3 id="trailing-space">Trailing space<a class="headerlink" href="#trailing-space" title="Permanent link">&para;</a></h3>
+<p><img alt="md" src="https://img.shields.io/badge/md-no--trailing--spaces-fff" />
+<img alt="yaml" src="https://img.shields.io/badge/yaml-trailing--spaces-cb171e" /></p>
+<p>No trailing spaces at the end of lines.</p>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 6.7 1.45 3.85L17.3 12l-3.85 1.45L12 17.3l-1.45-3.85L6.7 12l3.85-1.45zM12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> Before</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Foo␣
+</code></pre></div>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> After</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Foo
+</code></pre></div>
+<h3 id="unnecessary-leading-blank-line">Unnecessary leading blank line<a class="headerlink" href="#unnecessary-leading-blank-line" title="Permanent link">&para;</a></h3>
+<p><img alt="css" src="https://img.shields.io/badge/css-no--missing--end--of--source--newline-663399" />
+<img alt="properties" src="https://img.shields.io/badge/properties-no--leading--blank--line-ED8B00" /></p>
+<p>Files should not start with blank lines.</p>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12 6.7 1.45 3.85L17.3 12l-3.85 1.45L12 17.3l-1.45-3.85L6.7 12l3.85-1.45zM12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> Before</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Foo
+</code></pre></div>
+<p><strong><span class="twemoji" id="accent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 9 9l-8 3 8 3 3 8 3-8 8-3-8-3z"/></svg></span> After</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Foo
+</code></pre></div>
 
 
 
@@ -1038,14 +1737,18 @@
   <img
     src="https://shields.io/pypi/v/stylebook?label=testpypi&pypiBaseUrl=https://test.pypi.org"
     alt="TestPyPI"/>
+</a> <a href="https://www.npmjs.com/package/@hanggrian/stylebook/">
+  <img
+    src="https://shields.io/npm/v/@hanggrian/stylebook"
+    alt="NPM"/>
+</a> &emsp; <a href="https://go.dev/doc/go1.26/">
+  <img
+    src="https://img.shields.io/github/go-mod/go-version/hanggrian/stylebook"
+    alt="Go"/>
 </a> <a href="https://docs.python.org/3.10/">
   <img
     src="https://img.shields.io/badge/python-3.10+-informational"
     alt="Python"/>
-</a> &emsp; <a href="https://www.npmjs.com/package/@hanggrian/stylebook/">
-  <img
-    src="https://shields.io/npm/v/@hanggrian/stylebook"
-    alt="NPM"/>
 </a> <a href="https://nodejs.org/en/blog/release/v12.0.0/">
   <img
     src="https://img.shields.io/badge/node-12+-informational"

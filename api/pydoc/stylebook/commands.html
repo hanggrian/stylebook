@@ -34,10 +34,10 @@
                     <a class="class" href="#Command">Command</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="variable" href="#Command.binary">binary</a>
+                                <a class="function" href="#Command.__init__">Command</a>
                         </li>
                         <li>
-                                <a class="variable" href="#Command.config_file">config_file</a>
+                                <a class="variable" href="#Command.binary">binary</a>
                         </li>
                         <li>
                                 <a class="function" href="#Command.is_available">is_available</a>
@@ -48,8 +48,23 @@
                         <li>
                                 <a class="function" href="#Command.execute">execute</a>
                         </li>
+                        <li>
+                                <a class="function" href="#Command.embed_path">embed_path</a>
+                        </li>
                 </ul>
 
+            </li>
+            <li>
+                    <a class="variable" href="#BLINTER">BLINTER</a>
+            </li>
+            <li>
+                    <a class="variable" href="#DOTENV_LINTER">DOTENV_LINTER</a>
+            </li>
+            <li>
+                    <a class="variable" href="#PYINILINT">PYINILINT</a>
+            </li>
+            <li>
+                    <a class="variable" href="#RESTRUCTUREDTEXT_LINT">RESTRUCTUREDTEXT_LINT</a>
             </li>
             <li>
                     <a class="variable" href="#SQLFLUFF">SQLFLUFF</a>
@@ -82,20 +97,32 @@
                         <label class="view-source-button" for="mod-commands-view-source"><span>View Source</span></label>
 
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">stylebook.commands.command</span><span class="w"> </span><span class="kn">import</span> <span class="n">Command</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">stylebook.commands.sqlfluff</span><span class="w"> </span><span class="kn">import</span> <span class="n">SqlfluffCommand</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">stylebook.commands.taplo</span><span class="w"> </span><span class="kn">import</span> <span class="n">TaploCommand</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">stylebook.commands.yamllint</span><span class="w"> </span><span class="kn">import</span> <span class="n">YamllintCommand</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="n">SQLFLUFF</span><span class="p">:</span> <span class="n">Command</span> <span class="o">=</span> <span class="n">SqlfluffCommand</span><span class="p">()</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="n">TAPLO</span><span class="p">:</span> <span class="n">Command</span> <span class="o">=</span> <span class="n">TaploCommand</span><span class="p">()</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="n">YAMLLINT</span><span class="p">:</span> <span class="n">Command</span> <span class="o">=</span> <span class="n">YamllintCommand</span><span class="p">()</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">stylebook.commands.blinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">BlinterCommand</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">stylebook.commands.dotenv_linter</span><span class="w"> </span><span class="kn">import</span> <span class="n">DotenvLinterCommand</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">stylebook.commands.pyinilint</span><span class="w"> </span><span class="kn">import</span> <span class="n">PyinilintLinterCommand</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">stylebook.commands.restructuredtext_lint</span><span class="w"> </span><span class="kn">import</span> <span class="n">RestructuredtextLintCommand</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">stylebook.commands.sqlfluff</span><span class="w"> </span><span class="kn">import</span> <span class="n">SqlfluffCommand</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">stylebook.commands.taplo</span><span class="w"> </span><span class="kn">import</span> <span class="n">TaploCommand</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">stylebook.commands.yamllint</span><span class="w"> </span><span class="kn">import</span> <span class="n">YamllintCommand</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="n">__all__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="s1">&#39;Command&#39;</span><span class="p">,</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="s1">&#39;SQLFLUFF&#39;</span><span class="p">,</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="s1">&#39;TAPLO&#39;</span><span class="p">,</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="s1">&#39;YAMLLINT&#39;</span><span class="p">,</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="p">]</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="n">BLINTER</span><span class="p">:</span> <span class="n">Command</span> <span class="o">=</span> <span class="n">BlinterCommand</span><span class="p">()</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="n">DOTENV_LINTER</span><span class="p">:</span> <span class="n">Command</span> <span class="o">=</span> <span class="n">DotenvLinterCommand</span><span class="p">()</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="n">PYINILINT</span><span class="p">:</span> <span class="n">Command</span> <span class="o">=</span> <span class="n">PyinilintLinterCommand</span><span class="p">()</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="n">RESTRUCTUREDTEXT_LINT</span><span class="p">:</span> <span class="n">Command</span> <span class="o">=</span> <span class="n">RestructuredtextLintCommand</span><span class="p">()</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="n">SQLFLUFF</span><span class="p">:</span> <span class="n">Command</span> <span class="o">=</span> <span class="n">SqlfluffCommand</span><span class="p">()</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="n">TAPLO</span><span class="p">:</span> <span class="n">Command</span> <span class="o">=</span> <span class="n">TaploCommand</span><span class="p">()</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="n">YAMLLINT</span><span class="p">:</span> <span class="n">Command</span> <span class="o">=</span> <span class="n">YamllintCommand</span><span class="p">()</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="n">__all__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="s1">&#39;Command&#39;</span><span class="p">,</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="s1">&#39;BLINTER&#39;</span><span class="p">,</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="s1">&#39;DOTENV_LINTER&#39;</span><span class="p">,</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="s1">&#39;PYINILINT&#39;</span><span class="p">,</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="s1">&#39;RESTRUCTUREDTEXT_LINT&#39;</span><span class="p">,</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="s1">&#39;SQLFLUFF&#39;</span><span class="p">,</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="s1">&#39;TAPLO&#39;</span><span class="p">,</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="s1">&#39;YAMLLINT&#39;</span><span class="p">,</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="p">]</span>
 </span></pre></div>
 
 
@@ -105,42 +132,48 @@
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">Command</span><wbr>(<span class="base">abc.ABC</span>):
+    <span class="name">Command</span>:
 
                 <label class="view-source-button" for="Command-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Command"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Command-9"><a href="#Command-9"><span class="linenos"> 9</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Command</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-</span><span id="Command-10"><a href="#Command-10"><span class="linenos">10</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract class for linter command.&quot;&quot;&quot;</span>
-</span><span id="Command-11"><a href="#Command-11"><span class="linenos">11</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">binary</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Command-8"><a href="#Command-8"><span class="linenos"> 8</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Command</span><span class="p">:</span>
+</span><span id="Command-9"><a href="#Command-9"><span class="linenos"> 9</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract class for linter command.&quot;&quot;&quot;</span>
+</span><span id="Command-10"><a href="#Command-10"><span class="linenos">10</span></a>
+</span><span id="Command-11"><a href="#Command-11"><span class="linenos">11</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">binary</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="Command-12"><a href="#Command-12"><span class="linenos">12</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">binary</span>
-</span><span id="Command-13"><a href="#Command-13"><span class="linenos">13</span></a>        <span class="n">local_config_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;.</span><span class="si">{</span><span class="n">config_file</span><span class="si">}</span><span class="s1">&#39;</span>
-</span><span id="Command-14"><a href="#Command-14"><span class="linenos">14</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">config_file</span> <span class="o">=</span> \
-</span><span id="Command-15"><a href="#Command-15"><span class="linenos">15</span></a>            <span class="nb">str</span><span class="p">(</span>
-</span><span id="Command-16"><a href="#Command-16"><span class="linenos">16</span></a>                <span class="n">local_config_file</span>
-</span><span id="Command-17"><a href="#Command-17"><span class="linenos">17</span></a>                <span class="k">if</span> <span class="n">local_config_file</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
-</span><span id="Command-18"><a href="#Command-18"><span class="linenos">18</span></a>                <span class="k">else</span> <span class="n">files</span><span class="p">(</span><span class="s1">&#39;stylebook.resources&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">config_file</span><span class="p">),</span>
-</span><span id="Command-19"><a href="#Command-19"><span class="linenos">19</span></a>            <span class="p">)</span>
-</span><span id="Command-20"><a href="#Command-20"><span class="linenos">20</span></a>
-</span><span id="Command-21"><a href="#Command-21"><span class="linenos">21</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_available</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="Command-22"><a href="#Command-22"><span class="linenos">22</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns true if package is installed.&quot;&quot;&quot;</span>
-</span><span id="Command-23"><a href="#Command-23"><span class="linenos">23</span></a>        <span class="k">return</span> <span class="n">run</span><span class="p">(</span>
-</span><span id="Command-24"><a href="#Command-24"><span class="linenos">24</span></a>            <span class="p">[</span><span class="s1">&#39;where&#39;</span> <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span> <span class="k">else</span> <span class="s1">&#39;which&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">],</span>
-</span><span id="Command-25"><a href="#Command-25"><span class="linenos">25</span></a>            <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span id="Command-26"><a href="#Command-26"><span class="linenos">26</span></a>        <span class="p">)</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span>
+</span><span id="Command-13"><a href="#Command-13"><span class="linenos">13</span></a>        <span class="k">if</span> <span class="n">config_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Command-14"><a href="#Command-14"><span class="linenos">14</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">config_file</span> <span class="o">=</span> <span class="n">get_config_file</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+</span><span id="Command-15"><a href="#Command-15"><span class="linenos">15</span></a>
+</span><span id="Command-16"><a href="#Command-16"><span class="linenos">16</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_available</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="Command-17"><a href="#Command-17"><span class="linenos">17</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns true if package is installed.&quot;&quot;&quot;</span>
+</span><span id="Command-18"><a href="#Command-18"><span class="linenos">18</span></a>        <span class="k">return</span> <span class="n">run</span><span class="p">(</span>
+</span><span id="Command-19"><a href="#Command-19"><span class="linenos">19</span></a>            <span class="p">[</span><span class="s1">&#39;where&#39;</span> <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span> <span class="k">else</span> <span class="s1">&#39;which&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">],</span>
+</span><span id="Command-20"><a href="#Command-20"><span class="linenos">20</span></a>            <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="Command-21"><a href="#Command-21"><span class="linenos">21</span></a>            <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="Command-22"><a href="#Command-22"><span class="linenos">22</span></a>        <span class="p">)</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span>
+</span><span id="Command-23"><a href="#Command-23"><span class="linenos">23</span></a>
+</span><span id="Command-24"><a href="#Command-24"><span class="linenos">24</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">target_paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="Command-25"><a href="#Command-25"><span class="linenos">25</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Abstract method to define specific lint command for this linter.&quot;&quot;&quot;</span>
+</span><span id="Command-26"><a href="#Command-26"><span class="linenos">26</span></a>        <span class="k">pass</span>  <span class="c1"># pylint: disable=unnecessary-pass</span>
 </span><span id="Command-27"><a href="#Command-27"><span class="linenos">27</span></a>
-</span><span id="Command-28"><a href="#Command-28"><span class="linenos">28</span></a>    <span class="nd">@abstractmethod</span>
-</span><span id="Command-29"><a href="#Command-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="Command-30"><a href="#Command-30"><span class="linenos">30</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Abstract method to define specific lint command for this linter.&quot;&quot;&quot;</span>
-</span><span id="Command-31"><a href="#Command-31"><span class="linenos">31</span></a>        <span class="k">pass</span>
-</span><span id="Command-32"><a href="#Command-32"><span class="linenos">32</span></a>
-</span><span id="Command-33"><a href="#Command-33"><span class="linenos">33</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">target_paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span><span id="Command-34"><a href="#Command-34"><span class="linenos">34</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Run lint command for the given collection of paths.&quot;&quot;&quot;</span>
-</span><span id="Command-35"><a href="#Command-35"><span class="linenos">35</span></a>        <span class="k">return</span> <span class="n">run</span><span class="p">(</span>
-</span><span id="Command-36"><a href="#Command-36"><span class="linenos">36</span></a>            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">get_arguments</span><span class="p">(</span><span class="n">silent</span><span class="p">),</span> <span class="o">*</span><span class="n">target_paths</span><span class="p">],</span>
-</span><span id="Command-37"><a href="#Command-37"><span class="linenos">37</span></a>            <span class="n">capture_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="Command-38"><a href="#Command-38"><span class="linenos">38</span></a>        <span class="p">)</span><span class="o">.</span><span class="n">returncode</span>
+</span><span id="Command-28"><a href="#Command-28"><span class="linenos">28</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">target_paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span id="Command-29"><a href="#Command-29"><span class="linenos">29</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Run lint command for the given collection of paths.&quot;&quot;&quot;</span>
+</span><span id="Command-30"><a href="#Command-30"><span class="linenos">30</span></a>        <span class="k">return</span> <span class="n">run</span><span class="p">(</span>
+</span><span id="Command-31"><a href="#Command-31"><span class="linenos">31</span></a>            <span class="p">[</span>
+</span><span id="Command-32"><a href="#Command-32"><span class="linenos">32</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">,</span>
+</span><span id="Command-33"><a href="#Command-33"><span class="linenos">33</span></a>                <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">get_arguments</span><span class="p">(</span><span class="n">quiet</span><span class="p">,</span> <span class="n">target_paths</span><span class="p">),</span>
+</span><span id="Command-34"><a href="#Command-34"><span class="linenos">34</span></a>            <span class="p">],</span>
+</span><span id="Command-35"><a href="#Command-35"><span class="linenos">35</span></a>            <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="Command-36"><a href="#Command-36"><span class="linenos">36</span></a>            <span class="n">capture_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="Command-37"><a href="#Command-37"><span class="linenos">37</span></a>        <span class="p">)</span><span class="o">.</span><span class="n">returncode</span>
+</span><span id="Command-38"><a href="#Command-38"><span class="linenos">38</span></a>
+</span><span id="Command-39"><a href="#Command-39"><span class="linenos">39</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="Command-40"><a href="#Command-40"><span class="linenos">40</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">embed_path</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Command-41"><a href="#Command-41"><span class="linenos">41</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">]8;;file://</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> \
+</span><span id="Command-42"><a href="#Command-42"><span class="linenos">42</span></a>            <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;#L</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s1">:C</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">col</span> <span class="k">else</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;#L</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">line</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="o">+</span> \
+</span><span id="Command-43"><a href="#Command-43"><span class="linenos">43</span></a>            <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\x1b\\</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="se">\x1b\\</span><span class="s1">&#39;</span>
 </span></pre></div>
 
 
@@ -148,6 +181,26 @@
 </div>
 
 
+                            <div id="Command.__init__" class="classattr">
+                                        <input id="Command.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">Command</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">binary</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">config_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
+
+                <label class="view-source-button" for="Command.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Command.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Command.__init__-11"><a href="#Command.__init__-11"><span class="linenos">11</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">binary</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Command.__init__-12"><a href="#Command.__init__-12"><span class="linenos">12</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">binary</span>
+</span><span id="Command.__init__-13"><a href="#Command.__init__-13"><span class="linenos">13</span></a>        <span class="k">if</span> <span class="n">config_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Command.__init__-14"><a href="#Command.__init__-14"><span class="linenos">14</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">config_file</span> <span class="o">=</span> <span class="n">get_config_file</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
                             <div id="Command.binary" class="classattr">
                                 <div class="attr variable">
             <span class="name">binary</span>
@@ -155,17 +208,6 @@
         
     </div>
     <a class="headerlink" href="#Command.binary"></a>
-    
-    
-
-                            </div>
-                            <div id="Command.config_file" class="classattr">
-                                <div class="attr variable">
-            <span class="name">config_file</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Command.config_file"></a>
     
     
 
@@ -181,12 +223,13 @@
 
     </div>
     <a class="headerlink" href="#Command.is_available"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Command.is_available-21"><a href="#Command.is_available-21"><span class="linenos">21</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_available</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="Command.is_available-22"><a href="#Command.is_available-22"><span class="linenos">22</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns true if package is installed.&quot;&quot;&quot;</span>
-</span><span id="Command.is_available-23"><a href="#Command.is_available-23"><span class="linenos">23</span></a>        <span class="k">return</span> <span class="n">run</span><span class="p">(</span>
-</span><span id="Command.is_available-24"><a href="#Command.is_available-24"><span class="linenos">24</span></a>            <span class="p">[</span><span class="s1">&#39;where&#39;</span> <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span> <span class="k">else</span> <span class="s1">&#39;which&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">],</span>
-</span><span id="Command.is_available-25"><a href="#Command.is_available-25"><span class="linenos">25</span></a>            <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span id="Command.is_available-26"><a href="#Command.is_available-26"><span class="linenos">26</span></a>        <span class="p">)</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Command.is_available-16"><a href="#Command.is_available-16"><span class="linenos">16</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_available</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="Command.is_available-17"><a href="#Command.is_available-17"><span class="linenos">17</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns true if package is installed.&quot;&quot;&quot;</span>
+</span><span id="Command.is_available-18"><a href="#Command.is_available-18"><span class="linenos">18</span></a>        <span class="k">return</span> <span class="n">run</span><span class="p">(</span>
+</span><span id="Command.is_available-19"><a href="#Command.is_available-19"><span class="linenos">19</span></a>            <span class="p">[</span><span class="s1">&#39;where&#39;</span> <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span> <span class="k">else</span> <span class="s1">&#39;which&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">],</span>
+</span><span id="Command.is_available-20"><a href="#Command.is_available-20"><span class="linenos">20</span></a>            <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="Command.is_available-21"><a href="#Command.is_available-21"><span class="linenos">21</span></a>            <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="Command.is_available-22"><a href="#Command.is_available-22"><span class="linenos">22</span></a>        <span class="p">)</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span>
 </span></pre></div>
 
 
@@ -198,19 +241,17 @@
                             <div id="Command.get_arguments" class="classattr">
                                         <input id="Command.get_arguments-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
-                    <div class="decorator decorator-abstractmethod">@abstractmethod</div>
-
+            
         <span class="def">def</span>
-        <span class="name">get_arguments</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span></span><span class="return-annotation">) -> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>:</span></span>
+        <span class="name">get_arguments</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span>, </span><span class="param"><span class="n">target_paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></span><span class="return-annotation">) -> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>:</span></span>
 
                 <label class="view-source-button" for="Command.get_arguments-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Command.get_arguments"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Command.get_arguments-28"><a href="#Command.get_arguments-28"><span class="linenos">28</span></a>    <span class="nd">@abstractmethod</span>
-</span><span id="Command.get_arguments-29"><a href="#Command.get_arguments-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="Command.get_arguments-30"><a href="#Command.get_arguments-30"><span class="linenos">30</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Abstract method to define specific lint command for this linter.&quot;&quot;&quot;</span>
-</span><span id="Command.get_arguments-31"><a href="#Command.get_arguments-31"><span class="linenos">31</span></a>        <span class="k">pass</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Command.get_arguments-24"><a href="#Command.get_arguments-24"><span class="linenos">24</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">target_paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="Command.get_arguments-25"><a href="#Command.get_arguments-25"><span class="linenos">25</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Abstract method to define specific lint command for this linter.&quot;&quot;&quot;</span>
+</span><span id="Command.get_arguments-26"><a href="#Command.get_arguments-26"><span class="linenos">26</span></a>        <span class="k">pass</span>  <span class="c1"># pylint: disable=unnecessary-pass</span>
 </span></pre></div>
 
 
@@ -224,18 +265,22 @@
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">execute</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span>, </span><span class="param"><span class="n">target_paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></span><span class="return-annotation">) -> <span class="nb">int</span>:</span></span>
+        <span class="name">execute</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span>, </span><span class="param"><span class="n">target_paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></span><span class="return-annotation">) -> <span class="nb">int</span>:</span></span>
 
                 <label class="view-source-button" for="Command.execute-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Command.execute"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Command.execute-33"><a href="#Command.execute-33"><span class="linenos">33</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">target_paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span><span id="Command.execute-34"><a href="#Command.execute-34"><span class="linenos">34</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Run lint command for the given collection of paths.&quot;&quot;&quot;</span>
-</span><span id="Command.execute-35"><a href="#Command.execute-35"><span class="linenos">35</span></a>        <span class="k">return</span> <span class="n">run</span><span class="p">(</span>
-</span><span id="Command.execute-36"><a href="#Command.execute-36"><span class="linenos">36</span></a>            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">get_arguments</span><span class="p">(</span><span class="n">silent</span><span class="p">),</span> <span class="o">*</span><span class="n">target_paths</span><span class="p">],</span>
-</span><span id="Command.execute-37"><a href="#Command.execute-37"><span class="linenos">37</span></a>            <span class="n">capture_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="Command.execute-38"><a href="#Command.execute-38"><span class="linenos">38</span></a>        <span class="p">)</span><span class="o">.</span><span class="n">returncode</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Command.execute-28"><a href="#Command.execute-28"><span class="linenos">28</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">target_paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span id="Command.execute-29"><a href="#Command.execute-29"><span class="linenos">29</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Run lint command for the given collection of paths.&quot;&quot;&quot;</span>
+</span><span id="Command.execute-30"><a href="#Command.execute-30"><span class="linenos">30</span></a>        <span class="k">return</span> <span class="n">run</span><span class="p">(</span>
+</span><span id="Command.execute-31"><a href="#Command.execute-31"><span class="linenos">31</span></a>            <span class="p">[</span>
+</span><span id="Command.execute-32"><a href="#Command.execute-32"><span class="linenos">32</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">binary</span><span class="p">,</span>
+</span><span id="Command.execute-33"><a href="#Command.execute-33"><span class="linenos">33</span></a>                <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">get_arguments</span><span class="p">(</span><span class="n">quiet</span><span class="p">,</span> <span class="n">target_paths</span><span class="p">),</span>
+</span><span id="Command.execute-34"><a href="#Command.execute-34"><span class="linenos">34</span></a>            <span class="p">],</span>
+</span><span id="Command.execute-35"><a href="#Command.execute-35"><span class="linenos">35</span></a>            <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="Command.execute-36"><a href="#Command.execute-36"><span class="linenos">36</span></a>            <span class="n">capture_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="Command.execute-37"><a href="#Command.execute-37"><span class="linenos">37</span></a>        <span class="p">)</span><span class="o">.</span><span class="n">returncode</span>
 </span></pre></div>
 
 
@@ -244,6 +289,77 @@
 
 
                             </div>
+                            <div id="Command.embed_path" class="classattr">
+                                        <input id="Command.embed_path-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+                    <div class="decorator decorator-staticmethod">@staticmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">embed_path</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">line</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span>, </span><span class="param"><span class="n">col</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
+
+                <label class="view-source-button" for="Command.embed_path-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Command.embed_path"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Command.embed_path-39"><a href="#Command.embed_path-39"><span class="linenos">39</span></a>    <span class="nd">@staticmethod</span>
+</span><span id="Command.embed_path-40"><a href="#Command.embed_path-40"><span class="linenos">40</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">embed_path</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Command.embed_path-41"><a href="#Command.embed_path-41"><span class="linenos">41</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">]8;;file://</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> \
+</span><span id="Command.embed_path-42"><a href="#Command.embed_path-42"><span class="linenos">42</span></a>            <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;#L</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s1">:C</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">col</span> <span class="k">else</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;#L</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">line</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="o">+</span> \
+</span><span id="Command.embed_path-43"><a href="#Command.embed_path-43"><span class="linenos">43</span></a>            <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\x1b\\</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="se">\x1b\\</span><span class="s1">&#39;</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                </section>
+                <section id="BLINTER">
+                    <div class="attr variable">
+            <span class="name">BLINTER</span><span class="annotation">: <a href="#Command">Command</a></span>        =
+<span class="default_value">&lt;stylebook.commands.blinter.BlinterCommand object&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#BLINTER"></a>
+    
+    
+
+                </section>
+                <section id="DOTENV_LINTER">
+                    <div class="attr variable">
+            <span class="name">DOTENV_LINTER</span><span class="annotation">: <a href="#Command">Command</a></span>        =
+<span class="default_value">&lt;stylebook.commands.dotenv_linter.DotenvLinterCommand object&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#DOTENV_LINTER"></a>
+    
+    
+
+                </section>
+                <section id="PYINILINT">
+                    <div class="attr variable">
+            <span class="name">PYINILINT</span><span class="annotation">: <a href="#Command">Command</a></span>        =
+<span class="default_value">&lt;stylebook.commands.pyinilint.PyinilintLinterCommand object&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#PYINILINT"></a>
+    
+    
+
+                </section>
+                <section id="RESTRUCTUREDTEXT_LINT">
+                    <div class="attr variable">
+            <span class="name">RESTRUCTUREDTEXT_LINT</span><span class="annotation">: <a href="#Command">Command</a></span>        =
+<span class="default_value">&lt;stylebook.commands.restructuredtext_lint.RestructuredtextLintCommand object&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#RESTRUCTUREDTEXT_LINT"></a>
+    
+    
+
                 </section>
                 <section id="SQLFLUFF">
                     <div class="attr variable">
