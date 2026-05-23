@@ -7,11 +7,10 @@ members = [
 stylebook = { workspace = true }
 
 [tool.poe.tasks]
-print-jsonlint-languages = "generate_linguist_languages.py"
-lint1 = { cmd = "pylint **/*.py --rcfile=../.pylintrc", cwd = "stylebook" }
-lint2 = "pylint *.py"
-lint3 = "stylebook ."
-lint.parallel = ["lint1", "lint2", "lint3"]
+gen-json-lang = "generate_jsonlint_languages.py"
+lint1 = "uv run pylint stylebook/**/*.py"
+lint2 = "stylebook ."
+lint.parallel = ["lint1", "lint2"]
 documentation1 = "rm -rf build/pdoc/"
 documentation2 = "pdoc -o build/pdoc/ stylebook/"
 documentation = ["documentation1", "documentation2"]

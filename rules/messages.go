@@ -1,11 +1,13 @@
 package rules
 
 import (
+	_ "embed"
 	"encoding/json"
-	"os"
-	"path/filepath"
 	"sync"
 )
+
+//go:embed resources/messages.json
+var messagesJSON []byte
 
 var (
 	messages     map[string]string
@@ -14,12 +16,7 @@ var (
 
 func loadMessages() {
 	messages = map[string]string{}
-	path := filepath.Join("..", "resources", "messages.json")
-	data, err := os.ReadFile(path)
-	if err != nil {
-		return
-	}
-	_ = json.Unmarshal(data, &messages)
+	_ = json.Unmarshal(messagesJSON, &messages)
 }
 
 func GetMessage(key string) string {
