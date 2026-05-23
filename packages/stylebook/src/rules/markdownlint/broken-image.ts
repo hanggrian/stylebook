@@ -1,6 +1,10 @@
 import messages from '../../messages.js';
+import { truncateOrExpand } from '../../strings.js';
 import StylebookMarkdownlintRule from './stylebook-markdown-rule.js';
+import chalk from 'chalk';
 import { execSync } from 'node:child_process';
+import { dirname, join, parse } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { RuleConfiguration, RuleOnError } from 'markdownlint';
 
 interface ImageOccurrence {
@@ -19,10 +23,14 @@ class BrokenImageRule extends StylebookMarkdownlintRule {
         super('broken-image', 'url');
     }
 
-    checkUrls: (urls: string[], timeout: number) => FetchResult[] = (urls, timeout) =>
-        BrokenImageRule.checkUrlsSync(urls, timeout);
+    checkUrls: (
+        path: string,
+        urls: string[],
+        timeout: number,
+    ) => FetchResult[] = (path, urls, timeout) =>
+        BrokenImageRule.checkUrlsSync(path, urls, timeout);
 
-    visit(lines: string[], config: RuleConfiguration, onError: RuleOnError) {
+    visit(path: string, lines: string[], config: RuleConfiguration, onError: RuleOnError) {
         // parse configuration
         const timeout: number = config.timeout ? parseInt(config.timeout) : 6_000;
         const ignoredHosts: string[] =
@@ -53,7 +61,7 @@ class BrokenImageRule extends StylebookMarkdownlintRule {
         if (!filtered.length) {
             return;
         }
-        const results = this.checkUrls(filtered.map(o => o.url), timeout);
+        const results = this.checkUrls(path, filtered.map(o => o.url), timeout);
         for (let i = 0; i < filtered.length; i++) {
             const { url, lineNumber, context } = filtered[i];
             const { status, contentType } = results[i];
@@ -78,17 +86,46 @@ class BrokenImageRule extends StylebookMarkdownlintRule {
 
     private static IMAGE_REGEX: RegExp = /!\[[^\]]*]\((https?:\/\/[^)\s]+)\)/g;
     private static USER_AGENT: string = 'markdownlint-rule-broken-image/1.0 (link checker)';
+    private static PACKAGE_ROOT: string = join(
+        dirname(fileURLToPath(import.meta.url)),
+        '../../../',
+    );
 
-    private static checkUrlsSync(urls: string[], timeout: number): FetchResult[] {
+    private static BAR_CATEGORY: string = truncateOrExpand('broken-image', 12);
+    private static BAR_SIZE: number = 32;
+
+    private static checkUrlsSync(
+        path: string,
+        urls: string[],
+        timeout: number,
+    ): FetchResult[] {
         try {
             return JSON.parse(
                 execSync(
                     'node --input-type=module',
                     {
                         input:
-                            `const urls = ${JSON.stringify(urls)};
+                            `import cliProgress from 'cli-progress/cli-progress.js';
+
+                            const urls = ${JSON.stringify(urls)};
                             const TIMEOUT_MS = ${timeout};
                             const USER_AGENT = ${JSON.stringify(BrokenImageRule.USER_AGENT)};
+                            const BAR_SIZE = 35;
+                            const bar =
+                                process.stderr.isTTY
+                                    ? new cliProgress.SingleBar(
+                                        {
+                                            format:
+                                                '${truncateOrExpand(parse(path).name, 24)}   ' +
+                                                '${chalk.dim(BrokenImageRule.BAR_CATEGORY)} ' +
+                                                '{bar} {value}/{total}',
+                                            barsize: ${BrokenImageRule.BAR_SIZE},
+                                        },
+                                        cliProgress.Presets.rect,
+                                    ) : null;
+                            if (bar) {
+                                bar.start(urls.length, 0);
+                            }
                             process.stdout.write(
                                 JSON.stringify(
                                     await Promise.all(
@@ -124,14 +161,22 @@ class BrokenImageRule extends StylebookMarkdownlintRule {
                                                 };
                                             } catch {
                                                 return { status: null, contentType: null };
+                                            } finally {
+                                                if (bar) {
+                                                    bar.increment();
+                                                }
                                             }
                                         }),
                                     ),
                                 ),
-                            );`,
+                            );
+                            if (bar) {
+                                bar.stop();
+                            }`,
                         timeout: timeout * urls.length + 3_000,
                         encoding: 'utf-8',
-                        stdio: ['pipe', 'pipe', 'ignore'],
+                        cwd: BrokenImageRule.PACKAGE_ROOT,
+                        stdio: ['pipe', 'pipe', 'inherit'],
                     },
                 ),
             ) as FetchResult[];

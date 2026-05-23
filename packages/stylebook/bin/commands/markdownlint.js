@@ -5,11 +5,11 @@ import markdownIt from 'markdown-it';
 import { readFileSync } from 'node:fs';
 
 /**
- * CLI executor for <a href="https://github.com/DavidAnson/markdownlint-cli2/">markdownlint-cli2</a>.
+ * CLI executor for <a href="https://github.com/DavidAnson/markdownlint/">markdownlint</a>.
  */
 class MarkdownlintCommand extends Command {
     constructor() {
-        super('markdownlint-cli2', 'markdownlint-cli2.json');
+        super('markdownlint', 'markdownlint.json');
     }
 
     isAvailable() {

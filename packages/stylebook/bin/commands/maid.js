@@ -14,8 +14,8 @@ class MaidCommand extends Command {
 
     execute(_, targetPaths) {
         let hasErrors = false;
-        for (const targetPath of targetPaths) {
-            const source = readFileSync(targetPath, 'utf-8');
+        for (const path of targetPaths) {
+            const source = readFileSync(path, 'utf-8');
             try {
                 const res = validate(source);
                 const errors = res.errors || [];
@@ -32,7 +32,7 @@ class MaidCommand extends Command {
                     }
                     console.log(
                         `${Command.embedPath(
-                            targetPath,
+                            path,
                             e.line ?? 1,
                             e.column ?? 1,
                         )}: ${e.message ?? JSON.stringify(e)}${code}`,
@@ -41,7 +41,7 @@ class MaidCommand extends Command {
             } catch (err) {
                 hasErrors = true;
                 console.log(
-                    `${Command.embedPath(targetPath, 1, 1)}: ${err?.message ?? String(err)}`,
+                    `${Command.embedPath(path, 1, 1)}: ${err?.message ?? String(err)}`,
                 );
             }
         }

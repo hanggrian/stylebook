@@ -1,6 +1,10 @@
 import messages from '../../messages.js';
+import { truncateOrExpand } from '../../strings.js';
 import StylebookMarkdownlintRule from './stylebook-markdown-rule.js';
+import chalk from 'chalk';
 import { execSync } from 'node:child_process';
+import { dirname, join, parse } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { RuleConfiguration, RuleOnError } from 'markdownlint';
 
 interface LinkOccurrence {
@@ -14,10 +18,14 @@ class DeadLinkRule extends StylebookMarkdownlintRule {
         super('dead-link', 'url');
     }
 
-    checkUrls: (urls: string[], timeout: number) => (number | null)[] = (urls, timeout) =>
-        DeadLinkRule.checkUrlsSync(urls, timeout);
+    checkUrls: (
+        path: string,
+        urls: string[],
+        timeout: number,
+    ) => (number | null)[] = (path, urls, timeout) =>
+        DeadLinkRule.checkUrlsSync(path, urls, timeout);
 
-    visit(lines: string[], config: RuleConfiguration, onError: RuleOnError) {
+    visit(path: string, lines: string[], config: RuleConfiguration, onError: RuleOnError) {
         // parse configuration
         const timeout: number = config.timeout ? parseInt(config.timeout) : 6_000;
         const ignoredHosts: string[] =
@@ -48,7 +56,7 @@ class DeadLinkRule extends StylebookMarkdownlintRule {
         if (!filtered.length) {
             return;
         }
-        const results = this.checkUrls(filtered.map(o => o.url), timeout);
+        const results = this.checkUrls(path, filtered.map(o => o.url), timeout);
         for (let i = 0; i < filtered.length; i++) {
             const { url, lineNumber, context } = filtered[i];
             const status = results[i];
@@ -67,17 +75,46 @@ class DeadLinkRule extends StylebookMarkdownlintRule {
 
     private static URL_REGEX: RegExp = /(?<!!)\[[^\]]*]\((https?:\/\/[^)\s]+)\)/g;
     private static USER_AGENT: string = 'markdownlint-rule-dead-link/1.0 (link checker)';
+    private static PACKAGE_ROOT: string = join(
+        dirname(fileURLToPath(import.meta.url)),
+        '../../../',
+    );
 
-    private static checkUrlsSync(urls: string[], timeout: number): (number | null)[] {
+    private static BAR_CATEGORY: string = truncateOrExpand('dead-link', 12);
+    private static BAR_SIZE: number = 32;
+
+    private static checkUrlsSync(
+        path: string,
+        urls: string[],
+        timeout: number,
+    ): (number | null)[] {
         try {
             return JSON.parse(
                 execSync(
                     'node --input-type=module',
                     {
                         input:
-                            `const urls = ${JSON.stringify(urls)};
+                            `import cliProgress from 'cli-progress/cli-progress.js';
+
+                            const urls = ${JSON.stringify(urls)};
                             const TIMEOUT_MS = ${timeout};
                             const USER_AGENT = ${JSON.stringify(DeadLinkRule.USER_AGENT)};
+                            const BAR_SIZE = 35;
+                            const bar =
+                                process.stderr.isTTY
+                                    ? new cliProgress.SingleBar(
+                                        {
+                                            format:
+                                                '${truncateOrExpand(parse(path).name, 24)}   ' +
+                                                '${chalk.dim(DeadLinkRule.BAR_CATEGORY)} ' +
+                                                '{bar} {value}/{total}',
+                                            barsize: ${DeadLinkRule.BAR_SIZE},
+                                        },
+                                        cliProgress.Presets.rect,
+                                    ) : null;
+                            if (bar) {
+                                bar.start(urls.length, 0);
+                            }
                             process.stdout.write(
                                 JSON.stringify(
                                     await Promise.all(
@@ -110,14 +147,22 @@ class DeadLinkRule extends StylebookMarkdownlintRule {
                                                 return res.status;
                                             } catch {
                                                 return null;
+                                            } finally {
+                                                if (bar) {
+                                                    bar.increment();
+                                                }
                                             }
                                         }),
                                     ),
                                 ),
-                            );`,
+                            );
+                            if (bar) {
+                                bar.stop();
+                            }`,
                         timeout: timeout * urls.length + 3_000,
                         encoding: 'utf-8',
-                        stdio: ['pipe', 'pipe', 'ignore'],
+                        cwd: DeadLinkRule.PACKAGE_ROOT,
+                        stdio: ['pipe', 'pipe', 'inherit'],
                     },
                 ),
             ) as (number | null)[];

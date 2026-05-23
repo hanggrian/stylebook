@@ -7,7 +7,7 @@ class OrderedListSpacesRule extends StylebookMarkdownlintRule {
         super('ordered-list-spaces', 'syntax');
     }
 
-    visit(lines: string[], _: RuleConfiguration, onError: RuleOnError) {
+    visit(_: string, lines: string[], _2: RuleConfiguration, onError: RuleOnError) {
         for (let i = 0; i < lines.length; i++) {
             // filter list item
             const line: string = lines[i];
