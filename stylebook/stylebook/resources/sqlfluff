@@ -4,9 +4,15 @@ templater = jinja
 exclude_rules = ambiguous.column_count, structure.column_order
 max_line_length = 80
 processes = -1
+rules = all
 
 [sqlfluff:templater:dbt]
 project_dir = ./
+
+[sqlfluff:rules:layout.newlines]
+maximum_empty_lines_between_batches = 1
+maximum_empty_lines_between_statements = 1
+maximum_empty_lines_inside_statements = 1
 
 [sqlfluff:indentation]
 implicit_indents = allow
@@ -17,12 +23,16 @@ min_alias_length = 3
 
 [sqlfluff:rules:capitalisation.keywords]
 capitalisation_policy = upper
+
 [sqlfluff:rules:capitalisation.identifiers]
 extended_capitalisation_policy = lower
+
 [sqlfluff:rules:capitalisation.functions]
 extended_capitalisation_policy = lower
+
 [sqlfluff:rules:capitalisation.literals]
 capitalisation_policy = upper
+
 [sqlfluff:rules:capitalisation.types]
 extended_capitalisation_policy = upper
 

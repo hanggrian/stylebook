@@ -7,14 +7,14 @@ layers in the resulting image.
 
 **:material-star-four-points-outline:{ #accent } Before**
 
-```docker
+```dockerfile
 RUN apt-get update
 RUN apt-get install -y curl
 ```
 
 **:material-star-four-points:{ #accent } After**
 
-```docker
+```dockerfile
 RUN apt-get update && \
   apt-get install -y curl
 ```
@@ -34,12 +34,12 @@ interactive prompts.
 
 **:material-star-four-points-outline:{ #accent } Before**
 
-```docker
+```dockerfile
 RUN apt-get install curl
 ```
 
 **:material-star-four-points:{ #accent } After**
 
-```docker
+```dockerfile
 RUN apt-get install -y curl
 ```

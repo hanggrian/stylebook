@@ -7,7 +7,7 @@ class UnnecessaryLeadingBlankLineRule extends StylebookMarkdownlintRule {
         super('unnecessary-leading-blank-line', 'syntax');
     }
 
-    visit(lines: string[], _: RuleConfiguration, onError: RuleOnError) {
+    visit(_: string, lines: string[], _2: RuleConfiguration, onError: RuleOnError) {
         // checks for violation
         if (lines.length === 0 || lines[0].trim() !== '') {
             return;

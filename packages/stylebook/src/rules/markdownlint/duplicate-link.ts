@@ -12,7 +12,7 @@ class DuplicateLinkRule extends StylebookMarkdownlintRule {
         super('duplicate-link', 'links');
     }
 
-    visit(lines: string[], _: RuleConfiguration, onError: RuleOnError): void {
+    visit(_: string, lines: string[], _2: RuleConfiguration, onError: RuleOnError): void {
         // collect urls
         const urls = new Map<string, LinkOccurrence[]>();
         for (let i = 0; i < lines.length; i++) {

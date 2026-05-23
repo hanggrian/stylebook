@@ -24,13 +24,14 @@ classifiers = [
 ]
 dependencies = [
   # main
+  "colorama",
   "Blinter==1.0.112",
   "dotenv-linter==0.7.0",
   "pyinilint==0.17",
+  "restructuredtext_lint==2.0.2",
   "sqlfluff==4.2.1",
   "taplo==0.9.3",
   "yamllint==1.38.0",
-  "colorama",
 ]
 
 [project.urls]

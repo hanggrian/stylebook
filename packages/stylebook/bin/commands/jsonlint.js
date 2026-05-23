@@ -25,9 +25,9 @@ class JsonlintCommand extends Command {
             ignoreProtoKey: config.ignoreProtoKey,
             ignorePrototypeKeys: config.ignorePrototypeKeys,
         };
-        for (const targetPath of targetPaths) {
+        for (const path of targetPaths) {
             try {
-                const source = readFileSync(targetPath, 'UTF-8');
+                const source = readFileSync(path, 'UTF-8');
                 const parsed = parse(source, parserOptions);
                 let output = JSON.stringify(parsed, null, config.indent);
                 const hasTrailingNewline = !source.split(/\r?\n/).at(-1);
@@ -40,14 +40,14 @@ class JsonlintCommand extends Command {
                 }
                 const reports = JsonlintCommand.getReports(source, output);
                 for (const { line, column, reason } of reports) {
-                    console.log(`${Command.embedPath(targetPath, line, column)}: ${reason}`);
+                    console.log(`${Command.embedPath(path, line, column)}: ${reason}`);
                 }
                 hasErrors = true;
             } catch (error) {
                 hasErrors = true;
                 const { location } = error;
                 const { line, column } = location.start;
-                console.log(`${Command.embedPath(targetPath, line, column)}: ${error.reason}`);
+                console.log(`${Command.embedPath(path, line, column)}: ${error.reason}`);
             }
         }
         return hasErrors ? 1 : 0;

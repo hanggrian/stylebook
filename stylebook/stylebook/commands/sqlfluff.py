@@ -19,19 +19,19 @@ class SqlfluffCommand(Command):
 
     def execute(self, _, target_paths: list[str]) -> int:
         has_errors: bool = False
-        for target_path in target_paths:
+        for path in target_paths:
             violations: list[dict[str, Any]] = \
                 sqlfluff.lint(
-                    Path(target_path).read_text(encoding='UTF-8'),
+                    Path(path).read_text(encoding='UTF-8'),
                     config_path=self.config_file,
                 )
             if not violations:
                 continue
             has_errors = True
-            for violation in (SimpleNamespace(**v) for v in violations):
+            for violation in (SimpleNamespace(**violation) for violation in violations):
                 print(
                     f'{self.embed_path(
-                        target_path,
+                        path,
                         violation.start_line_no,
                         violation.start_line_pos,
                     )}: {violation.description} ({violation.code})',

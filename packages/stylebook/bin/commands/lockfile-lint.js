@@ -23,12 +23,12 @@ class LockfileLintCommand extends Command {
 
     execute(_, targetPaths) {
         let hasErrors = false;
-        for (const targetPath of targetPaths) {
+        for (const path of targetPaths) {
             const hosts =
-                basename(targetPath) === 'yarn.lock'
+                basename(path) === 'yarn.lock'
                     ? LockfileLintCommand.YARN_HOST
                     : LockfileLintCommand.NPM_HOST;
-            const parser = new ParseLockfile({ lockfilePath: targetPath });
+            const parser = new ParseLockfile({ lockfilePath: path });
             const lockfile = parser.parseSync();
             const validators = [
                 new ValidateHttps({ packages: lockfile.object }),

@@ -4,7 +4,16 @@ from pathlib import Path
 from sys import argv, exit as exit2
 
 from stylebook.colors import cyan, blue, b, d, green, i, red, yellow
-from stylebook.commands import Command, BLINTER, DOTENV_LINTER, PYINILINT, SQLFLUFF, TAPLO, YAMLLINT
+from stylebook.commands import (
+    Command,
+    BLINTER,
+    DOTENV_LINTER,
+    PYINILINT,
+    RESTRUCTUREDTEXT_LINT,
+    SQLFLUFF,
+    TAPLO,
+    YAMLLINT,
+)
 from stylebook.files import get_config_file
 
 
@@ -54,10 +63,12 @@ def run() -> None:
             f'{i('Batch')}, '
             f'{i('Dotenv')}, '
             f'{i('INI')}, '
+            f'{i('reStructuredText')}, '
             f'{i('SQL')}, '
             f'{i('TOML')}, '
-            f'{i('YAML')} and their variants',
+            f'{i('YAML')} and ',
         )
+        print('             their variants')
         print('   dir       Recursively find files in this directory')
         print(f'   pattern   For example, {i('*.bat')} for all Batch files in this')
         print(f'             directory, {i('**/*')} for all files\n')
@@ -80,6 +91,7 @@ def run() -> None:
         BLINTER: [],
         DOTENV_LINTER: [],
         PYINILINT: [],
+        RESTRUCTUREDTEXT_LINT: [],
         SQLFLUFF: [],
         TAPLO: [],
         YAMLLINT: [],
@@ -102,6 +114,9 @@ def run() -> None:
 
             case '.ini' | '.cfg' | '.conf':
                 commands[PYINILINT].append(target_path)
+
+            case '.rst' | '.rest':
+                commands[RESTRUCTUREDTEXT_LINT].append(target_path)
 
             case '.sql':
                 commands[SQLFLUFF].append(target_path)
