@@ -17,6 +17,7 @@ abstract class StylebookMarkdownlintRule implements Rule {
             const { lines } = params;
             let isCodeFence = false;
             this.visit(
+                params.name,
                 lines.map(line => {
                     if (StylebookMarkdownlintRule.CODE_FENCE_REGEX.test(line)) {
                         isCodeFence = !isCodeFence;
@@ -30,7 +31,11 @@ abstract class StylebookMarkdownlintRule implements Rule {
             );
         };
 
-    abstract visit(lines: readonly string[], config: RuleConfiguration, onError: RuleOnError): void;
+    abstract visit(
+        path: string,
+        lines: readonly string[],
+        config: RuleConfiguration, onError: RuleOnError,
+    ): void;
 
     private static CODE_FENCE_REGEX: RegExp = /^```/;
 }

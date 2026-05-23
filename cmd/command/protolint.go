@@ -47,9 +47,9 @@ func (c *ProtolintCommand) Execute(_ Linter, _ bool, targetPaths []string) int {
 	}
 
 	hasFailure := false
-	for _, targetPath := range targetPaths {
+	for _, path := range targetPaths {
 		if c.runProtoRules(
-			targetPath,
+			path,
 			protolint.NewDuplicateBlankLineRule(),
 			protolint.NewTrailingNewlineRule(),
 			protolint.NewUnnecessaryLeadingBlankLineRule(),

@@ -7,7 +7,7 @@ class OrderedListNumberRule extends StylebookMarkdownlintRule {
         super('ordered-list-number', 'syntax');
     }
 
-    visit(lines: string[], _: RuleConfiguration, onError: RuleOnError) {
+    visit(_: string, lines: string[], _2: RuleConfiguration, onError: RuleOnError) {
         const prevByIndent = new Map<number, number>();
         for (let i = 0; i < lines.length; i++) {
             // non-list item, clear

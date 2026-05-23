@@ -23,40 +23,18 @@ broken images.
       <th>Runner</th>
       <th>File type</th>
       <th>Linter</th>
-      <th>Style</th>
       <th>Config file</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td rowspan="10">Go</td>
-      <td>Makefile</td>
-      <td>
-        <a href="https://github.com/checkmake/checkmake/">
-          checkmake
-        </a>
-      </td>
-      <td></td>
-      <td><code>.checkmake.ini</code></td>
-    </tr>
-    <tr>
-      <td>LaTeX</td>
-      <td>
-        <a href="https://www.nongnu.org/chktex/">
-          ChkTeX
-        </a>
-      </td>
-      <td></td>
-      <td><code>.chktexrc</code></td>
-    </tr>
-    <tr>
       <td>CSV</td>
       <td>
         <a href="https://github.com/Clever/csvlint/">
           csvlint
         </a>
-      </td>
-      <td>
+        with<br>
         <a href="https://www.rfc-editor.org/rfc/rfc4180.html">
           RFC 4180
         </a>
@@ -69,8 +47,7 @@ broken images.
         <a href="https://github.com/hadolint/hadolint/">
           Hadolint
         </a>
-      </td>
-      <td>
+        with<br>
         <a href="https://docs.docker.com/build/building/best-practices/">
           Docker Build Best Practices
         </a>
@@ -78,14 +55,31 @@ broken images.
       <td><code>.hadolint.yaml</code></td>
     </tr>
     <tr>
-      <td>go.mod</td>
+      <td>Go Module</td>
       <td>
         <a href="https://github.com/ldez/gomoddirectives/">
           gomoddirectives
         </a>
       </td>
       <td></td>
-      <td></td>
+    </tr>
+    <tr>
+      <td>LaTeX</td>
+      <td>
+        <a href="https://cgit.git.savannah.nongnu.org/cgit/chktex.git">
+          ChkTeX
+        </a>
+      </td>
+      <td><code>.chktexrc</code></td>
+    </tr>
+    <tr>
+      <td>Makefile</td>
+      <td>
+        <a href="https://github.com/checkmake/checkmake/">
+          checkmake
+        </a>
+      </td>
+      <td><code>.checkmake.ini</code></td>
     </tr>
     <tr>
       <td>Properties</td>
@@ -94,7 +88,6 @@ broken images.
           propertieslint
         </a>
       </td>
-      <td></td>
       <td><code>.propertieslint.json</code></td>
     </tr>
     <tr>
@@ -103,8 +96,7 @@ broken images.
         <a href="https://github.com/yoheimuta/protolint/">
           protolint
         </a>
-      </td>
-      <td>
+        with<br>
         <a href="https://protobuf.dev/programming-guides/style/">
           Protobuf Style Guide
         </a>
@@ -118,7 +110,6 @@ broken images.
           ShellCheck
         </a>
       </td>
-      <td></td>
       <td><code>.shellcheckrc</code></td>
     </tr>
     <tr>
@@ -127,8 +118,7 @@ broken images.
         <a href="https://github.com/terraform-linters/tflint/">
           TFLint
         </a>
-      </td>
-      <td>
+        with<br>
         <a href="https://developer.hashicorp.com/terraform/language/style/">
           Terraform Style Guide
         </a>
@@ -143,17 +133,15 @@ broken images.
         </a>
       </td>
       <td></td>
-      <td></td>
     </tr>
     <tr>
-      <td rowspan="6">Python</td>
+      <td rowspan="7">Python</td>
       <td>Batch</td>
       <td>
         <a href="https://github.com/tboy1337/Blinter/">
           Blinter
         </a>
       </td>
-      <td></td>
       <td><code>blinter.ini</code></td>
     </tr>
     <tr>
@@ -164,7 +152,6 @@ broken images.
         </a>
       </td>
       <td></td>
-      <td></td>
     </tr>
     <tr>
       <td>INI</td>
@@ -174,7 +161,6 @@ broken images.
         </a>
       </td>
       <td></td>
-      <td></td>
     </tr>
     <tr>
       <td>SQL</td>
@@ -182,8 +168,7 @@ broken images.
         <a href="https://github.com/sqlfluff/sqlfluff/">
           SQLFluff
         </a>
-      </td>
-      <td>
+        with<br>
         <a href="https://docs.telemetry.mozilla.org/concepts/sql_style/">
           Mozilla SQL Style Guide
         </a>
@@ -196,8 +181,7 @@ broken images.
         <a href="https://github.com/tamasfe/taplo/">
           Taplo
         </a>
-      </td>
-      <td>
+        with<br>
         <a href="https://toml.io/en/">
           TOML Quick Tour
         </a>
@@ -210,13 +194,21 @@ broken images.
         <a href="https://github.com/adrienverge/yamllint/">
           yamllint
         </a>
-      </td>
-      <td>
+        with<br>
         <a href="https://www.yaml.info/learn/bestpractices.html">
           YAML Best Practices
         </a>
       </td>
       <td><code>.yamllintrc.yaml</code></td>
+    </tr>
+    <tr>
+      <td>reStructuredText</td>
+      <td>
+        <a href="https://github.com/twolfson/restructuredtext-lint/">
+          restructuredtext-lint
+        </a>
+      </td>
+      <td></td>
     </tr>
     <tr>
       <td rowspan="6">Node</td>
@@ -225,8 +217,7 @@ broken images.
         <a href="https://github.com/stylelint/stylelint/">
           Stylelint
         </a>
-      </td>
-      <td>
+        with<br>
         <a href="https://protocol.mozilla.org/docs/contributing/css-guide/">
           Mozilla CSS Coding Guide
         </a>
@@ -243,8 +234,7 @@ broken images.
         <a href="https://github.com/htmlhint/HTMLHint/">
           HTMLHint
         </a>
-      </td>
-      <td>
+        with<br>
         <a href="https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Code_style_guide/HTML/">
           Mozilla HTML Style Guide
         </a>
@@ -258,7 +248,6 @@ broken images.
           JSON Lint
         </a>
       </td>
-      <td></td>
       <td><code>.jsonlintrc.json</code></td>
     </tr>
     <tr>
@@ -269,7 +258,19 @@ broken images.
         </a>
       </td>
       <td></td>
-      <td></td>
+    </tr>
+    <tr>
+      <td>Markdown</td>
+      <td>
+        <a href="https://github.com/davidanson/markdownlint/">
+          markdownlint
+        </a>
+        with<br>
+        <a href="https://experienceleague.adobe.com/en/docs/contributor/contributor-guide/writing-essentials/markdown/">
+          Adobe Markdown Basics
+        </a>
+      </td>
+      <td><code>.markdownlint.json</code></td>
     </tr>
     <tr>
       <td>Mermaid</td>
@@ -279,21 +280,6 @@ broken images.
         </a>
       </td>
       <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Markdown</td>
-      <td>
-        <a href="https://github.com/davidanson/markdownlint/">
-          markdownlint
-        </a>
-      </td>
-      <td>
-        <a href="https://experienceleague.adobe.com/en/docs/contributor/contributor-guide/writing-essentials/markdown/">
-          Adobe Markdown Basics
-        </a>
-      </td>
-      <td><code>.markdownlint-cli2.json</code></td>
     </tr>
   </tbody>
 </table>
@@ -349,6 +335,7 @@ Insert target paths into the command. The program will recursively search for
 qualifying file types and spawn the corresponding linter processes.
 
 ```sh
+stylebook . # Go binary
 npx @hanggrian/stylebook some-folder/ some-file.sql
 source .venv/bin/activate && stylebook **/*
 ```

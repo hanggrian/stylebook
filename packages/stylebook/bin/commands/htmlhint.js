@@ -22,15 +22,15 @@ class HtmlhintCommand extends Command {
         const config = JSON.parse(readFileSync(this.configFile, 'UTF-8'));
         HTMLHint.addRule(trailingNewlineRule);
         HTMLHint.addRule(unnecessaryLeadingBlankLineRule);
-        for (const targetPath of targetPaths) {
-            const messages = HTMLHint.verify(readFileSync(targetPath, 'UTF-8'), config);
+        for (const path of targetPaths) {
+            const messages = HTMLHint.verify(readFileSync(path, 'UTF-8'), config);
             if (messages.length <= 0) {
                 continue;
             }
             hasErrors = true;
             messages.forEach(hint =>
                 console.log(
-                    `${Command.embedPath(targetPath, hint.line, hint.col)}: ` +
+                    `${Command.embedPath(path, hint.line, hint.col)}: ` +
                     `${hint.message} (${hint.rule.id})`,
                 ),
             );

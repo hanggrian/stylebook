@@ -16,6 +16,8 @@ jobs:
     - uses: actions/checkout@v6
 
     - uses: ./.github/actions/setup-workspace
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - run: |
         sudo apt-get install -y chktex libxml2-utils
@@ -25,7 +27,12 @@ jobs:
           https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
         sudo chmod a+x "$HADOLINT_PATH"
 
-    - run: just lint
+    - run: |
+        task lint
+        uv run poe lint
+        pnpm -r lint
+        # skip network calls
+        pnpm stylebook . -e=.venv,node_modules,coverage,markdown,sample,website
 
   upload-coverage:
     runs-on: ubuntu-24.04
@@ -33,6 +40,8 @@ jobs:
     - uses: actions/checkout@v6
 
     - uses: ./.github/actions/setup-workspace
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - run: just coverage
 

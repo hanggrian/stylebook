@@ -7,7 +7,7 @@ class UnnecessaryBlankLineInListRule extends StylebookMarkdownlintRule {
         super('unnecessary-blank-line-in-list', 'syntax');
     }
 
-    visit(lines: string[], _: RuleConfiguration, onError: RuleOnError) {
+    visit(_: string, lines: string[], _2: RuleConfiguration, onError: RuleOnError) {
         for (let i = 0; i < lines.length; i++) {
             // target blank lines
             const line: string = lines[i];

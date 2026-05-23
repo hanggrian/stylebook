@@ -50,7 +50,9 @@ bar: '"bar"'
 ### Duplicate blank line
 
 ![css](https://img.shields.io/badge/css-max--empty--lines-663399)
-![markdownlint](https://img.shields.io/badge/md-no--multiple--blanks-fff)
+![md](https://img.shields.io/badge/md-no--multiple--blanks-fff)
+![properties](https://img.shields.io/badge/properties-duplicate--blank--line-ED8B00)
+![sql](https://img.shields.io/badge/sql-layout--newlines-003B57)
 
 No more than one consecutive blank line.
 
@@ -77,8 +79,8 @@ Bar
 
 ### Indent style
 
-![markdownlint](https://img.shields.io/badge/md-list--indent-fff)
-![markdownlint](https://img.shields.io/badge/md-ul--indent-fff)
+![md](https://img.shields.io/badge/md-list--indent-fff)
+![md](https://img.shields.io/badge/md-ul--indent-fff)
 
 Spaces over hard tabs for indentation, default 2 spaces.
 
@@ -100,7 +102,7 @@ Spaces over hard tabs for indentation, default 2 spaces.
 
 ### Line length
 
-![markdownlint](https://img.shields.io/badge/md-list--length-fff)
+![md](https://img.shields.io/badge/md-list--length-fff)
 ![toml](https://img.shields.io/badge/toml-column--width-9c4121)
 ![yaml](https://img.shields.io/badge/yaml-line--length-cb171e)
 
@@ -156,7 +158,8 @@ child = [
 
 ### Trailing newline
 
-![markdownlint](https://img.shields.io/badge/md-single--trailing--newline-fff)
+![md](https://img.shields.io/badge/md-single--trailing--newline-fff)
+![properties](https://img.shields.io/badge/properties-trailing--newline-ED8B00)
 ![toml](https://img.shields.io/badge/toml-trailing--newline-9c4121)
 
 Files should end with a single newline character.
@@ -176,7 +179,7 @@ Foo
 
 ### Trailing space
 
-![markdownlint](https://img.shields.io/badge/md-no--trailing--spaces-fff)
+![md](https://img.shields.io/badge/md-no--trailing--spaces-fff)
 ![yaml](https://img.shields.io/badge/yaml-trailing--spaces-cb171e)
 
 No trailing spaces at the end of lines.
@@ -196,6 +199,7 @@ Foo
 ### Unnecessary leading blank line
 
 ![css](https://img.shields.io/badge/css-no--missing--end--of--source--newline-663399)
+![properties](https://img.shields.io/badge/properties-no--leading--blank--line-ED8B00)
 
 Files should not start with blank lines.
 

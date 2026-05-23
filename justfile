@@ -1,33 +1,37 @@
+distro := if os() == "linux" { `grep -Po '(?<=^ID=).+' /etc/os-release | tr -d '"'` } else { os() }
+
 install clean="false":
-    go mod {{ if clean == "true" { "download" } else { "tidy" } }}
+    just _task-{{ distro }} install
     uv sync {{ if clean == "true" { "--locked" } else { "" } }}
     pnpm {{ if clean == "true" { "ci" } else { "i" } }}
 
 lint:
-    go run . .
+    just _task-{{ distro }} lint
     uv run poe lint
     pnpm lint
 
 format:
     just --fmt
-    gofmt -w .
+    just _task-{{ distro }} format
 
 test:
-    go test ./rules/...
+    just _task-{{ distro }} test
     pnpm -r test
 
 coverage:
-    go test -coverprofile=coverage.out ./rules/...
+    just _task-{{ distro }} coverage
     pnpm -r coverage
 
 documentation:
-    rm -rf build/doc2go/
-    doc2go -out build/doc2go/ ./rules/...
+    just _task-{{ distro }} documentation
     uv run poe documentation
     pnpm documentation
 
 prepare-website:
     uv pip install -r website/requirements.txt
+
+preview-website: prepare-website
+    cd website/ && uv run mkdocs serve --livereload
 
 publish-website: prepare-website documentation
     rm -rf website/docs/api/
@@ -38,5 +42,17 @@ publish-website: prepare-website documentation
     cd website/ && uv run mkdocs gh-deploy
     rm -rf website/docs/api/
 
-preview-website: prepare-website
-    cd website/ && uv run mkdocs serve --livereload
+_task-arch *args:
+    go-task {{ args }}
+
+_task-fedora *args:
+    go-task {{ args }}
+
+_task-ubuntu *args:
+    task {{ args }}
+
+_task-macos *args:
+    task {{ args }}
+
+_task-windows *args:
+    task {{ args }}

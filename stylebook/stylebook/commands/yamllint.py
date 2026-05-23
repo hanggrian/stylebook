@@ -19,15 +19,15 @@ class YamllintCommand(Command):
     def execute(self, _, target_paths: list[str]) -> int:
         config: YamlLintConfig = YamlLintConfig(file=self.config_file)
         has_errors: bool = False
-        for file_path in target_paths:
-            with open(file_path, encoding='UTF-8') as f:
+        for path in target_paths:
+            with open(path, encoding='UTF-8') as f:
                 problems: list[Any] = list(linter.run(f, config))
             if not problems:
                 continue
             has_errors = True
             for problem in problems:
                 print(
-                    f'{self.embed_path(file_path, problem.line, problem.column)}: '
+                    f'{self.embed_path(path, problem.line, problem.column)}: '
                     f'{problem.message}',
                 )
         return 1 if has_errors else 0
