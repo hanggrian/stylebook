@@ -23,8 +23,8 @@ dev = [
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "pyyaml" },
-    { name = "regex", specifier = ">=2025.11.3" },
-    { name = "rulebook-pylint", specifier = "==0.2" },
+    { name = "regex" },
+    { name = "rulebook-pylint" },
 ]
 
 [[package]]

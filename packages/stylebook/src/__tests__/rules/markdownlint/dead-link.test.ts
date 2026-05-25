@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import deadLinkRule from '../../../rules/markdownlint/dead-link';
 import { type AssertThat, assertThatMarkdownlintRule } from '../../asserters';
 import { assertMarkdownlintProperties } from '../../asserts';
@@ -50,6 +50,18 @@ describe('DeadLinkRuleTest', () => {
                 "1: 'https://www.googlea.com/' cannot be reached.",
                 "5: 'https://www.googlea.com/' cannot be reached.",
             );
+        },
+    );
+
+    it(
+        'Catch closing parenthesis',
+        () => {
+            deadLinkRule.checkUrls = () => [200];
+            assertThat(
+                `
+                Visit [Wikipedia](https://en.wikipedia.org/wiki/Fine-tuning_(deep_learning))
+                `,
+            ).hasNoError();
         },
     );
 });

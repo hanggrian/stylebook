@@ -1,12 +1,6 @@
 name: Setup Workspace
 description: Checkout and install all dependencies
 
-inputs:
-  github-token:
-    description: GitHub token
-    required: false
-    default: ${{ github.token }}
-
 runs:
   using: composite
   steps:
@@ -17,6 +11,7 @@ runs:
   - uses: astral-sh/setup-uv@v8.1.0
     with:
       python-version: 3.14
+      enable-cache: true
 
   - uses: pnpm/action-setup@v6
     with:
@@ -27,25 +22,7 @@ runs:
       node-version: lts/*
       cache: pnpm
 
-  - uses: go-task/setup-task@v2
-    with:
-      repo-token: ${{ inputs.github-token }}
-
   - uses: extractions/setup-just@v4
-
-  - uses: actions/cache@v5
-    with:
-      path: .venv/
-      key: uv-${{ hashFiles('uv.lock') }}
-      restore-keys: uv-
-
-  - uses: actions/cache@v5
-    with:
-      path: |
-        .pnpm-store/
-        node_modules/
-      key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-      restore-keys: pnpm-
 
   - shell: bash
     run: just install true

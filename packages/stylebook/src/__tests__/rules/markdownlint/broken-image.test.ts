@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import brokenImageRule from '../../../rules/markdownlint/broken-image';
 import { type AssertThat, assertThatMarkdownlintRule } from '../../asserters';
 import { assertMarkdownlintProperties } from '../../asserts';
@@ -58,6 +58,18 @@ describe('BrokenImageRuleTest', () => {
                 "1: 'https://www.logo.svg' is unreachable.",
                 "5: 'https://www.logo.svg' is unreachable.",
             );
+        },
+    );
+
+    it(
+        'Catch closing parenthesis',
+        () => {
+            brokenImageRule.checkUrls = () => [{ status: 200, contentType: 'image/svg+xml' }];
+            assertThat(
+                `
+                ![Unsplash](https://images.unsplash.com/photo-1579353977828-2a4eab540b9a?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2FtcGxlfGVufDB8fDB8fHww&s=))
+                `,
+            ).hasNoError();
         },
     );
 });

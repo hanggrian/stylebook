@@ -24,6 +24,11 @@ copyright: >
       alt="Renovate"/>
   </a>
   &emsp;
+  <a href="https://pkg.go.dev/github.com/hanggrian/stylebook/">
+    <img
+      src="https://img.shields.io/github/release/hanggrian/stylebook"
+      alt="GitHub Release"/>
+  </a>
   <a href="https://pypi.org/project/stylebook/">
     <img
       src="https://shields.io/pypi/v/stylebook"

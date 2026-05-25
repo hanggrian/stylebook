@@ -7,13 +7,12 @@ members = [
 stylebook = { workspace = true }
 
 [tool.poe.tasks]
-gen-json-lang = "generate_jsonlint_languages.py"
-lint1 = "uv run pylint stylebook/**/*.py"
+lint1 = "pylint stylebook/**/*.py"
 lint2 = "stylebook ."
 lint.parallel = ["lint1", "lint2"]
-documentation1 = "rm -rf build/pdoc/"
-documentation2 = "pdoc -o build/pdoc/ stylebook/"
-documentation = ["documentation1", "documentation2"]
+doc1 = "rm -rf build/pdoc/"
+doc2 = "pdoc -o build/pdoc/ stylebook/"
+doc = ["doc1", "doc2"]
 
 [dependency-groups]
 dev = [
@@ -22,10 +21,10 @@ dev = [
   "poethepoet",
   "pdoc",
   # lint
-  "rulebook-pylint==0.2",
+  "rulebook-pylint",
+  "regex",
   "pylint==4.0.4",
   "astroid==4.0.2",
-  "regex>=2025.11.3",
   # test
   "pytest",
   "pytest-cov",

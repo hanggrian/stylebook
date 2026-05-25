@@ -1,58 +1,84 @@
-distro := if os() == "linux" { `grep -Po '(?<=^ID=).+' /etc/os-release | tr -d '"'` } else { os() }
+install CLEAN="false":
+    go mod {{ if CLEAN == "true" { "download" } else { "tidy" } }}
+    uv sync {{ if CLEAN == "true" { "--locked" } else { "" } }}
+    pnpm install {{ if CLEAN == "true" { "--frozen-lockfile" } else { "" } }}
 
-install clean="false":
-    just _task-{{ distro }} install
-    uv sync {{ if clean == "true" { "--locked" } else { "" } }}
-    pnpm {{ if clean == "true" { "ci" } else { "i" } }}
+[group: 'check']
+lint-go:
+    go run . .
 
-lint:
-    just _task-{{ distro }} lint
+[group: 'check']
+lint-python:
     uv run poe lint
+
+[group: 'check']
+lint-node:
     pnpm lint
+
+[group: 'check']
+[parallel]
+lint: lint-go lint-python lint-node
+
+# skip lint-node with network calls
+[group: 'check']
+[parallel]
+minimal-lint: lint-go lint-python
+
+[group: 'check']
+test-go:
+    go test ./rules/...
+
+[group: 'check']
+test-node:
+    pnpm -r test
+
+[group: 'check']
+[parallel]
+test: test-go test-node
+
+[group: 'check']
+cov-go:
+    go test -coverprofile=coverage.out ./rules/...
+
+[group: 'check']
+cov-node:
+    pnpm -r cov
+
+[group: 'check']
+[parallel]
+cov: cov-go cov-node
 
 format:
     just --fmt
-    just _task-{{ distro }} format
+    gofmt -w .
 
-test:
-    just _task-{{ distro }} test
-    pnpm -r test
+[group: 'doc']
+doc-python:
+    uv run poe doc
 
-coverage:
-    just _task-{{ distro }} coverage
-    pnpm -r coverage
+[group: 'doc']
+doc-node:
+    pnpm doc
 
-documentation:
-    just _task-{{ distro }} documentation
-    uv run poe documentation
-    pnpm documentation
+[group: 'doc']
+[parallel]
+doc: doc-python doc-node
+    rm -rf build/doc2go/
+    doc2go -out build/doc2go/ ./rules/...
 
+[group: 'website']
 prepare-website:
     uv pip install -r website/requirements.txt
 
+[group: 'website']
 preview-website: prepare-website
     cd website/ && uv run mkdocs serve --livereload
 
-publish-website: prepare-website documentation
-    rm -rf website/docs/api/
+[group: 'website']
+publish-website: prepare-website doc
     mkdir -p website/docs/api/
     mv build/doc2go/ website/docs/api/godoc/
     mv build/pdoc/ website/docs/api/pydoc/
     mv build/typedoc/ website/docs/api/tsdoc/
     cd website/ && uv run mkdocs gh-deploy
     rm -rf website/docs/api/
-
-_task-arch *args:
-    go-task {{ args }}
-
-_task-fedora *args:
-    go-task {{ args }}
-
-_task-ubuntu *args:
-    task {{ args }}
-
-_task-macos *args:
-    task {{ args }}
-
-_task-windows *args:
-    task {{ args }}

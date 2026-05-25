@@ -84,7 +84,8 @@ class BrokenImageRule extends StylebookMarkdownlintRule {
     private static MSG_STATUS: string = 'broken.image.status';
     private static MSG_CONTENT: string = 'broken.image.content';
 
-    private static IMAGE_REGEX: RegExp = /!\[[^\]]*]\((https?:\/\/[^)\s]+)\)/g;
+    private static IMAGE_REGEX: RegExp =
+        /!\[[^\]]*]\((https?:\/\/(?:[^\s()<>\[\]]+|\((?:[^\s()<>\[\]]+)\))+?)\)/g;
     private static USER_AGENT: string = 'markdownlint-rule-broken-image/1.0 (link checker)';
     private static PACKAGE_ROOT: string = join(
         dirname(fileURLToPath(import.meta.url)),
