@@ -3,7 +3,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { basename, dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { b, blue, cyan, d, green, i, red, yellow } from './colors.js';
+import { b, blue, cyan, d, green, i, magenta, red, yellow } from './colors.js';
 import {
     HTMLHINT,
     JSONLINT,
@@ -74,11 +74,11 @@ if (!exclude.size) {
 if (inputArgs.includes('-h') ||
     inputArgs.includes('--help')) {
     process.stdout.write('Node runner for Stylebook linter aggregator\n\n');
-    process.stdout.write(`\u{1f680} ${b('Usage:')}\n`);
-    process.stdout.write(`   stylebook ${cyan('<paths>')} ${blue('[options]')}\n\n`);
-    process.stdout.write(`\u{1f4c4} ${b(cyan('Paths:'))}\n`);
+    process.stdout.write(`\u{1f680} ${b(cyan('Usage:'))}\n`);
+    process.stdout.write(`   ${cyan('stylebook')} ${magenta('[PATHS]')} ${blue('[OPTIONS]')}\n\n`);
+    process.stdout.write(`\u{1f4c4} ${b(magenta('Paths:'))}\n`);
     process.stdout.write(
-        '   file      Supports ' +
+        `   ${magenta('file')}      Supports ` +
         `${i('CSS')}, ` +
         `${i('HTML')}, ` +
         `${i('JSON')}, ` +
@@ -87,14 +87,28 @@ if (inputArgs.includes('-h') ||
         `${i('Mermaid')} and their\n`,
     );
     process.stdout.write('             variants\n');
-    process.stdout.write('   dir       Recursively find files in this directory\n');
-    process.stdout.write(`   pattern   For example, ${i('*.css')} for all CSS files in this\n`);
+    process.stdout.write(`   ${magenta('dir')}       Recursively find files in this directory\n`);
+    process.stdout.write(
+        `   ${magenta('pattern')}   For example, ${i('*.css')} for all CSS files in this\n`
+    );
     process.stdout.write(`             directory, ${i('**/*')} for all files\n\n`);
     process.stdout.write(`\u2699\ufe0f  ${b(blue('Options:'))}\n`);
-    process.stdout.write('   -e  [ --exclude ] arg   List of files or directories to ignore\n');
-    process.stdout.write('   -h  [ --help ]          Display this message\n');
-    process.stdout.write('   -q  [ --quiet ]         Disable verbose output\n');
-    process.stdout.write('   -v  [ --version ]       Show app version\n');
+    process.stdout.write(
+        `   ${blue('-e')}, ${blue('--exclude')} ${d(blue('[ARGUMENTS]'))}   ` +
+        'List of files or directories to ignore\n',
+    );
+    process.stdout.write(
+        `   ${blue('-h')}, ${blue('--help')}                  ` +
+        'Display this message\n',
+    );
+    process.stdout.write(
+        `   ${blue('-q')}, ${blue('--quiet')}                 ` +
+        'Disable verbose output\n',
+    );
+    process.stdout.write(
+        `   ${blue('-v')}, ${blue('--version')}               ` +
+        'Show app version\n',
+    );
     process.exit(0);
 }
 if (inputArgs.includes('-q') ||

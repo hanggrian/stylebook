@@ -1,6 +1,6 @@
 ### Boolean values
 
-![yaml](https://img.shields.io/badge/yaml-truthy-cb171e)
+![yaml](https://shields.io/badge/yaml-truthy-cb171e)
 
 Only `true` and `false` are allowed as boolean values.
 

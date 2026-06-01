@@ -10,23 +10,23 @@ repo_url: https://github.com/hanggrian/stylebook
 copyright: >
   <a href="https://github.com/hanggrian/stylebook/actions/workflows/code-analysis.yaml">
     <img
-      src="https://img.shields.io/github/actions/workflow/status/hanggrian/stylebook/code-analysis.yaml"
+      src="https://shields.io/github/actions/workflow/status/hanggrian/stylebook/code-analysis.yaml"
       alt="GitHub Actions"/>
   </a>
   <a href="https://app.codecov.io/gh/hanggrian/stylebook/">
     <img
-      src="https://img.shields.io/codecov/c/gh/hanggrian/stylebook"
+      src="https://shields.io/codecov/c/gh/hanggrian/stylebook"
       alt="Codecov"/>
   </a>
   <a href="https://developer.mend.io/github/hanggrian/stylebook/">
     <img
-      src="https://img.shields.io/badge/dependency-mend-blue"
+      src="https://shields.io/badge/dependency-mend-blue"
       alt="Renovate"/>
   </a>
   &emsp;
   <a href="https://pkg.go.dev/github.com/hanggrian/stylebook/">
     <img
-      src="https://img.shields.io/github/release/hanggrian/stylebook"
+      src="https://shields.io/github/release/hanggrian/stylebook"
       alt="GitHub Release"/>
   </a>
   <a href="https://pypi.org/project/stylebook/">
@@ -47,17 +47,17 @@ copyright: >
   &emsp;
   <a href="https://go.dev/doc/go1.26/">
     <img
-      src="https://img.shields.io/github/go-mod/go-version/hanggrian/stylebook"
+      src="https://shields.io/github/go-mod/go-version/hanggrian/stylebook"
       alt="Go"/>
   </a>
   <a href="https://docs.python.org/3.10/">
     <img
-      src="https://img.shields.io/badge/python-3.10+-informational"
+      src="https://shields.io/badge/python-3.10+-informational"
       alt="Python"/>
   </a>
   <a href="https://nodejs.org/en/blog/release/v12.0.0/">
     <img
-      src="https://img.shields.io/badge/node-12+-informational"
+      src="https://shields.io/badge/node-12+-informational"
       alt="Node"/>
   </a>
 # yamllint enable

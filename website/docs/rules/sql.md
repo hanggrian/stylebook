@@ -2,7 +2,7 @@
 
 ### Lowercase identifiers
 
-![sql](https://img.shields.io/badge/sql-capitalisation--identifiers-003B57)
+![sql](https://shields.io/badge/sql-capitalisation--identifiers-003B57)
 
 SQL identifiers should be lowercase.
 
@@ -26,7 +26,7 @@ CREATE TABLE users (
 
 ### Lowercase functions
 
-![sql](https://img.shields.io/badge/sql-capitalisation--functions-003B57)
+![sql](https://shields.io/badge/sql-capitalisation--functions-003B57)
 
 SQL functions should be lowercase.
 
@@ -48,7 +48,7 @@ SELECT count(*)
 
 ### Uppercase keywords
 
-![sql](https://img.shields.io/badge/sql-capitalisation--keywords-003B57)
+![sql](https://shields.io/badge/sql-capitalisation--keywords-003B57)
 
 SQL keywords should be uppercase.
 
@@ -70,7 +70,7 @@ SELECT *
 
 ### Uppercase literals
 
-![sql](https://img.shields.io/badge/sql-capitalisation--literals-003B57)
+![sql](https://shields.io/badge/sql-capitalisation--literals-003B57)
 
 SQL literals should be uppercase.
 
@@ -92,7 +92,7 @@ SELECT *
 
 ### Uppercase types
 
-![sql](https://img.shields.io/badge/sql-capitalisation--types-003B57)
+![sql](https://shields.io/badge/sql-capitalisation--types-003B57)
 
 SQL types should be uppercase.
 

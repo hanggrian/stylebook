@@ -2,16 +2,16 @@
 
 ### Lowercase syntax
 
-![css](https://img.shields.io/badge/css-function--name--case-663399)
-![css](https://img.shields.io/badge/css-selector--type--case-663399)
-![css](https://img.shields.io/badge/css-value--keyword--case-663399)
-![css](https://img.shields.io/badge/css-at--rule--name--case-663399)
-![css](https://img.shields.io/badge/css-color--hex--case-663399)
-![css](https://img.shields.io/badge/css-media--feature--name--case-663399)
-![css](https://img.shields.io/badge/css-property--case-663399)
-![css](https://img.shields.io/badge/css-selector--pseudo--class--case-663399)
-![css](https://img.shields.io/badge/css-selector--pseudo--element--case-663399)
-![css](https://img.shields.io/badge/css-unit--case-663399)
+![css](https://shields.io/badge/css-function--name--case-663399)
+![css](https://shields.io/badge/css-selector--type--case-663399)
+![css](https://shields.io/badge/css-value--keyword--case-663399)
+![css](https://shields.io/badge/css-at--rule--name--case-663399)
+![css](https://shields.io/badge/css-color--hex--case-663399)
+![css](https://shields.io/badge/css-media--feature--name--case-663399)
+![css](https://shields.io/badge/css-property--case-663399)
+![css](https://shields.io/badge/css-selector--pseudo--class--case-663399)
+![css](https://shields.io/badge/css-selector--pseudo--element--case-663399)
+![css](https://shields.io/badge/css-unit--case-663399)
 
 Use lowercase for all CSS syntax.
 
@@ -35,7 +35,7 @@ body {
 
 ### Indent style
 
-![css](https://img.shields.io/badge/css-indentation-663399)
+![css](https://shields.io/badge/css-indentation-663399)
 
 Use two spaces for indentation.
 

@@ -5,6 +5,10 @@ def cyan(content: str) -> str:
     return f'{Fore.CYAN}{content}{Style.RESET_ALL}'
 
 
+def magenta(content: str) -> str:
+    return f'{Fore.MAGENTA}{content}{Style.RESET_ALL}'
+
+
 def blue(content: str) -> str:
     return f'{Fore.BLUE}{content}{Style.RESET_ALL}'
 

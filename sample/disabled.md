@@ -1,5 +1,5 @@
 <!-- first-line-heading: badges may be used before headings -->
-[![Badge](https://img.shields.io/badge/badge-static-blue)](https://google.com/)
+[![Badge](https://shields.io/badge/badge-static-blue)](https://google.com/)
 
 # Heading 1
 

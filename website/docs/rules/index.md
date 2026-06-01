@@ -1,6 +1,6 @@
 ### Decimal values
 
-![toml](https://img.shields.io/badge/toml-float--values-9c4121)
+![toml](https://shields.io/badge/toml-float--values-9c4121)
 
 Omit leading and trailing zeros in decimal values.
 
@@ -24,7 +24,7 @@ bar: 1
 
 ### Double quotes
 
-![yaml](https://img.shields.io/badge/yaml-quoted--strings-cb171e)
+![yaml](https://shields.io/badge/yaml-quoted--strings-cb171e)
 
 Double quotes for strings. Quotes are optional in YAML, but must not be single
 quotes, unless the string itself contains double quotes.
@@ -49,10 +49,10 @@ bar: '"bar"'
 
 ### Duplicate blank line
 
-![css](https://img.shields.io/badge/css-max--empty--lines-663399)
-![md](https://img.shields.io/badge/md-no--multiple--blanks-fff)
-![properties](https://img.shields.io/badge/properties-duplicate--blank--line-ED8B00)
-![sql](https://img.shields.io/badge/sql-layout--newlines-003B57)
+![css](https://shields.io/badge/css-max--empty--lines-663399)
+![md](https://shields.io/badge/md-no--multiple--blanks-fff)
+![properties](https://shields.io/badge/properties-duplicate--blank--line-ED8B00)
+![sql](https://shields.io/badge/sql-layout--newlines-003B57)
 
 No more than one consecutive blank line.
 
@@ -79,8 +79,8 @@ Bar
 
 ### Indent style
 
-![md](https://img.shields.io/badge/md-list--indent-fff)
-![md](https://img.shields.io/badge/md-ul--indent-fff)
+![md](https://shields.io/badge/md-list--indent-fff)
+![md](https://shields.io/badge/md-ul--indent-fff)
 
 Spaces over hard tabs for indentation, default 2 spaces.
 
@@ -102,9 +102,9 @@ Spaces over hard tabs for indentation, default 2 spaces.
 
 ### Line length
 
-![md](https://img.shields.io/badge/md-list--length-fff)
-![toml](https://img.shields.io/badge/toml-column--width-9c4121)
-![yaml](https://img.shields.io/badge/yaml-line--length-cb171e)
+![md](https://shields.io/badge/md-list--length-fff)
+![toml](https://shields.io/badge/toml-column--width-9c4121)
+![yaml](https://shields.io/badge/yaml-line--length-cb171e)
 
 The column limit is 80 characters.
 
@@ -131,7 +131,7 @@ Sed sit amet ipsum.
 
 ### Trailing comma
 
-![toml](https://img.shields.io/badge/toml-array--trailing--comma-9c4121)
+![toml](https://shields.io/badge/toml-array--trailing--comma-9c4121)
 
 In languages that support trailing commas, they should be used in multi-line
 structures.
@@ -158,9 +158,9 @@ child = [
 
 ### Trailing newline
 
-![md](https://img.shields.io/badge/md-single--trailing--newline-fff)
-![properties](https://img.shields.io/badge/properties-trailing--newline-ED8B00)
-![toml](https://img.shields.io/badge/toml-trailing--newline-9c4121)
+![md](https://shields.io/badge/md-single--trailing--newline-fff)
+![properties](https://shields.io/badge/properties-trailing--newline-ED8B00)
+![toml](https://shields.io/badge/toml-trailing--newline-9c4121)
 
 Files should end with a single newline character.
 
@@ -179,8 +179,8 @@ Foo
 
 ### Trailing space
 
-![md](https://img.shields.io/badge/md-no--trailing--spaces-fff)
-![yaml](https://img.shields.io/badge/yaml-trailing--spaces-cb171e)
+![md](https://shields.io/badge/md-no--trailing--spaces-fff)
+![yaml](https://shields.io/badge/yaml-trailing--spaces-cb171e)
 
 No trailing spaces at the end of lines.
 
@@ -198,8 +198,8 @@ Foo
 
 ### Unnecessary leading blank line
 
-![css](https://img.shields.io/badge/css-no--missing--end--of--source--newline-663399)
-![properties](https://img.shields.io/badge/properties-no--leading--blank--line-ED8B00)
+![css](https://shields.io/badge/css-no--missing--end--of--source--newline-663399)
+![properties](https://shields.io/badge/properties-no--leading--blank--line-ED8B00)
 
 Files should not start with blank lines.
 

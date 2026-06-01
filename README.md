@@ -1,11 +1,11 @@
 [![GitHub Actions](https://shields.io/github/actions/workflow/status/hanggrian/stylebook/code-analysis.yaml)](https://github.com/hanggrian/stylebook/actions/workflows/code-analysis.yaml)
 [![Codecov](https://shields.io/codecov/c/gh/hanggrian/stylebook)](https://app.codecov.io/gh/hanggrian/stylebook/)
 [![Renovate](https://shields.io/badge/renovate-enabled-brightgreen)](https://developer.mend.io/github/hanggrian/stylebook/)\
-[![GitHub Release](https://img.shields.io/github/release/hanggrian/stylebook)](https://pkg.go.dev/github.com/hanggrian/stylebook/)
+[![GitHub Release](https://shields.io/github/release/hanggrian/stylebook)](https://pkg.go.dev/github.com/hanggrian/stylebook/)
 [![PyPI](https://shields.io/pypi/v/stylebook)](https://pypi.org/project/stylebook/)
 [![TestPyPI](https://shields.io/pypi/v/stylebook?label=testpypi&pypiBaseUrl=https://test.pypi.org)](https://test.pypi.org/project/stylebook/)
 [![NPM](https://shields.io/npm/v/@hanggrian/stylebook)](https://npmjs.com/package/@hanggrian/stylebook/)\
-[![Go](https://img.shields.io/github/go-mod/go-version/hanggrian/stylebook)](https://go.dev/doc/go1.26/)
+[![Go](https://shields.io/github/go-mod/go-version/hanggrian/stylebook)](https://go.dev/doc/go1.26/)
 [![Python](https://shields.io/badge/python-3.10+-informational)](https://docs.python.org/3.10/)
 [![Node](https://shields.io/badge/node-12+-informational)](https://nodejs.org/en/blog/release/v12.0.0/)
 
@@ -285,7 +285,7 @@ broken images.
   </tbody>
 </table>
 
-[View all rules](https://hanggrian.github.io/stylebook/rules/)
+[View rules](https://hanggrian.github.io/stylebook/rules/)
 
 ## Download
 

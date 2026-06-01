@@ -79,11 +79,12 @@ func Execute() error {
 		if arg == "-h" ||
 			arg == "--help" {
 			fmt.Printf("Go runner for Stylebook linter aggregator\n\n")
-			fmt.Printf("\U0001f680 %s\n", B("Usage:"))
-			fmt.Printf("   stylebook %s %s\n\n", Cyan("<paths>"), Blue("[options]"))
-			fmt.Printf("\U0001f4c4 %s\n", B(Cyan("Paths:")))
+			fmt.Printf("\U0001f680 %s\n", B(Cyan("Usage:")))
+			fmt.Printf("   %s %s %s\n\n", Cyan("stylebook"), Magenta("[PATHS]"), Blue("[OPTIONS]"))
+			fmt.Printf("\U0001f4c4 %s\n", B(Magenta("Paths:")))
 			fmt.Printf(
-				"   file      Supports %s, %s, %s, %s, %s, %s,\n",
+				"   %s      Supports %s, %s, %s, %s, %s, %s,\n",
+				Magenta("file"),
 				I("CSV"),
 				I("LaTeX"),
 				I("Dockerfile"),
@@ -98,17 +99,35 @@ func Execute() error {
 				I("Terraform"),
 				I("XML"),
 			)
-			fmt.Printf("   dir       Recursively find files in this directory\n")
+			fmt.Printf("   %s       Recursively find files in this directory\n", Magenta("dir"))
 			fmt.Printf(
-				"   pattern   For example, %s for all CSV files in this\n",
+				"   %s   For example, %s for all CSV files in this\n",
+				Magenta("pattern"),
 				I("*.csv"),
 			)
 			fmt.Printf("             directory, %s for all files\n\n", I("**/*"))
 			fmt.Printf("\u2699\ufe0f  %s\n", B(Blue("Options:")))
-			fmt.Printf("   -e  [ --exclude ] arg   List of files or directories to ignore\n")
-			fmt.Printf("   -h  [ --help ]          Display this message\n")
-			fmt.Printf("   -q  [ --quiet ]         Disable verbose output\n")
-			fmt.Printf("   -v  [ --version ]       Show app version\n")
+			fmt.Printf(
+				"   %s, %s %s   List of files or directories to ignore\n",
+				Blue("-e"),
+				Blue("--exclude"),
+				D(Blue("[ARGUMENTS]")),
+			)
+			fmt.Printf(
+				"   %s, %s                  Display this message\n",
+				Blue("-h"),
+				Blue("--help"),
+			)
+			fmt.Printf(
+				"   %s, %s                 Disable verbose output\n",
+				Blue("-q"),
+				Blue("--quiet"),
+			)
+			fmt.Printf(
+				"   %s, %s               Show app version\n",
+				Blue("-v"),
+				Blue("--version"),
+			)
 			return nil
 		}
 		if arg == "-v" ||

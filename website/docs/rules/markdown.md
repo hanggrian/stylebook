@@ -105,7 +105,7 @@ Don't forget to visit [Google][google].
 
 ### Code fence style
 
-![md](https://img.shields.io/badge/md-code--fence--style-fff)
+![md](https://shields.io/badge/md-code--fence--style-fff)
 
 Backticks style over tilde in code fences.
 
@@ -127,7 +127,7 @@ console.log("Hello, world!");
 
 ### Heading style
 
-![md](https://img.shields.io/badge/md-heading--style-fff)
+![md](https://shields.io/badge/md-heading--style-fff)
 
 ATX heading style over Setext.
 
@@ -146,8 +146,8 @@ Big headline
 
 ### Highlight style
 
-![md](https://img.shields.io/badge/md-emphasis--style-fff)
-![md](https://img.shields.io/badge/md-strong--style-fff)
+![md](https://shields.io/badge/md-emphasis--style-fff)
+![md](https://shields.io/badge/md-strong--style-fff)
 
 Emphasis and styles use asterisks first. In nested hightlight, use any
 non-asterisk character as the outer style.
@@ -166,7 +166,7 @@ Hello __*World*__
 
 ### Horizontal line style
 
-![md](https://img.shields.io/badge/md-horizontal--rule--style-fff)
+![md](https://shields.io/badge/md-horizontal--rule--style-fff)
 
 Triple dash style over asterisk and underscore in horizontal lines.
 
@@ -192,9 +192,9 @@ Bar
 
 ### Table style
 
-![md](https://img.shields.io/badge/md-table--pipe--style-fff)
-![md](https://img.shields.io/badge/md-table--column--count-fff)
-![md](https://img.shields.io/badge/md-table--column--style-fff)
+![md](https://shields.io/badge/md-table--pipe--style-fff)
+![md](https://shields.io/badge/md-table--column--count-fff)
+![md](https://shields.io/badge/md-table--column--style-fff)
 
 Pipes are present with short column style. Exactly one space padding on each
 side of cell.
@@ -217,7 +217,7 @@ Qux | Quux | Quuz
 
 ### Unordered list style
 
-![md](https://img.shields.io/badge/md-ul--style-fff)
+![md](https://shields.io/badge/md-ul--style-fff)
 
 Dash style over asterisk and plus in unordered lists.
 

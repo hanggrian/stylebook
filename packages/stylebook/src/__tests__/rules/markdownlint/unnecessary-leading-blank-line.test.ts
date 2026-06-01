@@ -31,8 +31,23 @@ describe('UnnecessaryLeadingBlankLineRuleTest', () => {
 
                 Bar
                 `,
-                ).hasErrorMessages(
-                    '1: Remove blank line at the beginning.',
-                ),
+            ).hasErrorMessages(
+                '1: Remove blank line at the beginning.',
+            ),
+    );
+
+    it(
+        'Horizontal rule first line',
+        () =>
+            assertThat(
+                `
+                ---
+                title: Comment
+                weight: 10
+                bookFlatSection: true
+                bookIcon: comment
+                ---
+                `,
+            ).hasNoError(),
     );
 });

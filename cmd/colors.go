@@ -6,6 +6,10 @@ func Cyan(text string) string {
 	return color.New(color.FgCyan).Sprint(text)
 }
 
+func Magenta(text string) string {
+	return color.New(color.FgMagenta).Sprint(text)
+}
+
 func Blue(text string) string {
 	return color.New(color.FgBlue).Sprint(text)
 }

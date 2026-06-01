@@ -3,7 +3,7 @@ from os.path import splitext
 from pathlib import Path
 from sys import argv, exit as exit2
 
-from stylebook.colors import cyan, blue, b, d, green, i, red, yellow
+from stylebook.colors import cyan, blue, b, d, green, i, magenta, red, yellow
 from stylebook.commands import (
     Command,
     BLINTER,
@@ -55,11 +55,11 @@ def run() -> None:
     if '-h' in input_args or \
         '--help' in input_args:
         print('Python runner for Stylebook linter aggregator\n')
-        print(f'\U0001f680 {b('Usage:')}')
-        print(f'   stylebook {cyan('<paths>')} {blue('[options]')}\n')
-        print(f'\U0001f4c4 {b(cyan('Paths:'))}')
+        print(f'\U0001f680 {b(cyan('Usage:'))}')
+        print(f'   {cyan('stylebook')} {magenta('[PATHS]')} {blue('[OPTIONS]')}\n')
+        print(f'\U0001f4c4 {b(magenta('Paths:'))}')
         print(
-            f'   file      Supports '
+            f'   {magenta('file')}      Supports '
             f'{i('Batch')}, '
             f'{i('Dotenv')}, '
             f'{i('INI')}, '
@@ -69,14 +69,26 @@ def run() -> None:
             f'{i('YAML')} and ',
         )
         print('             their variants')
-        print('   dir       Recursively find files in this directory')
-        print(f'   pattern   For example, {i('*.bat')} for all Batch files in this')
+        print(f'   {magenta('dir')}       Recursively find files in this directory')
+        print(f'   {magenta('pattern')}   For example, {i('*.bat')} for all Batch files in this')
         print(f'             directory, {i('**/*')} for all files\n')
         print(f'\u2699\ufe0f  {b(blue('Options:'))}')
-        print('   -e  [ --exclude ] arg   List of files or directories to ignore')
-        print('   -h  [ --help ]          Display this message')
-        print('   -q  [ --quiet ]         Disable verbose output')
-        print('   -v  [ --version ]       Show app version')
+        print(
+            f'   {blue('-e')}, {blue('--exclude')} {d(blue('[ARGUMENTS]'))}   ' +
+            'List of files or directories to ignore',
+        )
+        print(
+            f'   {blue('-h')}, {blue('--help')}                  ' +
+            'Display this message',
+        )
+        print(
+            f'   {blue('-q')}, {blue('--quiet')}                 ' +
+            'Disable verbose output',
+        )
+        print(
+            f'   {blue('-v')}, {blue('--version')}               ' +
+            'Show app version',
+        )
         exit2(0)
     if '-q' in input_args or \
         '--quiet' in input_args:
