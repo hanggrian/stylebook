@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, it } from 'vitest';
 import brokenImageRule from '../../../rules/markdownlint/broken-image';
 import { type AssertThat, assertThatMarkdownlintRule } from '../../asserters';
 import { assertMarkdownlintProperties } from '../../asserts';

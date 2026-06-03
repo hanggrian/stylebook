@@ -4,16 +4,7 @@ from pathlib import Path
 from sys import argv, exit as exit2
 
 from stylebook.colors import cyan, blue, b, d, green, i, magenta, red, yellow
-from stylebook.commands import (
-    Command,
-    BLINTER,
-    DOTENV_LINTER,
-    PYINILINT,
-    RESTRUCTUREDTEXT_LINT,
-    SQLFLUFF,
-    TAPLO,
-    YAMLLINT,
-)
+from stylebook.commands import Linter, NAMES
 from stylebook.files import get_config_file
 
 
@@ -32,20 +23,40 @@ def walk(target_path: Path, exclude: set[str]) -> list[str]:
     return []
 
 
+def register(commands: dict[Linter, list[str]], linter: Linter, path: str):
+    """Insert path to map if the linter key exists."""
+    paths: list[str] | None = commands.get(linter)
+    if paths is not None:
+        paths.append(path)
+
+
 def run() -> None:
     """Main entry point."""
     # parse input arguments
     input_args: list[str] = argv[1:]
+    disable: set[str] = set()
+    unsupported_disable: set[str] = set()
     exclude: set[str] = set()
     quiet: bool = False
     if not input_args:
         print(red('Need a path.'))
         exit2(1)
     for arg in input_args.copy():
-        if not arg.startswith('-e=') and not arg.startswith('--exclude='):
+        if not arg.startswith('-d=') and \
+            not arg.startswith('--disable=') and \
+            not arg.startswith('-e=') and \
+            not arg.startswith('--exclude='):
             continue
         input_args.remove(arg)
-        exclude.update(arg.split('=')[1].split(','))
+        for a in arg.split('=')[1].split(','):
+            if arg.startswith('-d=') or \
+                arg.startswith('--disable='):
+                (disable if a in NAMES else unsupported_disable).add(a)
+                continue
+            exclude.add(a)
+    if unsupported_disable:
+        print(red(f'Unsupported linters: {b(', '.join(unsupported_disable))}'))
+        exit2(1)
     if not exclude:
         with open(get_config_file('stylebookrc'), 'r', encoding='UTF-8') as file:
             for line in [line.strip() for line in file]:
@@ -58,21 +69,47 @@ def run() -> None:
         print(f'\U0001f680 {b(cyan('Usage:'))}')
         print(f'   {cyan('stylebook')} {magenta('[PATHS]')} {blue('[OPTIONS]')}\n')
         print(f'\U0001f4c4 {b(magenta('Paths:'))}')
+        print(f'   {magenta('file')}      Supports file types and their variants:')
         print(
-            f'   {magenta('file')}      Supports '
-            f'{i('Batch')}, '
-            f'{i('Dotenv')}, '
-            f'{i('INI')}, '
-            f'{i('reStructuredText')}, '
-            f'{i('SQL')}, '
-            f'{i('TOML')}, '
-            f'{i('YAML')} and ',
+            '             ' +
+            '\u2022 Batch   ' +
+            '\u2022 Dotenv   ' +
+            '\u2022 INI    ' +
+            '\u2022 reStructuredText'
         )
-        print('             their variants')
+        print(
+            '             ' +
+            '\u2022 SQL     ' +
+            '\u2022 TOML     ' +
+            '\u2022 YAML'
+        )
         print(f'   {magenta('dir')}       Recursively find files in this directory')
         print(f'   {magenta('pattern')}   For example, {i('*.bat')} for all Batch files in this')
         print(f'             directory, {i('**/*')} for all files\n')
         print(f'\u2699\ufe0f  {b(blue('Options:'))}')
+        print(
+            f'   {blue('-d')}, {blue('--disable')} {d(blue('[LINTERS]'))}     ' +
+            'List of linters to deactivate:',
+        )
+        print(
+            '                               ' +
+            f'\u2022 {Linter.BLINTER.value.binary}     ' +
+            f'\u2022 {Linter.DOTENV_LINTER.value.binary}',
+        )
+        print(
+            '                               ' +
+            f'\u2022 {Linter.PYINILINT.value.binary}   ' +
+            f'\u2022 {Linter.RESTRUCTUREDTEXT_LINT.value.binary}',
+        )
+        print(
+            '                               ' +
+            f'\u2022 {Linter.SQLFLUFF.value.binary}    ' +
+            f'\u2022 {Linter.TAPLO.value.binary}',
+        )
+        print(
+            '                               ' +
+            f'\u2022 {Linter.YAMLLINT.value.binary}',
+        )
         print(
             f'   {blue('-e')}, {blue('--exclude')} {d(blue('[ARGUMENTS]'))}   ' +
             'List of files or directories to ignore',
@@ -99,14 +136,9 @@ def run() -> None:
         exit2(0)
 
     # insert target paths to corresponding command
-    commands: dict[Command, list[str]] = {
-        BLINTER: [],
-        DOTENV_LINTER: [],
-        PYINILINT: [],
-        RESTRUCTUREDTEXT_LINT: [],
-        SQLFLUFF: [],
-        TAPLO: [],
-        YAMLLINT: [],
+    commands: dict[Linter, list[str]] = {
+        linter: [] for linter in Linter
+        if linter.value.binary not in disable
     }
     for target_path in list(
         dict.fromkeys(
@@ -118,30 +150,30 @@ def run() -> None:
         filename: Path = Path(target_path)
         if filename.name == '.env' or \
             filename.name.startswith('.env.'):
-            commands[DOTENV_LINTER].append(target_path)
+            register(commands, Linter.DOTENV_LINTER, target_path)
             continue
         match filename.suffix.lower():
             case '.bat' | '.cmd':
-                commands[BLINTER].append(target_path)
+                register(commands, Linter.BLINTER, target_path)
 
             case '.ini' | '.cfg' | '.conf':
-                commands[PYINILINT].append(target_path)
+                register(commands, Linter.PYINILINT, target_path)
 
             case '.rst' | '.rest':
-                commands[RESTRUCTUREDTEXT_LINT].append(target_path)
+                register(commands, Linter.RESTRUCTUREDTEXT_LINT, target_path)
 
             case '.sql':
-                commands[SQLFLUFF].append(target_path)
+                register(commands, Linter.SQLFLUFF, target_path)
 
             case '.toml':
-                commands[TAPLO].append(target_path)
+                register(commands, Linter.TAPLO, target_path)
 
             case '.yaml' | '.yml':
-                commands[YAMLLINT].append(target_path)
+                register(commands, Linter.YAMLLINT, target_path)
     if not quiet:
         for command, paths in commands.items():
-            title: str = b(command.binary)
-            if not command.is_available():
+            title: str = b(command.value.binary)
+            if not command.value.is_available():
                 print(f'\U0001f6ab {title}: Unavailable')
                 continue
             if not paths:
@@ -166,11 +198,11 @@ def run() -> None:
     empty: bool = True
     violating_linters: list[str] = []
     for command, paths in commands.items():
-        if not command.is_available() or not paths:
+        if not command.value.is_available() or not paths:
             continue
         empty = False
-        if command.execute(quiet, paths) != 0:
-            violating_linters.append(command.binary)
+        if command.value.execute(quiet, paths) != 0:
+            violating_linters.append(command.value.binary)
     if violating_linters:
         print(
             '\u274c\ufe0f '

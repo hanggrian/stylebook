@@ -30,7 +30,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint src/",
+    "lint": "eslint bin/ src/",
     "test": "vitest run",
     "cov": "vitest run --coverage --reporter=junit --outputFile=test-report.junit.xml"
   },

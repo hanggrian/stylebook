@@ -6,7 +6,7 @@ export default typescriptEslint.config(
     { ignores: ['dist'] },
     {
         extends: [js.configs.recommended, ...typescriptEslint.configs.recommended],
-        files: ['**/*.{ts,tsx}'],
+        files: ['**/*.{js,ts,tsx}'],
         languageOptions: {
             ecmaVersion: 2020,
             globals: globals.browser,

@@ -74,7 +74,7 @@ class DeadLinkRule extends StylebookMarkdownlintRule {
     private static MSG: string = 'dead.link';
 
     private static URL_REGEX: RegExp =
-        /(?<!!)\[[^\]]*]\((https?:\/\/(?:[^\s()<>\[\]]+|\((?:[^\s()<>\[\]]+)\))+?)\)/g;
+        /(?<!!)\[[^\]]*]\((https?:\/\/(?:[^\s()<>[\]]+|\([^\s()<>[\]]+\))+?)\)/g;
     private static USER_AGENT: string = 'markdownlint-rule-dead-link/1.0 (link checker)';
     private static PACKAGE_ROOT: string = join(
         dirname(fileURLToPath(import.meta.url)),

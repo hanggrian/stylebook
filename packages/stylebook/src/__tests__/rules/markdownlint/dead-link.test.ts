@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, it } from 'vitest';
 import deadLinkRule from '../../../rules/markdownlint/dead-link';
 import { type AssertThat, assertThatMarkdownlintRule } from '../../asserters';
 import { assertMarkdownlintProperties } from '../../asserts';

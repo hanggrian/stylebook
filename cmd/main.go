@@ -6,12 +6,14 @@ import (
 	"os"
 	"path/filepath"
 	"runtime/debug"
+	"slices"
 	"strings"
 
 	"github.com/hanggrian/stylebook/cmd/command"
 	"github.com/hanggrian/stylebook/cmd/files"
 )
 
+// Recursively traverse directories to collect files.
 func walk(targetPath string, exclude []string) []string {
 	cleaned := filepath.Clean(targetPath)
 	parts := strings.Split(cleaned, string(os.PathSeparator))
@@ -40,6 +42,13 @@ func walk(targetPath string, exclude []string) []string {
 	return files
 }
 
+// Insert path to map if the linter key exists.
+func register(commands map[string][]string, linter command.Linter, path string) {
+	if _, found := commands[linter.GetBinary()]; found {
+		commands[linter.GetBinary()] = append(commands[linter.GetBinary()], path)
+	}
+}
+
 func Execute() error {
 	// parse input arguments
 	inputArgs := os.Args[1:]
@@ -47,18 +56,46 @@ func Execute() error {
 		fmt.Fprintln(os.Stderr, Red("Need a path."))
 		os.Exit(1)
 	}
+	var disable []string
+	var disableUnsupported []string
 	var exclude []string
 	var quiet bool
 	var remainingArgs []string
 	for _, arg := range inputArgs {
 		if strings.HasPrefix(arg, "-e=") {
 			exclude = append(exclude, strings.Split(strings.TrimPrefix(arg, "-e="), ",")...)
-		} else if strings.HasPrefix(arg, "--exclude=") {
+			continue
+		}
+		if strings.HasPrefix(arg, "--exclude=") {
 			exclude =
 				append(exclude, strings.Split(strings.TrimPrefix(arg, "--exclude="), ",")...)
-		} else {
-			remainingArgs = append(remainingArgs, arg)
+			continue
 		}
+		if strings.HasPrefix(arg, "-d=") ||
+			strings.HasPrefix(arg, "--disable=") {
+			var linterNames []string
+			if strings.HasPrefix(arg, "-d=") {
+				linterNames = strings.Split(strings.TrimPrefix(arg, "-d="), ",")
+			} else {
+				linterNames = strings.Split(strings.TrimPrefix(arg, "--disable="), ",")
+			}
+			for _, linterName := range linterNames {
+				if _, found := command.Names[linterName]; !found {
+					disableUnsupported = append(disableUnsupported, linterName)
+					continue
+				}
+				disable = append(disable, linterName)
+			}
+			continue
+		}
+		remainingArgs = append(remainingArgs, arg)
+	}
+	if len(disableUnsupported) > 0 {
+		fmt.Fprintln(
+			os.Stderr,
+			Red("Unsupported linters: " + B(strings.Join(disableUnsupported, ", "))),
+		)
+		os.Exit(1)
 	}
 	if len(exclude) == 0 {
 		file, _ := os.Open(files.GetConfigFile("stylebookrc"))
@@ -82,22 +119,25 @@ func Execute() error {
 			fmt.Printf("\U0001f680 %s\n", B(Cyan("Usage:")))
 			fmt.Printf("   %s %s %s\n\n", Cyan("stylebook"), Magenta("[PATHS]"), Blue("[OPTIONS]"))
 			fmt.Printf("\U0001f4c4 %s\n", B(Magenta("Paths:")))
+			fmt.Printf("   %s      Supports file types and their variants:\n", Magenta("path"))
 			fmt.Printf(
-				"   %s      Supports %s, %s, %s, %s, %s, %s,\n",
-				Magenta("file"),
-				I("CSV"),
-				I("LaTeX"),
-				I("Dockerfile"),
-				I("go.mod"),
-				I("Makefile"),
-				I("Properties"),
+				"             " +
+				"\u2022 CSV         " +
+				"\u2022 LaTeX        " +
+				"\u2022 Dockerfile   " +
+				"\u2022 go.mod\n",
 			)
 			fmt.Printf(
-				"             %s, %s, %s, %s and their variants \n",
-				I("Protobuf"),
-				I("Shell"),
-				I("Terraform"),
-				I("XML"),
+				"             " +
+				"\u2022 Makefile    " +
+				"\u2022 Properties   " +
+				"\u2022 Protobuf     " +
+				"\u2022 Shell\n",
+			)
+			fmt.Printf(
+				"             " +
+				"\u2022 Terraform   " +
+				"\u2022 XML\n",
 			)
 			fmt.Printf("   %s       Recursively find files in this directory\n", Magenta("dir"))
 			fmt.Printf(
@@ -107,6 +147,37 @@ func Execute() error {
 			)
 			fmt.Printf("             directory, %s for all files\n\n", I("**/*"))
 			fmt.Printf("\u2699\ufe0f  %s\n", B(Blue("Options:")))
+			fmt.Printf(
+				"   %s, %s %s     List of linters to deactivate:\n",
+				Blue("-d"),
+				Blue("--disable"),
+				D(Blue("[LINTERS]")),
+			)
+			fmt.Printf(
+				"                               \u2022 %s   \u2022 %s\n",
+				command.Checkmake.GetBinary(),
+				command.Chktex.GetBinary(),
+			)
+			fmt.Printf(
+				"                               \u2022 %s     \u2022 %s\n",
+				command.Csvlint.GetBinary(),
+				command.Gomoddirectives.GetBinary(),
+			)
+			fmt.Printf(
+				"                               \u2022 %s    \u2022 %s\n",
+				command.Hadolint.GetBinary(),
+				command.Propertieslint.GetBinary(),
+			)
+			fmt.Printf(
+				"                               \u2022 %s   \u2022 %s\n",
+				command.Protolint.GetBinary(),
+				command.Shellcheck.GetBinary(),
+			)
+			fmt.Printf(
+				"                               \u2022 %s      \u2022 %s \n",
+				command.Tflint.GetBinary(),
+				command.Xmllint.GetBinary(),
+			)
 			fmt.Printf(
 				"   %s, %s %s   List of files or directories to ignore\n",
 				Blue("-e"),
@@ -148,90 +219,76 @@ func Execute() error {
 	}
 
 	// insert target paths to corresponding command
+	linters := []command.Linter{
+		&command.Checkmake,
+		&command.Chktex,
+		&command.Csvlint,
+		&command.Gomoddirectives,
+		&command.Hadolint,
+		&command.Propertieslint,
+		&command.Protolint,
+		&command.Shellcheck,
+		&command.Tflint,
+		&command.Xmllint,
+	}
 	commands := make(map[string][]string)
-	commands[command.Checkmake.GetBinary()] = []string{}
-	commands[command.Chktex.GetBinary()] = []string{}
-	commands[command.Csvlint.GetBinary()] = []string{}
-	commands[command.Gomoddirectives.GetBinary()] = []string{}
-	commands[command.Hadolint.GetBinary()] = []string{}
-	commands[command.Propertieslint.GetBinary()] = []string{}
-	commands[command.Protolint.GetBinary()] = []string{}
-	commands[command.ShellCheck.GetBinary()] = []string{}
-	commands[command.Tflint.GetBinary()] = []string{}
-	commands[command.Xmllint.GetBinary()] = []string{}
-	order :=
-		[]string{
-			command.Checkmake.GetBinary(),
-			command.Chktex.GetBinary(),
-			command.Csvlint.GetBinary(),
-			command.Gomoddirectives.GetBinary(),
-			command.Hadolint.GetBinary(),
-			command.Propertieslint.GetBinary(),
-			command.Protolint.GetBinary(),
-			command.ShellCheck.GetBinary(),
-			command.Tflint.GetBinary(),
-			command.Xmllint.GetBinary(),
+	order := make([]string, 0, len(linters))
+	for _, linter := range linters {
+		if !slices.Contains(disable, linter.GetBinary()) {
+			commands[linter.GetBinary()] = []string{}
+			order = append(order, linter.GetBinary())
 		}
+	}
 	seen := make(map[string]bool)
 	for _, arg := range remainingArgs {
 		if arg == "-q" ||
 			arg == "--quiet" {
 			continue
 		}
-		for _, path := range walk(arg, exclude) {
-			if seen[path] {
+		for _, targetPath := range walk(arg, exclude) {
+			if seen[targetPath] {
 				continue
 			}
-			seen[path] = true
-			filename := filepath.Base(path)
+			seen[targetPath] = true
+			filename := filepath.Base(targetPath)
 			if filename == "Makefile" ||
 				filename == "makefile" ||
 				filename == "GNUmakefile" {
-				commands[command.Checkmake.GetBinary()] =
-					append(commands[command.Checkmake.GetBinary()], path)
+				register(commands, &command.Checkmake, targetPath)
 				continue
 			}
 			if filename == "Containerfile" ||
 				filename == "Dockerfile" ||
 				strings.HasPrefix(filename, "Containerfile.") ||
 				strings.HasPrefix(filename, "Dockerfile.") {
-				commands[command.Hadolint.GetBinary()] =
-					append(commands[command.Hadolint.GetBinary()], path)
+				register(commands, &command.Hadolint, targetPath)
 				continue
 			}
 			if filename == "go.mod" {
-				commands[command.Gomoddirectives.GetBinary()] =
-					append(commands[command.Gomoddirectives.GetBinary()], path)
+				register(commands, &command.Gomoddirectives, targetPath)
 				continue
 			}
-			switch strings.ToLower(filepath.Ext(path)) {
+			switch strings.ToLower(filepath.Ext(targetPath)) {
 			case ".csv", ".tsv":
-				commands[command.Csvlint.GetBinary()] =
-					append(commands[command.Csvlint.GetBinary()], path)
+				register(commands, &command.Csvlint, targetPath)
 
 			case ".tex", ".ltx", ".latex":
-				commands[command.Chktex.GetBinary()] =
-					append(commands[command.Chktex.GetBinary()], path)
+				register(commands, &command.Chktex, targetPath)
 
 			case ".properties":
-				commands[command.Propertieslint.GetBinary()] =
-					append(commands[command.Propertieslint.GetBinary()], path)
+				register(commands, &command.Propertieslint, targetPath)
 
 			case ".proto":
-				commands[command.Protolint.GetBinary()] =
-					append(commands[command.Protolint.GetBinary()], path)
+				register(commands, &command.Protolint, targetPath)
 
 			case ".bash", ".sh", ".zsh":
-				commands[command.ShellCheck.GetBinary()] =
-					append(commands[command.ShellCheck.GetBinary()], path)
+				register(commands, &command.Shellcheck, targetPath)
 
 			case ".xml", ".xhtml", ".xsl", ".xslt", ".svg", ".xaml", ".plist":
-				commands[command.Xmllint.GetBinary()] =
-					append(commands[command.Xmllint.GetBinary()], path)
+				register(commands, &command.Xmllint, targetPath)
 
 			case ".tf":
-				commands[command.Tflint.GetBinary()] =
-					append(commands[command.Tflint.GetBinary()], path)
+				register(commands, &command.Tflint, targetPath)
 			}
 		}
 	}
@@ -255,8 +312,8 @@ func Execute() error {
 				cmd = &command.Propertieslint
 			case command.Protolint.GetBinary():
 				cmd = &command.Protolint
-			case command.ShellCheck.GetBinary():
-				cmd = &command.ShellCheck
+			case command.Shellcheck.GetBinary():
+				cmd = &command.Shellcheck
 			case command.Xmllint.GetBinary():
 				cmd = &command.Xmllint
 			case command.Tflint.GetBinary():
@@ -302,8 +359,8 @@ func Execute() error {
 			cmd = &command.Propertieslint
 		case command.Protolint.GetBinary():
 			cmd = &command.Protolint
-		case command.ShellCheck.GetBinary():
-			cmd = &command.ShellCheck
+		case command.Shellcheck.GetBinary():
+			cmd = &command.Shellcheck
 		case command.Xmllint.GetBinary():
 			cmd = &command.Xmllint
 		case command.Tflint.GetBinary():

@@ -19,10 +19,12 @@ lint-node:
 [parallel]
 lint: lint-go lint-python lint-node
 
-# skip lint-node with network calls
+# skip markdownlint since it has network calls
 [group('check')]
 [parallel]
-minimal-lint: lint-go lint-python
+offline-lint: lint-go lint-python
+    pnpm -r lint
+    pnpm stylebook . -d=markdownlint
 
 [group('check')]
 test-go:

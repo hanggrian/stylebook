@@ -53,7 +53,7 @@ class LockfileLintCommand extends Command {
                         }
                         hasErrors = true;
                     }
-                } catch (error) {
+                } catch {
                     hasErrors = true;
                 }
             }

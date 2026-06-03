@@ -1,17 +1,13 @@
 #!/usr/bin/env node
+// noinspection ES6UnusedImports
 
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { basename, dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { b, blue, cyan, d, green, i, magenta, red, yellow } from './colors.js';
-import {
-    HTMLHINT,
-    JSONLINT,
-    LOCKFILE_LINT,
-    MAID,
-    MARKDOWNLINT,
-    STYLELINT,
-} from './commands/index.js';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import Command from './commands/command.js';
+import { Linter, NAMES } from './commands/index.js';
 import { getConfigFile } from './files.js';
 
 /**
@@ -37,8 +33,24 @@ function walk(path, exclude) {
     return [];
 }
 
+/**
+ * Insert path to map if the linter key exists.
+ *
+ * @param {Map} commands
+ * @param {Command} linter
+ * @param {path} path
+ */
+function register(commands, linter, path) {
+    const paths = commands.get(linter);
+    if (paths !== undefined) {
+        paths.push(path);
+    }
+}
+
 // parse input arguments
 let inputArgs = process.argv.slice(2);
+const disable = new Set();
+const unsupportedDisable = new Set();
 const exclude = new Set();
 let quiet = false;
 if (!inputArgs.length) {
@@ -46,15 +58,27 @@ if (!inputArgs.length) {
     process.exit(1);
 }
 for (const arg of inputArgs) {
-    if (!arg.startsWith('-e=') && !arg.startsWith('--exclude=')) {
+    if (!arg.startsWith('-d=') &&
+        !arg.startsWith('--disable=') &&
+        !arg.startsWith('-e=') &&
+        !arg.startsWith('--exclude=')) {
         continue;
     }
     inputArgs = inputArgs.filter(a => a !== arg);
-    arg
-        .substring(arg.indexOf('=') + 1)
-        .split(',')
-        .forEach(a => exclude.add(a));
-    break;
+    for (const a of arg.substring(arg.indexOf('=') + 1).split(',')) {
+        if (arg.startsWith('-d=') ||
+            arg.startsWith('--disable=')) {
+            (NAMES.has(a) ? disable : unsupportedDisable).add(a);
+            continue;
+        }
+        exclude.add(a);
+    }
+}
+if (unsupportedDisable.size) {
+    process.stderr.write(
+        `${red(`Unsupported linter: ${b([...unsupportedDisable].join(', '))}`)}\n`,
+    );
+    process.exit(1);
 }
 if (!exclude.size) {
     readFileSync(getConfigFile('stylebookrc'), 'UTF-8')
@@ -77,22 +101,44 @@ if (inputArgs.includes('-h') ||
     process.stdout.write(`\u{1f680} ${b(cyan('Usage:'))}\n`);
     process.stdout.write(`   ${cyan('stylebook')} ${magenta('[PATHS]')} ${blue('[OPTIONS]')}\n\n`);
     process.stdout.write(`\u{1f4c4} ${b(magenta('Paths:'))}\n`);
+    process.stdout.write(`   ${magenta('file')}      Supports file types and their variants:\n`);
     process.stdout.write(
-        `   ${magenta('file')}      Supports ` +
-        `${i('CSS')}, ` +
-        `${i('HTML')}, ` +
-        `${i('JSON')}, ` +
-        `${i('Lockfile')}, ` +
-        `${i('Markdown')}, ` +
-        `${i('Mermaid')} and their\n`,
+        '             ' +
+        '\u2022 CSS        ' +
+        '\u2022 HTML      ' +
+        '\u2022 JSON   ' +
+        '\u2022 Lockfile\n',
     );
-    process.stdout.write('             variants\n');
+    process.stdout.write(
+        '             ' +
+        '\u2022 Markdown   ' +
+        '\u2022 Mermaid\n',
+    );
     process.stdout.write(`   ${magenta('dir')}       Recursively find files in this directory\n`);
     process.stdout.write(
-        `   ${magenta('pattern')}   For example, ${i('*.css')} for all CSS files in this\n`
+        `   ${magenta('pattern')}   For example, ${i('*.css')} for all CSS files in this\n`,
     );
     process.stdout.write(`             directory, ${i('**/*')} for all files\n\n`);
     process.stdout.write(`\u2699\ufe0f  ${b(blue('Options:'))}\n`);
+    process.stdout.write(
+        `   ${blue('-d')}, ${blue('--disable')} ${d(blue('[LINTERS]'))}     ` +
+        'List of linters to deactivate:\n',
+    );
+    process.stdout.write(
+        '                               ' +
+        `\u2022 ${Linter.HTMLHINT.binary}        ` +
+        `\u2022 ${Linter.JSONLINT.binary}\n`,
+    );
+    process.stdout.write(
+        '                               ' +
+        `\u2022 ${Linter.LOCKFILE_LINT.binary}   ` +
+        `\u2022 ${Linter.MARKDOWNLINT.binary}\n`,
+    );
+    process.stdout.write(
+        '                               ' +
+        `\u2022 ${Linter.MAID.binary}            ` +
+        `\u2022 ${Linter.STYLELINT.binary}\n`,
+    );
     process.stdout.write(
         `   ${blue('-e')}, ${blue('--exclude')} ${d(blue('[ARGUMENTS]'))}   ` +
         'List of files or directories to ignore\n',
@@ -131,14 +177,12 @@ if (inputArgs.includes('-v') ||
 
 // insert target paths to corresponding command
 const commands =
-    new Map([
-        [STYLELINT, []],
-        [HTMLHINT, []],
-        [JSONLINT, []],
-        [LOCKFILE_LINT, []],
-        [MAID, []],
-        [MARKDOWNLINT, []],
-    ]);
+    new Map(
+        Object
+            .values(Linter)
+            .filter(linter => !disable.has(linter.binary))
+            .map(linter => [linter, []]),
+    );
 inputArgs
     .filter(arg => !['-q', '--quiet'].includes(arg))
     .flatMap(arg => walk(arg, exclude))
@@ -148,35 +192,35 @@ inputArgs
         if (filename === 'package-lock.json' ||
             filename === 'npm-shrink.json' ||
             filename === 'yarn.lock') {
-            commands.get(LOCKFILE_LINT).push(targetPath);
+            register(commands, Linter.LOCKFILE_LINT, targetPath);
             return;
         }
         switch (extname(targetPath).toLowerCase()) {
             case '.css':
-                commands.get(STYLELINT).push(targetPath);
-                break
+                register(commands, Linter.STYLELINT, targetPath);
+                break;
 
             case '.html':
             case '.htm':
             case '.mhtml':
             case '.mhtm':
-                commands.get(HTMLHINT).push(targetPath);
+                register(commands, Linter.HTMLHINT, targetPath);
                 break;
 
             case '.json':
             case '.jsonc':
             case '.cjson':
             case '.json5':
-                commands.get(JSONLINT).push(targetPath);
+                register(commands, Linter.JSONLINT, targetPath);
                 break;
 
             case '.md':
-                commands.get(MARKDOWNLINT).push(targetPath);
+                register(commands, Linter.MARKDOWNLINT, targetPath);
                 break;
 
             case '.mmd':
             case '.mermaid':
-                commands.get(MAID).push(targetPath);
+                register(commands, Linter.MAID, targetPath);
                 break;
         }
     });
@@ -220,7 +264,7 @@ const violatingLinters =
                 empty = false;
             }
             return filter && command.execute(quiet, paths);
-        }).map(([command, _]) => command.binary);
+        }).map(([command]) => command.binary);
 if (violatingLinters.length) {
     process.stderr.write(
         '\u274c\ufe0f ' +

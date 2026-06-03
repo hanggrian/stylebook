@@ -1,15 +1,20 @@
-import StylelintCommand from './stylelint.js';
 import HtmlhintCommand from './htmlhint.js';
 import JsonlintCommand from './jsonlint.js';
 import LockfileLintCommand from './lockfile-lint.js';
 import MarkdownlintCommand from './markdownlint.js';
 import MaidCommand from './maid.js';
+import StylelintCommand from './stylelint.js';
 
-const STYLELINT = new StylelintCommand();
-const HTMLHINT = new HtmlhintCommand();
-const JSONLINT = new JsonlintCommand();
-const LOCKFILE_LINT = new LockfileLintCommand();
-const MARKDOWNLINT = new MarkdownlintCommand();
-const MAID = new MaidCommand();
+const Linter =
+    Object.freeze({
+        HTMLHINT: new HtmlhintCommand(),
+        JSONLINT: new JsonlintCommand(),
+        LOCKFILE_LINT: new LockfileLintCommand(),
+        MARKDOWNLINT: new MarkdownlintCommand(),
+        MAID: new MaidCommand(),
+        STYLELINT: new StylelintCommand(),
+    });
 
-export { STYLELINT, HTMLHINT, JSONLINT, LOCKFILE_LINT, MARKDOWNLINT, MAID };
+const NAMES = new Set(Object.values(Linter).map(linter => linter.binary));
+
+export { Linter, NAMES };
