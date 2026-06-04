@@ -14,7 +14,7 @@ var Tflint = TflintCommand{
 	},
 }
 
-func (c *TflintCommand) GetArguments(_ bool, targetPaths []string) []string {
+func (c *TflintCommand) GetArguments(targetPaths []string, quiet bool) []string {
 	args := []string{"--config", c.GetConfigFile()}
 	if len(targetPaths) > 0 {
 		args = append(args, "--chdir", filepath.Dir(targetPaths[0]))

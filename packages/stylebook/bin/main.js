@@ -5,7 +5,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { basename, dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { b, blue, cyan, d, green, i, magenta, red, yellow } from './colors.js';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line no-unused-vars
 import Command from './commands/command.js';
 import { Linter, NAMES } from './commands/index.js';
 import { getConfigFile } from './files.js';
@@ -105,12 +105,13 @@ if (inputArgs.includes('-h') ||
     process.stdout.write(
         '             ' +
         '\u2022 CSS        ' +
+        '\u2022 GraphQL    ' +
         '\u2022 HTML      ' +
-        '\u2022 JSON   ' +
-        '\u2022 Lockfile\n',
+        '\u2022 JSON\n',
     );
     process.stdout.write(
         '             ' +
+        '\u2022 Lockfile   ' +
         '\u2022 Markdown   ' +
         '\u2022 Mermaid\n',
     );
@@ -126,17 +127,21 @@ if (inputArgs.includes('-h') ||
     );
     process.stdout.write(
         '                               ' +
-        `\u2022 ${Linter.HTMLHINT.binary}        ` +
-        `\u2022 ${Linter.JSONLINT.binary}\n`,
+        `\u2022 ${Linter.GRAPHQL_SCHEMA_LINTER.binary}   ` +
+        `\u2022 ${Linter.HTMLHINT.binary}\n`,
     );
     process.stdout.write(
         '                               ' +
-        `\u2022 ${Linter.LOCKFILE_LINT.binary}   ` +
-        `\u2022 ${Linter.MARKDOWNLINT.binary}\n`,
+        `\u2022 ${Linter.JSONLINT.binary}                ` +
+        `\u2022 ${Linter.LOCKFILE_LINT.binary}\n`,
     );
     process.stdout.write(
         '                               ' +
-        `\u2022 ${Linter.MAID.binary}            ` +
+        `\u2022 ${Linter.MARKDOWNLINT.binary}            ` +
+        `\u2022 ${Linter.MAID.binary}\n`,
+    );
+    process.stdout.write(
+        '                               ' +
         `\u2022 ${Linter.STYLELINT.binary}\n`,
     );
     process.stdout.write(
@@ -200,10 +205,15 @@ inputArgs
                 register(commands, Linter.STYLELINT, targetPath);
                 break;
 
+            case '.gql':
+            case '.graphql':
+            case '.gqls':
+            case '.graphqls':
+                register(commands, Linter.GRAPHQL_SCHEMA_LINTER, targetPath);
+                break;
+
             case '.html':
             case '.htm':
-            case '.mhtml':
-            case '.mhtm':
                 register(commands, Linter.HTMLHINT, targetPath);
                 break;
 
@@ -215,6 +225,7 @@ inputArgs
                 break;
 
             case '.md':
+            case '.markdown':
                 register(commands, Linter.MARKDOWNLINT, targetPath);
                 break;
 
@@ -230,13 +241,12 @@ if (!quiet) {
     commands
         .entries()
         .forEach(([command, paths]) => {
+            if (!paths.length) {
+                return;
+            }
             const title = b(command.binary);
             if (!command.isAvailable()) {
                 process.stdout.write(`\u{1f6ab} ${title}: Unavailable\n`);
-                return;
-            }
-            if (!paths.length) {
-                process.stdout.write(`\u{1fad9} ${title}: Empty\n`);
                 return;
             }
             process.stdout.write(`\u2705\ufe0f ${title}\n`);
@@ -255,28 +265,31 @@ if (!quiet) {
 }
 
 // report result
-let empty = true;
-const violatingLinters =
-    [...commands.entries()]
-        .filter(([command, paths]) => {
-            const filter = command.isAvailable() && paths.length;
-            if (filter) {
-                empty = false;
-            }
-            return filter && command.execute(quiet, paths);
-        }).map(([command]) => command.binary);
-if (violatingLinters.length) {
-    process.stderr.write(
-        '\u274c\ufe0f ' +
-        `${red(`Linter(s) reported violations: ${b(`${violatingLinters.join(', ')}.`)}`)}\n`,
-    );
-    process.exit(1);
-}
-if (empty) {
-    process.stderr.write(`\u{1f47b} ${yellow('No files to lint.')}\n`);
-    process.exit(1);
-}
-if (!quiet) {
-    process.stdout.write(`\u{1f389} ${green('All linters passed, no violation found.')}\n`);
-}
-process.exit(0);
+(async () => {
+    let empty = true;
+    const violatingLinters = [];
+    for (const [command, paths] of commands.entries()) {
+        const filter = command.isAvailable() && paths.length;
+        if (filter) {
+            empty = false;
+        }
+        if (filter && await command.execute(process.cwd(), paths, quiet)) {
+            violatingLinters.push(command.binary);
+        }
+    }
+    if (violatingLinters.length) {
+        process.stderr.write(
+            '\u274c\ufe0f ' +
+            `${red(`Linter(s) reported violations: ${b(`${violatingLinters.join(', ')}.`)}`)}\n`,
+        );
+        process.exit(1);
+    }
+    if (empty) {
+        process.stderr.write(`\u{1f47b} ${yellow('No files to lint.')}\n`);
+        process.exit(1);
+    }
+    if (!quiet) {
+        process.stdout.write(`\u{1f389} ${green('All linters passed, no violation found.')}\n`);
+    }
+    process.exit(0);
+})();

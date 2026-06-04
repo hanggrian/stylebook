@@ -1,4 +1,5 @@
 import HtmlhintCommand from './htmlhint.js';
+import GraphqlSchemaLinterCommand from './graphql-schema-linter.js';
 import JsonlintCommand from './jsonlint.js';
 import LockfileLintCommand from './lockfile-lint.js';
 import MarkdownlintCommand from './markdownlint.js';
@@ -8,6 +9,7 @@ import StylelintCommand from './stylelint.js';
 const Linter =
     Object.freeze({
         HTMLHINT: new HtmlhintCommand(),
+        GRAPHQL_SCHEMA_LINTER: new GraphqlSchemaLinterCommand(),
         JSONLINT: new JsonlintCommand(),
         LOCKFILE_LINT: new LockfileLintCommand(),
         MARKDOWNLINT: new MarkdownlintCommand(),

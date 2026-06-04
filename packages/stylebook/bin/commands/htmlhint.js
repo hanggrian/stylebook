@@ -17,7 +17,8 @@ class HtmlhintCommand extends Command {
         return true;
     }
 
-    execute(_, targetPaths) {
+    // eslint-disable-next-line no-unused-vars
+    execute(rootDir, targetPaths, quiet) {
         let hasErrors = false;
         const config = JSON.parse(readFileSync(this.configFile, 'UTF-8'));
         HTMLHint.addRule(trailingNewlineRule);
@@ -30,7 +31,7 @@ class HtmlhintCommand extends Command {
             hasErrors = true;
             messages.forEach(hint =>
                 console.log(
-                    `${Command.embedPath(path, hint.line, hint.col)}: ` +
+                    `${Command.embedPath(rootDir, path, hint.line, hint.col)} ` +
                     `${hint.message} (${hint.rule.id})`,
                 ),
             );

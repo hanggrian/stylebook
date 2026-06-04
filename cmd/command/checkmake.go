@@ -12,7 +12,7 @@ var Checkmake = CheckmakeCommand{
 	},
 }
 
-func (c *CheckmakeCommand) GetArguments(_ bool, targetPaths []string) []string {
+func (c *CheckmakeCommand) GetArguments(targetPaths []string, quiet bool) []string {
 	args := []string{"--config", c.GetConfigFile()}
 	args = append(args, targetPaths...)
 	return args

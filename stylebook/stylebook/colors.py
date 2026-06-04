@@ -35,3 +35,7 @@ def b(content: str) -> str:
 
 def i(content: str) -> str:
     return f'\033[3m{content}{Style.RESET_ALL}'
+
+
+def u(content: str) -> str:
+    return f'\033[4m{content}{Style.RESET_ALL}'

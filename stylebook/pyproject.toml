@@ -25,6 +25,7 @@ classifiers = [
 dependencies = [
   # main
   "colorama",
+  "asciidoc-linter @ git+https://github.com/docToolchain/asciidoc-linter.git",
   "Blinter==1.0.112",
   "dotenv-linter==0.7.0",
   "pyinilint==0.17",
@@ -32,6 +33,7 @@ dependencies = [
   "sqlfluff==4.2.1",
   "taplo==0.9.3",
   "yamllint==1.38.0",
+  "PyYAML==6.0.3",
 ]
 
 [project.urls]
@@ -40,6 +42,9 @@ dependencies = [
 
 [project.scripts]
 stylebook = "stylebook.main:run"
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["stylebook"]

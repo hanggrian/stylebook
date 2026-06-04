@@ -1,5 +1,7 @@
-import { spawnSync } from 'node:child_process';
+import { blue, u } from '../colors.js';
 import { getConfigFile } from '../files.js';
+import { spawnSync } from 'node:child_process';
+import { relative } from 'node:path';
 
 /** Abstract class for linter command. */
 class Command {
@@ -31,21 +33,22 @@ class Command {
      * @param {string[]} targetPaths
      * @returns {string[]}
      */
-    getArguments(quiet, targetPaths) {
-        throw new Error(`Not implemented: ${quiet}, ${targetPaths}`);
+    getArguments(targetPaths, quiet) {
+        throw new Error(`Not implemented: ${targetPaths}, ${quiet}`);
     }
 
     /**
      * Run lint command for the given collection of paths.
      *
-     * @param {boolean} quiet
+     * @param {string} rootDir
      * @param {string[]} targetPaths
-     * @returns {number}
+     * @param {boolean} quiet
+     * @returns {number|Promise<number>}
      */
-    execute(quiet, targetPaths) {
+    execute(rootDir, targetPaths, quiet) {
         return spawnSync(
             this.binary,
-            this.getArguments(quiet, targetPaths),
+            this.getArguments(targetPaths, quiet),
             {
                 stdio: 'inherit',
                 shell: false,
@@ -56,18 +59,19 @@ class Command {
     /**
      * Mask file path with visitable link.
      *
-     * @param filePath file to link to.
-     * @param line violation line number.
-     * @param col violation column number.
+     * @param {string} rootDir folder where binary is invoked.
+     * @param {string} filePath file to link to.
+     * @param {number} line violation line number.
+     * @param {number} col violation column number.
      * @returns {string}
      */
-    static embedPath(filePath, line, col) {
+    static embedPath(rootDir, filePath, line, col) {
         return `\x1b]8;;file://${filePath}${
                 line
                     ? (col ? `#L${line}:C${col}` : `#L${line}`)
                     : ''
             }` +
-            `\x1b\\${filePath}:${line}:${col}\x1b]8;;\x1b\\`;
+            `\x1b\\${u(blue(`${relative(rootDir, filePath)}:${line}:${col}`))}\x1b]8;;\x1b\\`;
     }
 }
 

@@ -36,4 +36,8 @@ function i(content) {
     return chalk.italic(content);
 }
 
-export { cyan, blue, b, d, green, i, magenta, red, yellow };
+function u(content) {
+    return chalk.underline(content);
+}
+
+export { cyan, blue, b, d, green, i, magenta, red, yellow, u };

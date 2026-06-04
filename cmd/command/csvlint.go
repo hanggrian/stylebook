@@ -25,7 +25,7 @@ func (c *CsvlintCommand) IsAvailable() bool {
 	return true
 }
 
-func (c *CsvlintCommand) Execute(_ Linter, _ bool, targetPaths []string) int {
+func (c *CsvlintCommand) Execute(l Linter, targetPaths []string, quiet bool) int {
 	finalCode := 0
 	for _, path := range targetPaths {
 		delimiter := ','

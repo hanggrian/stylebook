@@ -1,0 +1,87 @@
+// HEAD003: only one top-level heading (=) in the document
+// HEAD002: heading starts with uppercase, space after =
+
+= Document Title
+
+// HEAD001: heading hierarchy not skipped (= → ==)
+// HEAD002: heading starts with uppercase, space after ==
+// WS001: blank line before section title
+
+== Section One
+
+// HEAD001: heading hierarchy not skipped (== → ===)
+// WS001: blank line before section title
+
+=== Subsection One
+
+Some paragraph text here.
+
+// HEAD001: heading hierarchy not skipped (=== → ====)
+// WS001: blank line before section title
+
+==== Deep Subsection
+
+More content here.
+
+=== Subsection Two
+
+Another paragraph.
+
+== Section Two
+
+Some more text.
+
+// BLOCK002: blank line before block
+// BLOCK001: block properly terminated with matching ----
+[source,python]
+----
+def hello():
+    print("Hello, World!")
+----
+
+// BLOCK002: blank line after block
+More text after the block.
+
+// BLOCK001: block properly terminated with matching ====
+.Example Block
+====
+Some example content here.
+====
+
+// BLOCK002: blank line after block
+Text after example.
+
+// WS001: space after list marker *
+* List item one
+* List item two
+* List item three
+
+// FMT001: dot-syntax instead of explicit 1. 2. 3.
+. First step
+. Second step
+. Third step
+
+// FMT002: proper :: definition list syntax instead of "Term: definition"
+Term One:: Definition of term one.
+Term Two:: Definition of term two.
+
+// IMG001: image has alt text
+image::https://example.com/img.png[Example Image]
+
+// TABLE001: consistent table formatting with header row
+|===
+| Column 1 | Column 2
+
+| Cell A
+| Cell B
+
+| Cell C
+| Cell D
+|===
+
+// WS001: blank line before admonition block
+
+NOTE: This is a note admonition.
+
+// FMT003: no {counter:x} syntax in section titles
+// FMT004: no Markdown syntax (no #headings, [text](url), ```fences, > quotes)

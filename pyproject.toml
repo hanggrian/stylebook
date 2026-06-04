@@ -16,9 +16,7 @@ doc = ["doc1", "doc2"]
 
 [dependency-groups]
 dev = [
-  "colorama",
-  "PyYAML",
-  "poethepoet",
+  "poethepoet==0.46.0",
   "pdoc",
   # lint
   "rulebook-pylint",

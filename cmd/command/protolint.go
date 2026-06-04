@@ -32,7 +32,7 @@ func (c *ProtolintCommand) IsAvailable() bool {
 	return true
 }
 
-func (c *ProtolintCommand) Execute(_ Linter, _ bool, targetPaths []string) int {
+func (c *ProtolintCommand) Execute(l Linter, targetPaths []string, quiet bool) int {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 	args := []string{"-config_path", c.GetConfigFile()}

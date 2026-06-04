@@ -25,7 +25,7 @@ func (c *GomoddirectivesCommand) IsAvailable() bool {
 	return true
 }
 
-func (c *GomoddirectivesCommand) Execute(_ Linter, _ bool, targetPaths []string) int {
+func (c *GomoddirectivesCommand) Execute(l Linter, targetPaths []string, quiet bool) int {
 	finalCode := 0
 	options :=
 		gomoddirectives.Options{
@@ -58,7 +58,7 @@ func (c *GomoddirectivesCommand) Execute(_ Linter, _ bool, targetPaths []string)
 		for _, result := range results {
 			fmt.Fprintf(
 				os.Stderr,
-				"%s: %s\n",
+				"%s %s\n",
 				embedPath(path, result.Start.Line, result.Start.Column),
 				result.Reason,
 			)

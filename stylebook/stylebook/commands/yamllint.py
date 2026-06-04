@@ -14,9 +14,9 @@ class YamllintCommand(Command):
         super().__init__('yamllint', 'yamllintrc.yaml')
 
     def is_available(self) -> bool:
-        return find_spec('yamllint') is not None
+        return find_spec(self.binary) is not None
 
-    def execute(self, _, target_paths: list[str]) -> int:
+    def execute(self, target_paths: list[str], quiet: bool) -> int:
         config: YamlLintConfig = YamlLintConfig(file=self.config_file)
         has_errors: bool = False
         for path in target_paths:
@@ -27,7 +27,7 @@ class YamllintCommand(Command):
             has_errors = True
             for problem in problems:
                 print(
-                    f'{self.embed_path(path, problem.line, problem.column)}: '
+                    f'{self.embed_path(path, problem.line, problem.column)} '
                     f'{problem.message}',
                 )
         return 1 if has_errors else 0

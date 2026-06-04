@@ -1,4 +1,4 @@
-package cmd
+package colors
 
 import "github.com/fatih/color"
 
@@ -36,4 +36,8 @@ func D(text string) string {
 
 func I(text string) string {
 	return color.New(color.Italic).Sprint(text)
+}
+
+func U(text string) string {
+	return color.New(color.Underline).Sprint(text)
 }

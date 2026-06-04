@@ -16,15 +16,21 @@ members = [
 [manifest.dependency-groups]
 dev = [
     { name = "astroid", specifier = "==4.0.2" },
-    { name = "colorama" },
     { name = "pdoc" },
-    { name = "poethepoet" },
+    { name = "poethepoet", specifier = "==0.46.0" },
     { name = "pylint", specifier = "==4.0.4" },
     { name = "pytest" },
     { name = "pytest-cov" },
-    { name = "pyyaml" },
     { name = "regex" },
     { name = "rulebook-pylint" },
+]
+
+[[package]]
+name = "asciidoc-linter"
+version = "0.1.0"
+source = { git = "https://github.com/docToolchain/asciidoc-linter.git#52e7fa5982d980eefd5b548f68ff6f58767fe772" }
+dependencies = [
+    { name = "pyyaml" },
 ]
 
 [[package]]
@@ -210,14 +216,11 @@ wheels = [
 
 [[package]]
 name = "click"
-version = "8.3.3"
+version = "7.1.2"
 source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32'" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/bb/63/f9e1ea081ce35720d8b92acde70daaedace594dc93b693c869e0d5910718/click-8.3.3.tar.gz", hash = "sha256:398329ad4837b2ff7cbe1dd166a4c0f8900c3ca3a218de04466f38f6497f18a2", size = 328061, upload-time = "2026-04-22T15:11:27.506Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/27/6f/be940c8b1f1d69daceeb0032fee6c34d7bd70e3e649ccac0951500b4720e/click-7.1.2.tar.gz", hash = "sha256:d2b5255c7c6349bc1bd1e59e08cd12acbbd63ce649f2588755783aa94dfb6b1a", size = 297279, upload-time = "2020-04-27T20:22:45.014Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ae/44/c1221527f6a71a01ec6fbad7fa78f1d50dfa02217385cf0fa3eec7087d59/click-8.3.3-py3-none-any.whl", hash = "sha256:a2bf429bb3033c89fa4936ffb35d5cb471e3719e1f3c8a7c3fff0b8314305613", size = 110502, upload-time = "2026-04-22T15:11:25.044Z" },
+    { url = "https://files.pythonhosted.org/packages/d2/3d/fa76db83bf75c4f8d338c2fd15c8d33fdd7ad23a9b5e57eb6c5de26b430e/click-7.1.2-py2.py3-none-any.whl", hash = "sha256:dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc", size = 82780, upload-time = "2020-04-27T20:22:42.629Z" },
 ]
 
 [[package]]
@@ -624,16 +627,16 @@ wheels = [
 
 [[package]]
 name = "poethepoet"
-version = "0.45.0"
+version = "0.46.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pastel" },
     { name = "pyyaml" },
     { name = "tomli", marker = "python_full_version < '3.11'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1d/28/d54e16913f591f01b2e1c4ab526ccbba47864d9bf10299904c823a760d25/poethepoet-0.45.0.tar.gz", hash = "sha256:cf2c2df4c185d33b619c2771de2b28c2b81c733f072226030c7fa4c273c040f8", size = 97150, upload-time = "2026-04-28T21:04:59.301Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/3b/f5/d501fcb67e450fd3fae9db06050420c0c6043758cfa8c30ba40278211265/poethepoet-0.46.0.tar.gz", hash = "sha256:daf8469031879ef59ef0b34fdba83574d65e41eb9186e20cd0f7c89ce479b030", size = 117276, upload-time = "2026-05-15T15:52:02.548Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e9/99/4aefb693b0f52783fab496492f4444a75137312c386eb7c3320f1b0a1602/poethepoet-0.45.0-py3-none-any.whl", hash = "sha256:8e25f6e834ecf25fe2ddca676a4e0207eeb2e19def0a8709fc5c7f18e86cd68c", size = 123920, upload-time = "2026-04-28T21:04:57.66Z" },
+    { url = "https://files.pythonhosted.org/packages/af/01/a9d6ea30351919298d3dc237172ae6a60ce0224ecaaee289b671ab979c13/poethepoet-0.46.0-py3-none-any.whl", hash = "sha256:dc6d770a14792d124abac9066c5a707876027d1878ac9ca26cf57e9b2a96dc89", size = 150581, upload-time = "2026-05-15T15:52:01.118Z" },
 ]
 
 [[package]]
@@ -939,10 +942,12 @@ name = "stylebook"
 version = "0.2.0"
 source = { editable = "stylebook" }
 dependencies = [
+    { name = "asciidoc-linter" },
     { name = "blinter" },
     { name = "colorama" },
     { name = "dotenv-linter" },
     { name = "pyinilint" },
+    { name = "pyyaml" },
     { name = "restructuredtext-lint" },
     { name = "sqlfluff" },
     { name = "taplo" },
@@ -951,10 +956,12 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "asciidoc-linter", git = "https://github.com/docToolchain/asciidoc-linter.git" },
     { name = "blinter", specifier = "==1.0.112" },
     { name = "colorama" },
     { name = "dotenv-linter", specifier = "==0.7.0" },
     { name = "pyinilint", specifier = "==0.17" },
+    { name = "pyyaml", specifier = "==6.0.3" },
     { name = "restructuredtext-lint", specifier = "==2.0.2" },
     { name = "sqlfluff", specifier = "==4.2.1" },
     { name = "taplo", specifier = "==0.9.3" },

@@ -6,15 +6,16 @@ import (
 	"os/exec"
 	"runtime"
 
+	"github.com/hanggrian/stylebook/cmd/colors"
 	"github.com/hanggrian/stylebook/cmd/files"
 )
 
 type Linter interface {
 	IsAvailable() bool
-	Execute(l Linter, quiet bool, targetPaths []string) int
+	Execute(l Linter, targetPaths []string, quiet bool) int
 	GetConfigFile() string
 	GetBinary() string
-	GetArguments(quiet bool, targetPaths []string) []string
+	GetArguments(targetPaths []string, quiet bool) []string
 }
 
 type BaseCommand struct {
@@ -41,12 +42,12 @@ func (c *BaseCommand) GetBinary() string {
 	return c.Binary
 }
 
-func (c *BaseCommand) GetArguments(quiet bool, targetPaths []string) []string {
+func (c *BaseCommand) GetArguments(targetPaths []string, quiet bool) []string {
 	return targetPaths
 }
 
-func (c *BaseCommand) Execute(l Linter, quiet bool, targetPaths []string) int {
-	cmd := exec.Command(l.GetBinary(), l.GetArguments(quiet, targetPaths)...)
+func (c *BaseCommand) Execute(l Linter, targetPaths []string, quiet bool) int {
+	cmd := exec.Command(l.GetBinary(), l.GetArguments(targetPaths, quiet)...)
 	if !quiet {
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
@@ -72,11 +73,9 @@ func embedPath(filePath string, line int, col int) string {
 		}
 	}
 	return fmt.Sprintf(
-		"\x1b]8;;file://%s%s\x1b\\%s:%d:%d\x1b]8;;\x1b\\",
+		"\x1b]8;;file://%s%s\x1b\\%s\x1b]8;;\x1b\\",
 		filePath,
 		suffix,
-		filePath,
-		line,
-		col,
+		colors.U(colors.Blue(fmt.Sprintf("%s:%d:%d", filePath, line, col))),
 	)
 }

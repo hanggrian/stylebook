@@ -1,0 +1,37 @@
+schema {
+  query: Query2
+}
+
+# types-have-descriptions
+# fields-have-descriptions
+# arguments-have-descriptions
+type Query2 {
+  user(id: ID!, filter: UserFilter2): User2
+  users(after: String, before: String, first: Int, last: Int): UserConnection2
+}
+
+type User2 {
+  id: ID!
+  name: String
+  status: UserStatus2
+}
+
+# relay-connection-types-spec (missing edges and pageInfo fields)
+type UserConnection2 {
+  total: Int
+}
+
+# enum-values-have-descriptions
+enum UserStatus2 {
+  ACTIVE
+  INACTIVE
+}
+
+# input-object-values-have-descriptions
+input UserFilter2 {
+  name: String
+  status: UserStatus2
+}
+
+# relay-page-info-spec (PageInfo type is absent)
+# relay-connection-arguments-spec (users args present but connection type is invalid)

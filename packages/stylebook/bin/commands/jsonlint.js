@@ -12,7 +12,8 @@ class JsonlintCommand extends Command {
         return true;
     }
 
-    execute(_, targetPaths) {
+    // eslint-disable-next-line no-unused-vars
+    execute(rootDir, targetPaths, quiet) {
         let hasErrors = false;
         const config = JSON.parse(readFileSync(this.configFile, 'UTF-8'));
         const parserOptions = {
@@ -40,14 +41,14 @@ class JsonlintCommand extends Command {
                 }
                 const reports = JsonlintCommand.getReports(source, output);
                 for (const { line, column, reason } of reports) {
-                    console.log(`${Command.embedPath(path, line, column)}: ${reason}`);
+                    console.log(`${Command.embedPath(rootDir, path, line, column)} ${reason}`);
                 }
                 hasErrors = true;
             } catch (error) {
                 hasErrors = true;
                 const { location } = error;
                 const { line, column } = location.start;
-                console.log(`${Command.embedPath(path, line, column)}: ${error.reason}`);
+                console.log(`${Command.embedPath(rootDir, path, line, column)} ${error.reason}`);
             }
         }
         return hasErrors ? 1 : 0;

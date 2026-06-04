@@ -12,7 +12,7 @@ var Chktex = ChktexCommand{
 	},
 }
 
-func (c *ChktexCommand) GetArguments(quiet bool, targetPaths []string) []string {
+func (c *ChktexCommand) GetArguments(targetPaths []string, quiet bool) []string {
 	args := []string{"-wall", "-l", c.GetConfigFile()}
 	if quiet {
 		args = append(args, "-q")

@@ -52,6 +52,14 @@ Many thanks to the communities who maintain the linter tools!
 
     <div class="grid cards" markdown>
 
+    - :simple-asciidoctor:{ .xl .middle } **AsciiDoc-Linter**
+
+        ---
+
+        A Python-based linter for AsciiDoc files that helps maintain consistent
+        documentation quality and style.
+
+        [Website :material-open-in-new:](https://doctoolchain.org/asciidoc-linter/)
     - :material-microsoft-windows:{ .xl .middle } **Blinter**
 
         ---
@@ -64,6 +72,8 @@ Many thanks to the communities who maintain the linter tools!
         ---
 
         Linter/analyzer for Makefiles.
+
+        [pkgsite :material-open-in-new:](https://pkg.go.dev/github.com/checkmake/checkmake/)
     - :simple-latex:{ .xl .middle } **ChkTeX**
 
         ---
@@ -85,6 +95,8 @@ Many thanks to the communities who maintain the linter tools!
         ---
 
         Library and command line tool that validates a CSV file.
+
+        [pkgsite :material-open-in-new:](https://pkg.go.dev/github.com/Clever/csvlint/)
     - :simple-dotenv:{ .xl .middle } **dotenv-linter**
 
         ---
@@ -93,11 +105,20 @@ Many thanks to the communities who maintain the linter tools!
 
         [PyPI :material-open-in-new:](https://pypi.org/project/dotenv-linter/)&emsp;
         [Website :material-open-in-new:](https://dotenv-linter.readthedocs.io/en/latest/)
+    - :simple-graphql:{ .xl .middle } **graphql-schema-linter**
+
+        ---
+
+        Validate GraphQL schema definitions against a set of rules.
+
+        [NPM :material-open-in-new:](https://www.npmjs.com/package/graphql-schema-linter/)
     - :material-package-variant:{ .xl .middle } **gomoddirectives**
 
         ---
 
         A linter that handle directives into `go.mod`.
+
+        [pkgsite :material-open-in-new:](https://pkg.go.dev/github.com/ldez/gomoddirectives/)
     - :simple-docker:{ .xl .middle } **hadolint**
 
         ---
@@ -153,12 +174,17 @@ Many thanks to the communities who maintain the linter tools!
         ---
 
         A linter for `.properties` file.
+
+        [pkgsite :material-open-in-new:](https://pkg.go.dev/github.com/hanggrian/propertieslint/)&emsp;
+        [Website :material-open-in-new:](https://hanggrian.github.io/propertieslint/)
     - :material-code-tags:{ .xl .middle } **protolint**
 
         ---
 
         A pluggable linter and fixer to enforce Protocol Buffer style and
         conventions.
+
+        [pkgsite :material-open-in-new:](https://pkg.go.dev/github.com/yoheimuta/protolint/)
     - :simple-toml:{ .xl .middle } **py-taplo**
 
         ---
@@ -175,18 +201,26 @@ Many thanks to the communities who maintain the linter tools!
         parsed by the standard Python configparser module.
 
         [PyPI :material-open-in-new:](https://pypi.org/project/pyinilint/)
+    - :material-format-title:{ .xl .middle } **restructuredtext-lint**
+
+        ---
+
+        reStructuredText linter.
+
+        [Website :material-open-in-new:](https://www.shellcheck.net/)
     - :simple-gnubash:{ .xl .middle } **ShellCheck**
 
         ---
 
         ShellCheck, a static analysis tool for shell scripts.
 
-        [Website :material-open-in-new:](https://www.shellcheck.net/)
+        [PyPI :material-open-in-new:](https://pypi.org/project/restructuredtext-lint/)
     - :material-database-outline:{ .xl .middle } **SQLFluff**
 
         ---
 
-        A modular SQL linter and auto-formatter with support for multiple dialects and templated code.
+        A modular SQL linter and auto-formatter with support for multiple
+        dialects and templated code.
 
         [PyPI :material-open-in-new:](https://pypi.org/project/sqlfluff/)&emsp;
         [Website :material-open-in-new:](https://www.sqlfluff.com/)
@@ -195,6 +229,8 @@ Many thanks to the communities who maintain the linter tools!
         ---
 
         A Pluggable Terraform Linter.
+
+        [pkgsite :material-open-in-new:](https://pkg.go.dev/github.com/terraform-linters/tflint/)
     - :simple-yaml:{ .xl .middle } **yamllint**
 
         ---

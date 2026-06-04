@@ -1,5 +1,6 @@
 from enum import Enum
 
+from stylebook.commands.asciidoc_linter import AsciidocLinterCommand
 from stylebook.commands.blinter import BlinterCommand
 from stylebook.commands.command import Command
 from stylebook.commands.dotenv_linter import DotenvLinterCommand
@@ -11,6 +12,7 @@ from stylebook.commands.yamllint import YamllintCommand
 
 
 class Linter(Enum):
+    ASCIIDOC_LINTER = AsciidocLinterCommand()
     BLINTER = BlinterCommand()
     DOTENV_LINTER = DotenvLinterCommand()
     PYINILINT = PyinilintLinterCommand()

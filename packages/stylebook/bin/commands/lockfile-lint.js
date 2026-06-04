@@ -2,7 +2,6 @@ import Command from './command.js';
 import {
     ParseLockfile,
     ValidateHost,
-    ValidateHttps,
     ValidateIntegrity,
     ValidatePackageNames,
     ValidateScheme,
@@ -21,7 +20,8 @@ class LockfileLintCommand extends Command {
         return true;
     }
 
-    execute(_, targetPaths) {
+    // eslint-disable-next-line no-unused-vars
+    execute(rootDir, targetPaths, quiet) {
         let hasErrors = false;
         for (const path of targetPaths) {
             const hosts =
@@ -31,7 +31,6 @@ class LockfileLintCommand extends Command {
             const parser = new ParseLockfile({ lockfilePath: path });
             const lockfile = parser.parseSync();
             const validators = [
-                new ValidateHttps({ packages: lockfile.object }),
                 new ValidateHost({ packages: lockfile.object }),
                 new ValidatePackageNames({ packages: lockfile.object }),
                 new ValidateScheme({ packages: lockfile.object }),

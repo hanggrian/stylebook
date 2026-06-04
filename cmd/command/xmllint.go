@@ -12,7 +12,7 @@ var Xmllint = XmllintCommand{
 	},
 }
 
-func (c *XmllintCommand) GetArguments(_ bool, targetPaths []string) []string {
+func (c *XmllintCommand) GetArguments(targetPaths []string, quiet bool) []string {
 	args := []string{"-noout"}
 	args = append(args, targetPaths...)
 	return args

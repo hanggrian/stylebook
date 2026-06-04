@@ -15,9 +15,9 @@ class SqlfluffCommand(Command):
         super().__init__('sqlfluff', 'sqlfluff')
 
     def is_available(self) -> bool:
-        return find_spec('sqlfluff') is not None
+        return find_spec(self.binary) is not None
 
-    def execute(self, _, target_paths: list[str]) -> int:
+    def execute(self, target_paths: list[str], quiet: bool) -> int:
         has_errors: bool = False
         for path in target_paths:
             violations: list[dict[str, Any]] = \
@@ -34,6 +34,6 @@ class SqlfluffCommand(Command):
                         path,
                         violation.start_line_no,
                         violation.start_line_pos,
-                    )}: {violation.description} ({violation.code})',
+                    )} {violation.description} ({violation.code})',
                 )
         return 1 if has_errors else 0

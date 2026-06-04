@@ -23,7 +23,7 @@ func (c *PropertieslintCommand) IsAvailable() bool {
 	return true
 }
 
-func (c *PropertieslintCommand) Execute(_ Linter, _ bool, targetPaths []string) int {
+func (c *PropertieslintCommand) Execute(l Linter, targetPaths []string, quiet bool) int {
 	config, err := linter.LoadConfig(linter.ResolveConfigPath(c.GetConfigFile()))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
@@ -39,7 +39,7 @@ func (c *PropertieslintCommand) Execute(_ Linter, _ bool, targetPaths []string) 
 	for _, issue := range result.Issues {
 		fmt.Fprintf(
 			os.Stderr,
-			"%s: %s\n",
+			"%s %s\n",
 			embedPath(issue.Path, issue.Line, issue.Column),
 			issue.Message,
 		)

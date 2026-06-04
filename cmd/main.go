@@ -9,6 +9,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/hanggrian/stylebook/cmd/colors"
 	"github.com/hanggrian/stylebook/cmd/command"
 	"github.com/hanggrian/stylebook/cmd/files"
 )
@@ -53,7 +54,7 @@ func Execute() error {
 	// parse input arguments
 	inputArgs := os.Args[1:]
 	if len(inputArgs) == 0 {
-		fmt.Fprintln(os.Stderr, Red("Need a path."))
+		fmt.Fprintln(os.Stderr, colors.Red("Need a path."))
 		os.Exit(1)
 	}
 	var disable []string
@@ -93,7 +94,7 @@ func Execute() error {
 	if len(disableUnsupported) > 0 {
 		fmt.Fprintln(
 			os.Stderr,
-			Red("Unsupported linters: " + B(strings.Join(disableUnsupported, ", "))),
+			colors.Red("Unsupported linters: "+colors.B(strings.Join(disableUnsupported, ", "))),
 		)
 		os.Exit(1)
 	}
@@ -116,42 +117,53 @@ func Execute() error {
 		if arg == "-h" ||
 			arg == "--help" {
 			fmt.Printf("Go runner for Stylebook linter aggregator\n\n")
-			fmt.Printf("\U0001f680 %s\n", B(Cyan("Usage:")))
-			fmt.Printf("   %s %s %s\n\n", Cyan("stylebook"), Magenta("[PATHS]"), Blue("[OPTIONS]"))
-			fmt.Printf("\U0001f4c4 %s\n", B(Magenta("Paths:")))
-			fmt.Printf("   %s      Supports file types and their variants:\n", Magenta("path"))
+			fmt.Printf("\U0001f680 %s\n", colors.B(colors.Cyan("Usage:")))
 			fmt.Printf(
-				"             " +
-				"\u2022 CSV         " +
-				"\u2022 LaTeX        " +
-				"\u2022 Dockerfile   " +
-				"\u2022 go.mod\n",
+				"   %s %s %s\n\n",
+				colors.Cyan("stylebook"),
+				colors.Magenta("[PATHS]"),
+				colors.Blue("[OPTIONS]"),
+			)
+			fmt.Printf("\U0001f4c4 %s\n", colors.B(colors.Magenta("Paths:")))
+			fmt.Printf(
+				"   %s      Supports file types and their variants:\n",
+				colors.Magenta("path"),
 			)
 			fmt.Printf(
 				"             " +
-				"\u2022 Makefile    " +
-				"\u2022 Properties   " +
-				"\u2022 Protobuf     " +
-				"\u2022 Shell\n",
+					"\u2022 CSV         " +
+					"\u2022 LaTeX        " +
+					"\u2022 Dockerfile   " +
+					"\u2022 go.mod\n",
 			)
 			fmt.Printf(
 				"             " +
-				"\u2022 Terraform   " +
-				"\u2022 XML\n",
+					"\u2022 Makefile    " +
+					"\u2022 Properties   " +
+					"\u2022 Protobuf     " +
+					"\u2022 Shell\n",
 			)
-			fmt.Printf("   %s       Recursively find files in this directory\n", Magenta("dir"))
+			fmt.Printf(
+				"             " +
+					"\u2022 Terraform   " +
+					"\u2022 XML\n",
+			)
+			fmt.Printf(
+				"   %s       Recursively find files in this directory\n",
+				colors.Magenta("dir"),
+			)
 			fmt.Printf(
 				"   %s   For example, %s for all CSV files in this\n",
-				Magenta("pattern"),
-				I("*.csv"),
+				colors.Magenta("pattern"),
+				colors.I("*.csv"),
 			)
-			fmt.Printf("             directory, %s for all files\n\n", I("**/*"))
-			fmt.Printf("\u2699\ufe0f  %s\n", B(Blue("Options:")))
+			fmt.Printf("             directory, %s for all files\n\n", colors.I("**/*"))
+			fmt.Printf("\u2699\ufe0f  %s\n", colors.B(colors.Blue("Options:")))
 			fmt.Printf(
 				"   %s, %s %s     List of linters to deactivate:\n",
-				Blue("-d"),
-				Blue("--disable"),
-				D(Blue("[LINTERS]")),
+				colors.Blue("-d"),
+				colors.Blue("--disable"),
+				colors.D(colors.Blue("[LINTERS]")),
 			)
 			fmt.Printf(
 				"                               \u2022 %s   \u2022 %s\n",
@@ -180,24 +192,24 @@ func Execute() error {
 			)
 			fmt.Printf(
 				"   %s, %s %s   List of files or directories to ignore\n",
-				Blue("-e"),
-				Blue("--exclude"),
-				D(Blue("[ARGUMENTS]")),
+				colors.Blue("-e"),
+				colors.Blue("--exclude"),
+				colors.D(colors.Blue("[ARGUMENTS]")),
 			)
 			fmt.Printf(
 				"   %s, %s                  Display this message\n",
-				Blue("-h"),
-				Blue("--help"),
+				colors.Blue("-h"),
+				colors.Blue("--help"),
 			)
 			fmt.Printf(
 				"   %s, %s                 Disable verbose output\n",
-				Blue("-q"),
-				Blue("--quiet"),
+				colors.Blue("-q"),
+				colors.Blue("--quiet"),
 			)
 			fmt.Printf(
 				"   %s, %s               Show app version\n",
-				Blue("-v"),
-				Blue("--version"),
+				colors.Blue("-v"),
+				colors.Blue("--version"),
 			)
 			return nil
 		}
@@ -209,7 +221,7 @@ func Execute() error {
 					version = info.Main.Version
 				}
 			}
-			fmt.Printf("stylebook %s\n", B(version))
+			fmt.Printf("stylebook %s\n", colors.B(version))
 			return nil
 		}
 		if arg == "-q" ||
@@ -272,7 +284,7 @@ func Execute() error {
 			case ".csv", ".tsv":
 				register(commands, &command.Csvlint, targetPath)
 
-			case ".tex", ".ltx", ".latex":
+			case ".tex":
 				register(commands, &command.Chktex, targetPath)
 
 			case ".properties":
@@ -281,10 +293,10 @@ func Execute() error {
 			case ".proto":
 				register(commands, &command.Protolint, targetPath)
 
-			case ".bash", ".sh", ".zsh":
+			case ".sh", ".bash":
 				register(commands, &command.Shellcheck, targetPath)
 
-			case ".xml", ".xhtml", ".xsl", ".xslt", ".svg", ".xaml", ".plist":
+			case ".xml", ".xhtml", ".xsl", ".svg", ".xaml":
 				register(commands, &command.Xmllint, targetPath)
 
 			case ".tf":
@@ -294,8 +306,11 @@ func Execute() error {
 	}
 	if !quiet {
 		for _, binaryName := range order {
-			title := B(binaryName)
 			paths := commands[binaryName]
+			if len(paths) == 0 {
+				continue
+			}
+			title := colors.B(binaryName)
 			var cmd command.Linter
 			switch binaryName {
 			case command.Checkmake.GetBinary():
@@ -323,16 +338,12 @@ func Execute() error {
 				fmt.Printf("\U0001f6ab %s: Unavailable\n", title)
 				continue
 			}
-			if len(paths) == 0 {
-				fmt.Printf("\U0001fad9 %s: Empty\n", title)
-				continue
-			}
 			fmt.Printf("\u2705\ufe0f %s:\n", title)
 			for _, path := range paths {
 				ext := filepath.Ext(path)
 				root := path[:len(path)-len(ext)]
 				slash := strings.LastIndex(root, "/") + 1
-				fmt.Printf("   %s%s%s\n", D(root[:slash]), root[slash:], I(ext))
+				fmt.Printf("   %s%s%s\n", colors.D(root[:slash]), root[slash:], colors.I(ext))
 			}
 		}
 		fmt.Println()
@@ -372,7 +383,7 @@ func Execute() error {
 			continue
 		}
 		empty = false
-		if cmd.Execute(cmd, quiet, paths) != 0 {
+		if cmd.Execute(cmd, paths, quiet) != 0 {
 			violatingLinters = append(violatingLinters, binaryName)
 		}
 	}
@@ -380,21 +391,21 @@ func Execute() error {
 		fmt.Fprintf(
 			os.Stderr,
 			"\u274c\ufe0f %s\n",
-			Red(
+			colors.Red(
 				fmt.Sprintf(
 					"Linter(s) reported violations: %s.",
-					B(strings.Join(violatingLinters, ", ")),
+					colors.B(strings.Join(violatingLinters, ", ")),
 				),
 			),
 		)
 		os.Exit(1)
 	}
 	if empty {
-		fmt.Printf("\U0001f47b %s\n", Yellow("No files to lint."))
+		fmt.Printf("\U0001f47b %s\n", colors.Yellow("No files to lint."))
 		os.Exit(1)
 	}
 	if !quiet {
-		fmt.Printf("\U0001f389 %s\n", Green("All linters passed, no violation found."))
+		fmt.Printf("\U0001f389 %s\n", colors.Green("All linters passed, no violation found."))
 	}
 	os.Exit(0)
 	return nil

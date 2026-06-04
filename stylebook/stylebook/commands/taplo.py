@@ -7,7 +7,7 @@ class TaploCommand(Command):
     def __init__(self):
         super().__init__('taplo', 'taplo.toml')
 
-    def get_arguments(self, quiet: bool, target_paths: list[str]) -> list[str]:
+    def get_arguments(self, target_paths: list[str], quiet: bool) -> list[str]:
         args: list[str] = ['lint', '-c', self.config_file, *target_paths]
         return args \
             if quiet \

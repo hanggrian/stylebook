@@ -12,7 +12,7 @@ var Hadolint = HadolintCommand{
 	},
 }
 
-func (c *HadolintCommand) GetArguments(quiet bool, targetPaths []string) []string {
+func (c *HadolintCommand) GetArguments(targetPaths []string, quiet bool) []string {
 	args := []string{"-c", c.GetConfigFile()}
 	if quiet {
 		args = append(args, "-V")

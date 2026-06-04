@@ -72,16 +72,17 @@ def run() -> None:
         print(f'   {magenta('file')}      Supports file types and their variants:')
         print(
             '             ' +
+            '\u2022 AsciiDoc           ' +
             '\u2022 Batch   ' +
             '\u2022 Dotenv   ' +
-            '\u2022 INI    ' +
-            '\u2022 reStructuredText'
+            '\u2022 INI',
         )
         print(
             '             ' +
+            '\u2022 reStructuredText   ' +
             '\u2022 SQL     ' +
             '\u2022 TOML     ' +
-            '\u2022 YAML'
+            '\u2022 YAML',
         )
         print(f'   {magenta('dir')}       Recursively find files in this directory')
         print(f'   {magenta('pattern')}   For example, {i('*.bat')} for all Batch files in this')
@@ -93,21 +94,22 @@ def run() -> None:
         )
         print(
             '                               ' +
-            f'\u2022 {Linter.BLINTER.value.binary}     ' +
-            f'\u2022 {Linter.DOTENV_LINTER.value.binary}',
+            f'\u2022 {Linter.ASCIIDOC_LINTER.value.binary}         ' +
+            f'\u2022 {Linter.BLINTER.value.binary}',
         )
         print(
             '                               ' +
-            f'\u2022 {Linter.PYINILINT.value.binary}   ' +
-            f'\u2022 {Linter.RESTRUCTUREDTEXT_LINT.value.binary}',
+            f'\u2022 {Linter.DOTENV_LINTER.value.binary}           ' +
+            f'\u2022 {Linter.PYINILINT.value.binary}',
         )
         print(
             '                               ' +
-            f'\u2022 {Linter.SQLFLUFF.value.binary}    ' +
-            f'\u2022 {Linter.TAPLO.value.binary}',
+            f'\u2022 {Linter.RESTRUCTUREDTEXT_LINT.value.binary}   ' +
+            f'\u2022 {Linter.SQLFLUFF.value.binary}',
         )
         print(
             '                               ' +
+            f'\u2022 {Linter.TAPLO.value.binary}                   ' +
             f'\u2022 {Linter.YAMLLINT.value.binary}',
         )
         print(
@@ -153,10 +155,13 @@ def run() -> None:
             register(commands, Linter.DOTENV_LINTER, target_path)
             continue
         match filename.suffix.lower():
-            case '.bat' | '.cmd':
+            case '.adoc' | '.asciidoc':
+                register(commands, Linter.ASCIIDOC_LINTER, target_path)
+
+            case '.bat' | '.btm' | '.cmd':
                 register(commands, Linter.BLINTER, target_path)
 
-            case '.ini' | '.cfg' | '.conf':
+            case '.ini' | '.cnf' | '.conf' | '.cfg' | '.url':
                 register(commands, Linter.PYINILINT, target_path)
 
             case '.rst' | '.rest':
@@ -172,12 +177,11 @@ def run() -> None:
                 register(commands, Linter.YAMLLINT, target_path)
     if not quiet:
         for command, paths in commands.items():
+            if not paths:
+                continue
             title: str = b(command.value.binary)
             if not command.value.is_available():
                 print(f'\U0001f6ab {title}: Unavailable')
-                continue
-            if not paths:
-                print(f'\U0001fad9 {title}: Empty')
                 continue
             print(f'\u2705\ufe0f {title}:')
             print(
@@ -201,7 +205,7 @@ def run() -> None:
         if not command.value.is_available() or not paths:
             continue
         empty = False
-        if command.value.execute(quiet, paths) != 0:
+        if command.value.execute(paths, quiet) != 0:
             violating_linters.append(command.value.binary)
     if violating_linters:
         print(

@@ -16,7 +16,8 @@ class MarkdownlintCommand extends Command {
         return true;
     }
 
-    execute(_, targetPaths) {
+    // eslint-disable-next-line no-unused-vars
+    execute(rootDir, targetPaths, quiet) {
         let hasErrors = false;
         for (const [filePath, errors] of Object.entries(
             lint({
@@ -33,10 +34,11 @@ class MarkdownlintCommand extends Command {
             for (const error of errors) {
                 console.log(
                     `${Command.embedPath(
+                        rootDir,
                         filePath,
                         error.lineNumber,
                         error.errorRange?.[0] ?? 1,
-                    )}: ${error.errorDetail} (${error.ruleNames.at(-1)})`,
+                    )} ${error.errorDetail} (${error.ruleNames.at(-1)})`,
                 );
             }
         }

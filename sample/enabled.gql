@@ -1,0 +1,32 @@
+# types-are-capitalized
+type Query {
+  # type-fields-sorted-alphabetically
+  # fields-are-camel-cased
+  user(filter: UserFilter): User
+  users: [User]
+}
+
+type User {
+  id: ID!
+  name: String
+  # defined-types-are-used (UserStatus referenced here)
+  status: UserStatus
+}
+
+# enum-values-all-caps
+# enum-values-sorted-alphabetically
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+# defined-types-are-used (UserFilter referenced in Query.user)
+input UserFilter {
+  # input-object-fields-sorted-alphabetically
+  # input-object-values-are-camel-cased
+  name: String
+  status: UserStatus
+}
+
+# deprecations-have-a-reason  — no @deprecated used; rule passes vacuously
+# interface-fields-sorted-alphabetically  — no interfaces defined; rule passes vacuously

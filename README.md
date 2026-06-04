@@ -13,7 +13,7 @@
 
 ![The Stylebook logo.](https://github.com/hanggrian/stylebook/raw/assets/logo.svg)
 
-Linter aggregator for various data formats. All rules are preconfigured with
+Linter aggregator for various data formats. All linters are preconfigured with
 common rules like duplicate blank lines, trailing whitespace and consistent
 indentation. In Markdown, it has third-party rules to check dead links and
 broken images.
@@ -136,7 +136,16 @@ broken images.
       <td></td>
     </tr>
     <tr>
-      <td rowspan="7">Python</td>
+      <td rowspan="8">Python</td>
+      <td>AsciiDoc</td>
+      <td>
+        <a href="https://doctoolchain.org/asciidoc-linter/">
+          AsciiDoc-Linter
+        </a>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
       <td>Batch</td>
       <td>
         <a href="https://github.com/tboy1337/Blinter/">
@@ -212,7 +221,7 @@ broken images.
       <td></td>
     </tr>
     <tr>
-      <td rowspan="6">Node</td>
+      <td rowspan="7">Node</td>
       <td>CSS</td>
       <td>
         <a href="https://github.com/stylelint/stylelint/">
@@ -228,6 +237,15 @@ broken images.
           Stylelint Configuration
         </a>
       </td>
+    </tr>
+    <tr>
+      <td>GraphQL</td>
+      <td>
+        <a href="https://github.com/cjoudrey/graphql-schema-linter/">
+          graphql-schema-linter
+        </a>
+      </td>
+      <td><code>.graphql-schema-linterrc</code></td>
     </tr>
     <tr>
       <td>HTML</td>
@@ -298,8 +316,8 @@ Several linters must be installed separatedly, preferably at OS level:
 
 ### Go
 
-Most linters are brought in as dependencies, but others need to be installed to
-get the binaries.
+Most linters are brought in as dependencies, others can be installed
+selectively.
 
 ```sh
 go install github.com/hanggrian/stylebook@latest

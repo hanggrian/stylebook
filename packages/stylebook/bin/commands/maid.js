@@ -12,7 +12,8 @@ class MaidCommand extends Command {
         return true;
     }
 
-    execute(_, targetPaths) {
+    // eslint-disable-next-line no-unused-vars
+    execute(rootDir, targetPaths, quiet) {
         let hasErrors = false;
         for (const path of targetPaths) {
             const source = readFileSync(path, 'utf-8');
@@ -32,16 +33,17 @@ class MaidCommand extends Command {
                     }
                     console.log(
                         `${Command.embedPath(
+                            rootDir,
                             path,
                             e.line ?? 1,
                             e.column ?? 1,
-                        )}: ${e.message ?? JSON.stringify(e)}${code}`,
+                        )} ${e.message ?? JSON.stringify(e)}${code}`,
                     );
                 }
             } catch (err) {
                 hasErrors = true;
                 console.log(
-                    `${Command.embedPath(path, 1, 1)}: ${err?.message ?? String(err)}`,
+                    `${Command.embedPath(rootDir, path, 1, 1)} ${err?.message ?? String(err)}`,
                 );
             }
         }

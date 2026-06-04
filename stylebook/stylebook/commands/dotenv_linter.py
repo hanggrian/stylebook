@@ -7,5 +7,5 @@ class DotenvLinterCommand(Command):
     def __init__(self) -> None:
         super().__init__('dotenv-linter')
 
-    def get_arguments(self, _, target_paths: list[str]) -> list[str]:
+    def get_arguments(self, target_paths: list[str], quiet: bool) -> list[str]:
         return ['lint', *target_paths]

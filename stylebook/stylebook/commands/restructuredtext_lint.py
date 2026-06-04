@@ -17,7 +17,7 @@ class RestructuredtextLintCommand(Command):
     def is_available(self) -> bool:
         return find_spec('restructuredtext_lint') is not None
 
-    def execute(self, _, target_paths: list[str]) -> int:
+    def execute(self, target_paths: list[str], quiet: bool) -> int:
         has_errors: bool = False
         for target_path in target_paths:
             errors: list = lint_file(target_path)
@@ -25,5 +25,5 @@ class RestructuredtextLintCommand(Command):
                 continue
             has_errors = True
             for error in errors:
-                print(f'{self.embed_path(target_path, error.line, 1)}: {error.message}')
+                print(f'{self.embed_path(target_path, error.line, 1)} {error.message}')
         return 1 if has_errors else 0
