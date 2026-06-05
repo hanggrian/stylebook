@@ -1,72 +1,73 @@
 install CLEAN="false":
-    go mod {{ if CLEAN == "true" { "download" } else { "tidy" } }}
+    make install CLEAN={{ if CLEAN == "true" { "true" } else { "false" } }}
     uv sync {{ if CLEAN == "true" { "--locked" } else { "" } }}
     pnpm install {{ if CLEAN == "true" { "--frozen-lockfile" } else { "" } }}
 
-[group('check')]
-lint-go:
-    go run . .
+[private]
+lint1:
+    make lint
 
-[group('check')]
-lint-python:
+[private]
+lint2:
     uv run poe lint
 
-[group('check')]
-lint-node:
+[private]
+lint3:
     pnpm lint
 
 [group('check')]
 [parallel]
-lint: lint-go lint-python lint-node
+lint: lint1 lint2 lint3
 
 # skip markdownlint since it has network calls
 [group('check')]
 [parallel]
-offline-lint: lint-go lint-python
+offline-lint: lint1 lint2
     pnpm -r lint
     pnpm stylebook . -d=markdownlint
 
-[group('check')]
-test-go:
-    go test ./rules/...
+[private]
+test1:
+    make test
 
-[group('check')]
-test-node:
+[private]
+test2:
     pnpm -r test
 
 [group('check')]
 [parallel]
-test: test-go test-node
+test: test1 test2
 
-[group('check')]
-cov-go:
-    go test -coverprofile=coverage.out ./rules/...
+[private]
+cov1:
+    make cov
 
-[group('check')]
-cov-node:
+[private]
+cov2:
     pnpm -r cov
 
-[group('check')]
 [parallel]
-cov: cov-go cov-node
+[private]
+cov: cov1 cov2
 
 format:
     just --fmt
-    go fmt ./...
+    make format
 
-[group('doc')]
-doc-python:
+[private]
+doc1:
+    make doc
+
+[private]
+doc2:
     uv run poe doc
 
-[group('doc')]
-doc-node:
+[private]
+doc3:
     pnpm doc
 
-[group('doc')]
 [parallel]
-doc: doc-python doc-node
-    rm -rf build/doc2go/
-    doc2go -out build/doc2go/ ./rules/...
+doc: doc1 doc2 doc3
 
 [group('website')]
 prepare-website:

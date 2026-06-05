@@ -52,6 +52,24 @@ Many thanks to the communities who maintain the linter tools!
 
     <div class="grid cards" markdown>
 
+    - :simple-github:{ .xl .middle } **actionlint**
+
+        ---
+
+        Static checker for GitHub Actions workflow files.
+
+        [Website :material-open-in-new:](https://rhysd.github.io/actionlint/)&emsp;
+        [pkgsite :material-open-in-new:](https://pkg.go.dev/github.com/rhysd/actionlint/)
+    - :simple-ansible:{ .xl .middle } **Ansible Lint**
+
+        ---
+
+        ansible-lint checks playbooks for practices and behavior that could
+        potentially be improved and can fix some of the most common ones for
+        you.
+
+        [Website :material-open-in-new:](https://docs.ansible.com/projects/lint/)&emsp;
+        [PyPI :material-open-in-new:](https://pypi.org/project/ansible-lint/)
     - :simple-asciidoctor:{ .xl .middle } **AsciiDoc-Linter**
 
         ---
@@ -81,15 +99,6 @@ Many thanks to the communities who maintain the linter tools!
         LaTeX semantic checker.
 
         [Website :material-open-in-new:](https://www.nongnu.org/chktex/)
-    - :simple-css:{ .xl .middle } **Stylelint**
-
-        ---
-
-         A mighty CSS linter that helps you avoid errors and enforce
-         conventions.
-
-        [NPM :material-open-in-new:](https://www.npmjs.com/package/stylelint/)&emsp;
-        [Website :material-open-in-new:](https://stylelint.io/)
     - :material-file-delimited-outline:{ .xl .middle } **csvlint**
 
         ---
@@ -132,6 +141,16 @@ Many thanks to the communities who maintain the linter tools!
 
         [NPM :material-open-in-new:](https://www.npmjs.com/package/htmlhint/)&emsp;
         [Website :material-open-in-new:](https://htmlhint.com/)
+    - :simple-kubernetes:{ .xl .middle } **KubeLinter**
+
+        ---
+
+        KubeLinter is a static analysis tool that checks Kubernetes YAML files
+        and Helm charts to ensure the applications represented in them adhere to
+        best practices.
+
+        [Website :material-open-in-new:](https://docs.kubelinter.io/)&emsp;
+        [pkgsite :material-open-in-new:](https://pkg.go.dev/github.com/stackrox/kube-linter/)
     - :simple-json:{ .xl .middle } **JSON Lint**
 
         ---
@@ -224,6 +243,15 @@ Many thanks to the communities who maintain the linter tools!
 
         [PyPI :material-open-in-new:](https://pypi.org/project/sqlfluff/)&emsp;
         [Website :material-open-in-new:](https://www.sqlfluff.com/)
+    - :simple-css:{ .xl .middle } **Stylelint**
+
+        ---
+
+         A mighty CSS linter that helps you avoid errors and enforce
+         conventions.
+
+        [NPM :material-open-in-new:](https://www.npmjs.com/package/stylelint/)&emsp;
+        [Website :material-open-in-new:](https://stylelint.io/)
     - :simple-terraform:{ .xl .middle } **TFLint**
 
         ---

@@ -61,8 +61,6 @@ func (c *BaseCommand) Execute(l Linter, targetPaths []string, quiet bool) int {
 	return 0
 }
 
-func ptr(s string) *string { return &s }
-
 func embedPath(filePath string, line int, col int) string {
 	suffix := ""
 	if line > 0 {

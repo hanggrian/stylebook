@@ -154,6 +154,7 @@ disable=
   missing-class-docstring,
   missing-type-doc,
   too-many-branches,
+  too-many-locals,
   too-many-statements,
 
 

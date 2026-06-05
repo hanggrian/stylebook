@@ -14,15 +14,16 @@ import (
 	"github.com/hanggrian/stylebook/cmd/files"
 )
 
+var githubActionsPaths = []string{".github"}
+var kubernetesPaths = []string{"k8s", "kubernetes", "manifests", "deploy"}
+
 // Recursively traverse directories to collect files.
 func walk(targetPath string, exclude []string) []string {
 	cleaned := filepath.Clean(targetPath)
-	parts := strings.Split(cleaned, string(os.PathSeparator))
-	for _, part := range parts {
-		for _, ex := range exclude {
-			if part == ex {
-				return nil
-			}
+	parts := strings.SplitSeq(cleaned, string(os.PathSeparator))
+	for part := range parts {
+		if slices.Contains(exclude, part) {
+			return nil
 		}
 	}
 	info, err := os.Stat(cleaned)
@@ -40,13 +41,37 @@ func walk(targetPath string, exclude []string) []string {
 	for _, entry := range entries {
 		files = append(files, walk(filepath.Join(cleaned, entry.Name()), exclude)...)
 	}
+	dirname := filepath.Base(cleaned)
+	if slices.Contains(githubActionsPaths, dirname) ||
+		slices.Contains(kubernetesPaths, dirname) {
+		files = append(files, cleaned)
+	}
 	return files
 }
 
-// Insert path to map if the linter key exists.
+// Insert file to map if the linter key exists.
 func register(commands map[string][]string, linter command.Linter, path string) {
 	if _, found := commands[linter.GetBinary()]; found {
 		commands[linter.GetBinary()] = append(commands[linter.GetBinary()], path)
+	}
+}
+
+// Insert all files in a directory to map if the linter key exists and extension matches.
+func registerDir(commands map[string][]string, linter command.Linter, path string, exts []string) {
+	entries, err := os.ReadDir(path)
+	if err != nil {
+		return
+	}
+	for _, entry := range entries {
+		if entry.IsDir() {
+			continue
+		}
+		name := entry.Name()
+		ext := filepath.Ext(name)
+		if !slices.Contains(exts, ext) {
+			continue
+		}
+		register(commands, linter, filepath.Join(path, name))
 	}
 }
 
@@ -107,10 +132,13 @@ func Execute() error {
 			if line == "" || strings.HasPrefix(line, "#") {
 				continue
 			}
-			if strings.HasSuffix(line, "/") {
-				line = line[:len(line)-1]
-			}
+			line = strings.TrimSuffix(line, "/")
 			exclude = append(exclude, line)
+		}
+
+		if err := scanner.Err(); err != nil {
+			fmt.Fprintln(os.Stderr, colors.Red("Failed reading stylebookrc: "+err.Error()))
+			os.Exit(1)
 		}
 	}
 	for _, arg := range remainingArgs {
@@ -131,22 +159,24 @@ func Execute() error {
 			)
 			fmt.Printf(
 				"             " +
-					"\u2022 CSV         " +
+					"\u2022 CSV          " +
 					"\u2022 LaTeX        " +
 					"\u2022 Dockerfile   " +
-					"\u2022 go.mod\n",
+					"\u2022 GitHub Actions\n",
 			)
 			fmt.Printf(
 				"             " +
-					"\u2022 Makefile    " +
+					"\u2022 Kubernetes   " +
+					"\u2022 Makefile     " +
 					"\u2022 Properties   " +
-					"\u2022 Protobuf     " +
-					"\u2022 Shell\n",
+					"\u2022 Protobuf\n",
 			)
 			fmt.Printf(
 				"             " +
-					"\u2022 Terraform   " +
-					"\u2022 XML\n",
+					"\u2022 Shell        " +
+					"\u2022 Terraform    " +
+					"\u2022 XML          " +
+					"\u2022 go.mod\n",
 			)
 			fmt.Printf(
 				"   %s       Recursively find files in this directory\n",
@@ -159,55 +189,61 @@ func Execute() error {
 			)
 			fmt.Printf("             directory, %s for all files\n\n", colors.I("**/*"))
 			fmt.Printf("\u2699\ufe0f  %s\n", colors.B(colors.Blue("Options:")))
+			empty := colors.D(colors.Blue("(=[])"))
 			fmt.Printf(
 				"   %s, %s %s     List of linters to deactivate:\n",
 				colors.Blue("-d"),
-				colors.Blue("--disable"),
-				colors.D(colors.Blue("[LINTERS]")),
+				colors.Blue("--disable=[LINTERS]"),
+				empty,
 			)
 			fmt.Printf(
-				"                               \u2022 %s   \u2022 %s\n",
+				"                                     \u2022 %s        \u2022 %s\n",
+				command.Actionlint.GetBinary(),
 				command.Checkmake.GetBinary(),
+			)
+			fmt.Printf(
+				"                                     \u2022 %s            \u2022 %s\n",
 				command.Chktex.GetBinary(),
-			)
-			fmt.Printf(
-				"                               \u2022 %s     \u2022 %s\n",
 				command.Csvlint.GetBinary(),
-				command.Gomoddirectives.GetBinary(),
 			)
 			fmt.Printf(
-				"                               \u2022 %s    \u2022 %s\n",
+				"                                     \u2022 %s   \u2022 %s\n",
+				command.Gomoddirectives.GetBinary(),
 				command.Hadolint.GetBinary(),
+			)
+			fmt.Printf(
+				"                                     \u2022 %s       \u2022 %s\n",
+				command.KubeLinter.GetBinary(),
 				command.Propertieslint.GetBinary(),
 			)
 			fmt.Printf(
-				"                               \u2022 %s   \u2022 %s\n",
+				"                                     \u2022 %s         \u2022 %s\n",
 				command.Protolint.GetBinary(),
 				command.Shellcheck.GetBinary(),
 			)
 			fmt.Printf(
-				"                               \u2022 %s      \u2022 %s \n",
+				"                                     \u2022 %s            \u2022 %s \n",
 				command.Tflint.GetBinary(),
 				command.Xmllint.GetBinary(),
 			)
 			fmt.Printf(
 				"   %s, %s %s   List of files or directories to ignore\n",
 				colors.Blue("-e"),
-				colors.Blue("--exclude"),
-				colors.D(colors.Blue("[ARGUMENTS]")),
+				colors.Blue("--exclude=[ARGUMENTS]"),
+				empty,
 			)
 			fmt.Printf(
-				"   %s, %s                  Display this message\n",
+				"   %s, %s                        Display this message\n",
 				colors.Blue("-h"),
 				colors.Blue("--help"),
 			)
 			fmt.Printf(
-				"   %s, %s                 Disable verbose output\n",
+				"   %s, %s                       Disable verbose output\n",
 				colors.Blue("-q"),
 				colors.Blue("--quiet"),
 			)
 			fmt.Printf(
-				"   %s, %s               Show app version\n",
+				"   %s, %s                     Show app version\n",
 				colors.Blue("-v"),
 				colors.Blue("--version"),
 			)
@@ -232,11 +268,13 @@ func Execute() error {
 
 	// insert target paths to corresponding command
 	linters := []command.Linter{
+		&command.Actionlint,
 		&command.Checkmake,
 		&command.Chktex,
 		&command.Csvlint,
 		&command.Gomoddirectives,
 		&command.Hadolint,
+		&command.KubeLinter,
 		&command.Propertieslint,
 		&command.Protolint,
 		&command.Shellcheck,
@@ -263,6 +301,33 @@ func Execute() error {
 			}
 			seen[targetPath] = true
 			filename := filepath.Base(targetPath)
+			info, err := os.Stat(targetPath)
+			if err != nil {
+				continue
+			}
+			if info.IsDir() {
+				if slices.Contains(githubActionsPaths, filename) {
+					workflowsDir := filepath.Join(targetPath, "workflows")
+					if _, err := os.Stat(workflowsDir); err != nil {
+						continue
+					}
+					registerDir(
+						commands,
+						&command.Actionlint,
+						workflowsDir,
+						[]string{".yml", ".yaml"},
+					)
+				}
+				if slices.Contains(kubernetesPaths, filename) {
+					registerDir(
+						commands,
+						&command.KubeLinter,
+						targetPath,
+						[]string{".yml", ".yaml"},
+					)
+				}
+				continue
+			}
 			if filename == "Makefile" ||
 				filename == "makefile" ||
 				filename == "GNUmakefile" {
@@ -313,6 +378,8 @@ func Execute() error {
 			title := colors.B(binaryName)
 			var cmd command.Linter
 			switch binaryName {
+			case command.Actionlint.GetBinary():
+				cmd = &command.Actionlint
 			case command.Checkmake.GetBinary():
 				cmd = &command.Checkmake
 			case command.Chktex.GetBinary():
@@ -323,6 +390,8 @@ func Execute() error {
 				cmd = &command.Gomoddirectives
 			case command.Hadolint.GetBinary():
 				cmd = &command.Hadolint
+			case command.KubeLinter.GetBinary():
+				cmd = &command.KubeLinter
 			case command.Propertieslint.GetBinary():
 				cmd = &command.Propertieslint
 			case command.Protolint.GetBinary():
@@ -356,6 +425,8 @@ func Execute() error {
 		paths := commands[binaryName]
 		var cmd command.Linter
 		switch binaryName {
+		case command.Actionlint.GetBinary():
+			cmd = &command.Actionlint
 		case command.Checkmake.GetBinary():
 			cmd = &command.Checkmake
 		case command.Chktex.GetBinary():
@@ -366,6 +437,8 @@ func Execute() error {
 			cmd = &command.Gomoddirectives
 		case command.Hadolint.GetBinary():
 			cmd = &command.Hadolint
+		case command.KubeLinter.GetBinary():
+			cmd = &command.KubeLinter
 		case command.Propertieslint.GetBinary():
 			cmd = &command.Propertieslint
 		case command.Protolint.GetBinary():
@@ -379,7 +452,8 @@ func Execute() error {
 		default:
 			continue
 		}
-		if !cmd.IsAvailable() || len(paths) == 0 {
+		if !cmd.IsAvailable() ||
+			len(paths) == 0 {
 			continue
 		}
 		empty = false

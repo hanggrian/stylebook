@@ -1,0 +1,235 @@
+apiVersion: v1
+data:
+  apple: "1"
+  monkey: "2"
+  zebra: "3"
+kind: ConfigMap
+metadata:
+  annotations:
+    email: admin@example.com
+  labels:
+    owner: dev-team
+  name: demo-config
+  namespace: demo
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    email: admin@example.com
+  labels:
+    owner: dev-team
+  name: demo-service-account
+  namespace: demo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    email: admin@example.com
+  labels:
+    owner: dev-team
+  name: demo-deployment
+  namespace: demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        email: admin@example.com
+      labels:
+        app: demo
+        owner: dev-team
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/os
+                operator: In
+                values:
+                - linux
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - demo
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - env:
+        - name: DB_HOST
+          value: localhost
+        image: nginx:1.27
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+        name: nginx
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+            - NET_RAW
+          privileged: false
+          readOnlyRootFilesystem: true
+        startupProbe:
+          httpGet:
+            path: /startup
+            port: 8080
+      dnsConfig:
+        options:
+        - name: ndots
+          value: "2"
+      restartPolicy: Always
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      serviceAccountName: demo-service-account
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  annotations:
+    email: admin@example.com
+  labels:
+    owner: dev-team
+  name: demo-hpa
+  namespace: demo
+spec:
+  maxReplicas: 10
+  minReplicas: 3
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: demo-deployment
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    email: admin@example.com
+  labels:
+    owner: dev-team
+  name: demo-job
+  namespace: demo
+spec:
+  template:
+    spec:
+      containers:
+      - command:
+        - echo
+        - hello
+        image: busybox:1.36
+        livenessProbe:
+          exec:
+            command:
+            - true
+        name: worker
+        readinessProbe:
+          exec:
+            command:
+            - true
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+      dnsConfig:
+        options:
+        - name: ndots
+          value: "2"
+      restartPolicy: OnFailure
+      serviceAccountName: demo-service-account
+  ttlSecondsAfterFinished: 3600
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  annotations:
+    email: admin@example.com
+  labels:
+    owner: dev-team
+  name: demo-network-policy
+  namespace: demo
+spec:
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: demo
+  podSelector:
+    matchLabels:
+      app: demo
+  policyTypes:
+  - Ingress
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  annotations:
+    email: admin@example.com
+  labels:
+    owner: dev-team
+  name: demo-pdb
+  namespace: demo
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: demo
+  unhealthyPodEvictionPolicy: AlwaysAllow
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    email: admin@example.com
+  labels:
+    owner: dev-team
+  name: demo-service
+  namespace: demo
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: demo
+  type: ClusterIP

@@ -6,11 +6,11 @@ type TflintCommand struct {
 	BaseCommand
 }
 
-// CLI executor for [tflint](https://github.com/terraform-linters/tflint/).
+// CLI executor for [TFLint](https://github.com/terraform-linters/tflint/).
 var Tflint = TflintCommand{
 	BaseCommand: BaseCommand{
 		Binary:     "tflint",
-		ConfigFile: ptr("tflint.hcl"),
+		ConfigFile: new("tflint.hcl"),
 	},
 }
 

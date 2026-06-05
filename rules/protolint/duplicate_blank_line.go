@@ -12,7 +12,7 @@ import (
 	"github.com/yoheimuta/protolint/linter/report"
 	"github.com/yoheimuta/protolint/linter/rule"
 
-	"github.com/hanggrian/stylebook/rules"
+	"github.com/hanggrian/stylebook/rules/resources"
 )
 
 type DuplicateBlankLineRule struct {
@@ -73,7 +73,7 @@ func (r DuplicateBlankLineRule) Apply(proto *parser.Proto) ([]report.Failure, er
 							r.ID(),
 							string(r.Severity()),
 							"%s",
-							rules.GetMessage("duplicate.blank.line"),
+							resources.GetMessage("duplicate.blank.line"),
 						),
 					)
 			}

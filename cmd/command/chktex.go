@@ -8,7 +8,7 @@ type ChktexCommand struct {
 var Chktex = ChktexCommand{
 	BaseCommand: BaseCommand{
 		Binary:     "chktex",
-		ConfigFile: ptr("chktexrc"),
+		ConfigFile: new("chktexrc"),
 	},
 }
 

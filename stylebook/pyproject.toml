@@ -16,7 +16,7 @@ keywords = [
 authors = [{ name = "Hendra Anggrian", email = "hanggrian@proton.me" }]
 license = { text = "Apache-2.0" }
 readme = "../README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: Apache Software License",
@@ -25,6 +25,7 @@ classifiers = [
 dependencies = [
   # main
   "colorama",
+  "ansible-lint==26.4.0",
   "asciidoc-linter @ git+https://github.com/docToolchain/asciidoc-linter.git",
   "Blinter==1.0.112",
   "dotenv-linter==0.7.0",

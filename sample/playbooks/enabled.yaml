@@ -1,0 +1,87 @@
+# name
+# key-order
+# yaml
+# var-naming
+- name: Demo playbook
+  hosts: localhost
+  vars:
+    my_var: value
+  tasks:
+  # fqcn
+  - name: Greet the world
+    ansible.builtin.debug:
+      msg: "Hello, world!"
+  # command-instead-of-module
+  - name: Clone repo using git module
+    ansible.builtin.git:
+      dest: /tmp/repo
+      repo: https://example.com/repo.git
+      version: main
+  # command-instead-of-shell
+  # no-changed-when
+  - name: Simple command
+    ansible.builtin.command:
+      cmd: echo hello
+    changed_when: false
+  # risky-shell-pipe
+  # no-changed-when
+  - name: Shell with pipefail
+    ansible.builtin.shell:
+      cmd: set -o pipefail && echo hello | grep hello
+    changed_when: false
+  # ignore-errors
+  # no-changed-when
+  - name: Command with failed_when
+    ansible.builtin.command:
+      cmd: /bin/false
+    changed_when: false
+    failed_when: false
+  # package-latest
+  - name: Install curl
+    ansible.builtin.apt:
+      name: curl
+      state: present
+  # deprecated-local-action
+  # no-changed-when
+  - name: Delegated to localhost
+    ansible.builtin.command:
+      cmd: echo hello
+    changed_when: false
+    delegate_to: localhost
+  # literal-compare
+  - name: Proper bool compare
+    ansible.builtin.debug:
+      msg: hello
+    when: my_var is true
+  # no-jinja-when
+  - name: No jinja in when
+    ansible.builtin.debug:
+      msg: hello
+    when: my_var == "value"
+  # jinja
+  - name: Jinja with proper spacing
+    ansible.builtin.debug:
+      msg: "{{ my_var }}"
+  # no-relative-paths
+  # risky-file-permissions
+  - name: Copy with absolute path and mode
+    ansible.builtin.copy:
+      dest: /etc/config.conf
+      mode: "0644"
+      src: /tmp/config.conf
+  # no-free-form
+  - name: Copy using YAML form
+    ansible.builtin.copy:
+      dest: /tmp/bar
+      mode: "0644"
+      src: /tmp/foo
+  # risky-octal
+  - name: Directory with string octal mode
+    ansible.builtin.file:
+      mode: "0755"
+      path: /tmp/test
+      state: directory
+  # no-tabs
+  - name: No tabs
+    ansible.builtin.debug:
+      msg: tab-free message

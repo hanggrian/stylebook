@@ -24,7 +24,7 @@ type protoRule interface {
 var Protolint = ProtolintCommand{
 	BaseCommand: BaseCommand{
 		Binary:     "protolint",
-		ConfigFile: ptr("protolint.yaml"),
+		ConfigFile: new("protolint.yaml"),
 	},
 }
 

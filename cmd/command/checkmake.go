@@ -8,7 +8,7 @@ type CheckmakeCommand struct {
 var Checkmake = CheckmakeCommand{
 	BaseCommand: BaseCommand{
 		Binary:     "checkmake",
-		ConfigFile: ptr("checkmake.ini"),
+		ConfigFile: new("checkmake.ini"),
 	},
 }
 

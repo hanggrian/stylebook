@@ -29,7 +29,7 @@ broken images.
   </thead>
   <tbody>
     <tr>
-      <td rowspan="10">Go</td>
+      <td rowspan="12">Go</td>
       <td>CSV</td>
       <td>
         <a href="https://github.com/Clever/csvlint/">
@@ -56,6 +56,15 @@ broken images.
       <td><code>.hadolint.yaml</code></td>
     </tr>
     <tr>
+      <td>GitHub Actions</td>
+      <td>
+        <a href="https://github.com/rhysd/actionlint/">
+          actionlint
+        </a>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
       <td>Go Module</td>
       <td>
         <a href="https://github.com/ldez/gomoddirectives/">
@@ -63,6 +72,15 @@ broken images.
         </a>
       </td>
       <td></td>
+    </tr>
+    <tr>
+      <td>Kubernetes</td>
+      <td>
+        <a href="https://github.com/stackrox/kube-linter/">
+          kube-linter
+        </a>
+      </td>
+      <td><code>.kubelinter-config.yaml</code></td>
     </tr>
     <tr>
       <td>LaTeX</td>
@@ -136,10 +154,19 @@ broken images.
       <td></td>
     </tr>
     <tr>
-      <td rowspan="8">Python</td>
+      <td rowspan="9">Python</td>
+      <td>Ansible</td>
+      <td>
+        <a href="https://github.com/ansible/ansible-lint/">
+          ansible-lint
+        </a>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
       <td>AsciiDoc</td>
       <td>
-        <a href="https://doctoolchain.org/asciidoc-linter/">
+        <a href="https://github.com/docToolchain/asciidoc-linter/">
           AsciiDoc-Linter
         </a>
       </td>

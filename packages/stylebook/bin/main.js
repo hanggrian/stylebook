@@ -121,43 +121,44 @@ if (inputArgs.includes('-h') ||
     );
     process.stdout.write(`             directory, ${i('**/*')} for all files\n\n`);
     process.stdout.write(`\u2699\ufe0f  ${b(blue('Options:'))}\n`);
+    const empty = d(blue('(=[])'));
     process.stdout.write(
-        `   ${blue('-d')}, ${blue('--disable')} ${d(blue('[LINTERS]'))}     ` +
+        `   ${blue('-d')}, ${blue('--disable=[LINTERS]')} ${empty}     ` +
         'List of linters to deactivate:\n',
     );
     process.stdout.write(
-        '                               ' +
+        '                                     ' +
         `\u2022 ${Linter.GRAPHQL_SCHEMA_LINTER.binary}   ` +
         `\u2022 ${Linter.HTMLHINT.binary}\n`,
     );
     process.stdout.write(
-        '                               ' +
+        '                                     ' +
         `\u2022 ${Linter.JSONLINT.binary}                ` +
         `\u2022 ${Linter.LOCKFILE_LINT.binary}\n`,
     );
     process.stdout.write(
-        '                               ' +
+        '                                     ' +
         `\u2022 ${Linter.MARKDOWNLINT.binary}            ` +
         `\u2022 ${Linter.MAID.binary}\n`,
     );
     process.stdout.write(
-        '                               ' +
+        '                                     ' +
         `\u2022 ${Linter.STYLELINT.binary}\n`,
     );
     process.stdout.write(
-        `   ${blue('-e')}, ${blue('--exclude')} ${d(blue('[ARGUMENTS]'))}   ` +
+        `   ${blue('-e')}, ${blue('--exclude=[ARGUMENTS]')} ${empty}   ` +
         'List of files or directories to ignore\n',
     );
     process.stdout.write(
-        `   ${blue('-h')}, ${blue('--help')}                  ` +
+        `   ${blue('-h')}, ${blue('--help')}                        ` +
         'Display this message\n',
     );
     process.stdout.write(
-        `   ${blue('-q')}, ${blue('--quiet')}                 ` +
+        `   ${blue('-q')}, ${blue('--quiet')}                       ` +
         'Disable verbose output\n',
     );
     process.stdout.write(
-        `   ${blue('-v')}, ${blue('--version')}               ` +
+        `   ${blue('-v')}, ${blue('--version')}                     ` +
         'Show app version\n',
     );
     process.exit(0);

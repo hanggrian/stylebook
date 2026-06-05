@@ -1,5 +1,6 @@
 from enum import Enum
 
+from stylebook.commands.ansible_lint import AnsibleLintCommand
 from stylebook.commands.asciidoc_linter import AsciidocLinterCommand
 from stylebook.commands.blinter import BlinterCommand
 from stylebook.commands.command import Command
@@ -12,6 +13,7 @@ from stylebook.commands.yamllint import YamllintCommand
 
 
 class Linter(Enum):
+    ANSIBLE_LINT = AnsibleLintCommand()
     ASCIIDOC_LINTER = AsciidocLinterCommand()
     BLINTER = BlinterCommand()
     DOTENV_LINTER = DotenvLinterCommand()

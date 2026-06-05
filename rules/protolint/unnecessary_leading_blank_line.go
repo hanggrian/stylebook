@@ -10,7 +10,7 @@ import (
 	"github.com/yoheimuta/protolint/linter/report"
 	"github.com/yoheimuta/protolint/linter/rule"
 
-	"github.com/hanggrian/stylebook/rules"
+	"github.com/hanggrian/stylebook/rules/resources"
 )
 
 type UnnecessaryLeadingBlankLineRule struct {
@@ -61,7 +61,7 @@ func (r UnnecessaryLeadingBlankLineRule) Apply(proto *parser.Proto) ([]report.Fa
 			r.ID(),
 			string(r.Severity()),
 			"%s",
-			rules.GetMessage("unnecessary.leading.blank.line"),
+			resources.GetMessage("unnecessary.leading.blank.line"),
 		),
 	}, nil
 }

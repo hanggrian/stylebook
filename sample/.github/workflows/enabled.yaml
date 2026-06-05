@@ -1,0 +1,154 @@
+# syntax-check
+name: Enabled
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - "src/**"
+  pull_request:
+    types: [opened, synchronize]
+  issues:
+    types: [opened]
+  schedule:
+  - cron: "0 9 * * 1"
+    timezone: "America/New_York"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        type: choice
+        options: [staging, production]
+        default: "staging"
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+# expression
+env:
+  APP_NAME: myapp
+  NODE_VERSION: "20"
+
+jobs:
+  build:
+    # runner
+    runs-on: ubuntu-latest
+    # permissions
+    permissions:
+      contents: read
+    # ctx-spfunc-availability
+    if: github.event_name == 'push'
+    outputs:
+      artifact-name: ${{ steps.set-output.outputs.artifact-name }}
+    # matrix
+    strategy:
+      fail-fast: true
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-latest]
+        node: [18, 20]
+    steps:
+    # action
+    - uses: actions/checkout@v4
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      # popular-action
+      with:
+        node-version: ${{ matrix.node }}
+
+    - name: Set output
+      id: set-output
+      # deprecated-commands
+      run: |
+        echo "artifact-name=build-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+
+    # expression (type-check, contexts, built-in functions)
+    - name: Print info
+      run: |
+        echo "Repo: ${{ github.repository }}"
+        echo "Actor: ${{ github.actor }}"
+        echo "SHA: ${{ github.sha }}"
+        echo "Node: ${{ matrix.node }}"
+        echo "Result: ${{ steps.set-output.outputs.artifact-name }}"
+
+    # shellcheck
+    - name: Lint shell
+      shell: bash
+      run: |
+        MSG="hello world"
+        echo "$MSG"
+
+    # env-var
+    - name: Use env
+      env:
+        BUILD_TARGET: release
+      run: echo "$BUILD_TARGET"
+
+    # if-cond-constant
+    - name: Conditional step
+      if: ${{ github.event_name == 'push' }}
+      run: echo "on push"
+
+  test:
+    # job-deps (needs)
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    # pyflakes
+    - name: Run python
+      shell: python
+      run: |
+        import sys
+        print(sys.version)
+
+    # credentials (no hardcoded secrets - using secrets context correctly)
+    - name: Authenticate
+      env:
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: echo "Authenticated"
+
+    # untrusted-inputs (safely handled via env var, not inline)
+    - name: Safe input handling
+      env:
+        PR_TITLE: ${{ github.event.pull_request.title }}
+      run: echo "$PR_TITLE"
+
+    # contextual-step-object
+    - name: First step
+      id: first-step
+      run: echo "value=hello" >> "$GITHUB_OUTPUT"
+
+    - name: Use step output
+      run: echo "${{ steps.first-step.outputs.value }}"
+
+    # check-reusable-workflows (calling a reusable workflow correctly)
+    # yaml-anchors
+    - name: Deploy step A
+      id: deploy-a
+      env: &deploy-env
+        DEPLOY_TARGET: "production"
+      run: echo "$DEPLOY_TARGET"
+
+    - name: Deploy step B
+      env: *deploy-env
+      run: echo "$DEPLOY_TARGET"
+
+  # check-webhook-events (covered by on: block above)
+  # check-workflow-dispatch-events (covered by on: block above)
+  # check-glob-pattern (covered by on: block above)
+  # check-cron-syntax-and-timezone (covered by on: block above)
+  # check-job-step-ids
+  notify:
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    # check-comparison-types
+    if: ${{ always() && needs.build.result == 'success' }}
+    steps:
+    - name: Notify
+      run: echo "Build ${{ needs.build.result }}"

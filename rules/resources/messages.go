@@ -1,4 +1,4 @@
-package rules
+package resources
 
 import (
 	_ "embed"
@@ -6,7 +6,7 @@ import (
 	"sync"
 )
 
-//go:embed resources/messages.json
+//go:embed messages.json
 var messagesJSON []byte
 
 var (

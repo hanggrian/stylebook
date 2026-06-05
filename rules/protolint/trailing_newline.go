@@ -9,7 +9,7 @@ import (
 	"github.com/yoheimuta/protolint/linter/report"
 	"github.com/yoheimuta/protolint/linter/rule"
 
-	"github.com/hanggrian/stylebook/rules"
+	"github.com/hanggrian/stylebook/rules/resources"
 )
 
 type TrailingNewlineRule struct {
@@ -61,7 +61,7 @@ func (r TrailingNewlineRule) Apply(proto *parser.Proto) ([]report.Failure, error
 			r.ID(),
 			string(r.Severity()),
 			"%s",
-			rules.GetMessage("trailing.newline"),
+			resources.GetMessage("trailing.newline"),
 		),
 	}, nil
 }

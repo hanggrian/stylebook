@@ -29,12 +29,11 @@ func (c *GomoddirectivesCommand) Execute(l Linter, targetPaths []string, quiet b
 	finalCode := 0
 	options :=
 		gomoddirectives.Options{
+			ReplaceAllowList:          []string{},
 			ReplaceAllowLocal:         true,
 			ExcludeForbidden:          true,
 			IgnoreForbidden:           true,
 			RetractAllowNoExplanation: true,
-			ToolchainForbidden:        true,
-			ToolForbidden:             true,
 			GoDebugForbidden:          true,
 			CheckModulePath:           true,
 		}

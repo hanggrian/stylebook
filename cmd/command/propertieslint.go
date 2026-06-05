@@ -15,7 +15,7 @@ type PropertieslintCommand struct {
 var Propertieslint = PropertieslintCommand{
 	BaseCommand: BaseCommand{
 		Binary:     "propertieslint",
-		ConfigFile: ptr("propertieslint.json"),
+		ConfigFile: new("propertieslint.json"),
 	},
 }
 

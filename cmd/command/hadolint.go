@@ -8,7 +8,7 @@ type HadolintCommand struct {
 var Hadolint = HadolintCommand{
 	BaseCommand: BaseCommand{
 		Binary:     "hadolint",
-		ConfigFile: ptr("hadolint.yaml"),
+		ConfigFile: new("hadolint.yaml"),
 	},
 }
 

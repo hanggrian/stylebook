@@ -1,5 +1,5 @@
 from importlib.metadata import version
-from os.path import splitext
+from os.path import splitext, basename
 from pathlib import Path
 from sys import argv, exit as exit2
 
@@ -7,20 +7,30 @@ from stylebook.colors import cyan, blue, b, d, green, i, magenta, red, yellow
 from stylebook.commands import Linter, NAMES
 from stylebook.files import get_config_file
 
+ansible_paths: frozenset[str] = \
+    frozenset([
+        'playbooks',
+        'roles',
+        'group_vars',
+        'host_vars',
+    ])
+
 
 def walk(target_path: Path, exclude: set[str]) -> list[str]:
     """Recursively traverse directories to collect files."""
     if any(part in exclude for part in target_path.parts):
         return []
-    if target_path.is_file():
+    if not target_path.is_dir():
         return [str(target_path)]
-    if target_path.is_dir():
-        return [
-            path
-            for child in target_path.iterdir()
-            for path in walk(child, exclude)
-        ]
-    return []
+    dirname: str = basename(target_path)
+    files: list[str] = [
+        path
+        for child in target_path.iterdir()
+        for path in walk(child, exclude)
+    ]
+    if dirname in ansible_paths:
+        files.append(str(target_path))
+    return files
 
 
 def register(commands: dict[Linter, list[str]], linter: Linter, path: str):
@@ -72,60 +82,69 @@ def run() -> None:
         print(f'   {magenta('file')}      Supports file types and their variants:')
         print(
             '             ' +
+            '\u2022 Ansible   ' +
             '\u2022 AsciiDoc           ' +
             '\u2022 Batch   ' +
-            '\u2022 Dotenv   ' +
-            '\u2022 INI',
+            '\u2022 Dotenv',
         )
         print(
             '             ' +
+            '\u2022 INI       ' +
             '\u2022 reStructuredText   ' +
             '\u2022 SQL     ' +
-            '\u2022 TOML     ' +
+            '\u2022 TOML',
+        )
+        print(
+            '             ' +
             '\u2022 YAML',
         )
         print(f'   {magenta('dir')}       Recursively find files in this directory')
         print(f'   {magenta('pattern')}   For example, {i('*.bat')} for all Batch files in this')
         print(f'             directory, {i('**/*')} for all files\n')
         print(f'\u2699\ufe0f  {b(blue('Options:'))}')
+        empty: str = d(blue('(=[])'))
         print(
-            f'   {blue('-d')}, {blue('--disable')} {d(blue('[LINTERS]'))}     ' +
+            f'   {blue('-d')}, {blue('--disable=[LINTERS]')} {empty}     ' +
             'List of linters to deactivate:',
         )
         print(
-            '                               ' +
-            f'\u2022 {Linter.ASCIIDOC_LINTER.value.binary}         ' +
-            f'\u2022 {Linter.BLINTER.value.binary}',
+            '                                     ' +
+            f'\u2022 {Linter.ANSIBLE_LINT.value.binary}   ' +
+            f'\u2022 {Linter.ASCIIDOC_LINTER.value.binary}',
         )
         print(
-            '                               ' +
-            f'\u2022 {Linter.DOTENV_LINTER.value.binary}           ' +
-            f'\u2022 {Linter.PYINILINT.value.binary}',
+            '                                     ' +
+            f'\u2022 {Linter.BLINTER.value.binary}        ' +
+            f'\u2022 {Linter.DOTENV_LINTER.value.binary}',
         )
         print(
-            '                               ' +
-            f'\u2022 {Linter.RESTRUCTUREDTEXT_LINT.value.binary}   ' +
-            f'\u2022 {Linter.SQLFLUFF.value.binary}',
+            '                                     ' +
+            f'\u2022 {Linter.PYINILINT.value.binary}      ' +
+            f'\u2022 {Linter.RESTRUCTUREDTEXT_LINT.value.binary}',
         )
         print(
-            '                               ' +
-            f'\u2022 {Linter.TAPLO.value.binary}                   ' +
+            '                                     ' +
+            f'\u2022 {Linter.SQLFLUFF.value.binary}       ' +
+            f'\u2022 {Linter.TAPLO.value.binary}',
+        )
+        print(
+            '                                     ' +
             f'\u2022 {Linter.YAMLLINT.value.binary}',
         )
         print(
-            f'   {blue('-e')}, {blue('--exclude')} {d(blue('[ARGUMENTS]'))}   ' +
+            f'   {blue('-e')}, {blue('--exclude=[ARGUMENTS]')} {empty}   ' +
             'List of files or directories to ignore',
         )
         print(
-            f'   {blue('-h')}, {blue('--help')}                  ' +
+            f'   {blue('-h')}, {blue('--help')}                        ' +
             'Display this message',
         )
         print(
-            f'   {blue('-q')}, {blue('--quiet')}                 ' +
+            f'   {blue('-q')}, {blue('--quiet')}                       ' +
             'Disable verbose output',
         )
         print(
-            f'   {blue('-v')}, {blue('--version')}               ' +
+            f'   {blue('-v')}, {blue('--version')}                     ' +
             'Show app version',
         )
         exit2(0)
@@ -150,6 +169,17 @@ def run() -> None:
         ),
     ):
         filename: Path = Path(target_path)
+        if filename.is_dir():
+            if filename.name in ansible_paths:
+                for child in filename.iterdir():
+                    if child.is_dir():
+                        continue
+                    ext: str = child.suffix.lower()
+                    if ext not in ('.yaml', '.yml'):
+                        continue
+                    child_str: str = str(child)
+                    register(commands, Linter.ANSIBLE_LINT, child_str)
+            continue
         if filename.name == '.env' or \
             filename.name.startswith('.env.'):
             register(commands, Linter.DOTENV_LINTER, target_path)
