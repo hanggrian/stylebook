@@ -7,13 +7,37 @@ from stylebook.colors import cyan, blue, b, d, green, i, magenta, red, yellow
 from stylebook.commands import Linter, NAMES
 from stylebook.files import get_config_file
 
-ansible_paths: frozenset[str] = \
+# https://docs.ansible.com/projects/ansible/latest/tips_tricks/sample_setup.html
+ansible_site_filenames: frozenset[str] = \
     frozenset([
-        'playbooks',
-        'roles',
+        'site.yaml',
+        'site.yml',
+    ])
+ansible_filenames: frozenset[str] = \
+    ansible_site_filenames | \
+    frozenset([
+        'webservers.yaml',
+        'webservers.yml',
+        'dbservers.yaml',
+        'dbservers.yml',
+    ])
+ansible_dirnames: frozenset[str] = \
+    frozenset([
         'group_vars',
         'host_vars',
+        'roles',
+        'tasks',
     ])
+
+cfn_lint_dirnames: frozenset[str] = \
+    frozenset([
+        'cloudformation',
+        'cfn',
+        'infrastructure',
+        'infra',
+    ])
+
+dotenv_filename: str = '.env'
 
 
 def walk(target_path: Path, exclude: set[str]) -> list[str]:
@@ -22,13 +46,14 @@ def walk(target_path: Path, exclude: set[str]) -> list[str]:
         return []
     if not target_path.is_dir():
         return [str(target_path)]
-    dirname: str = basename(target_path)
     files: list[str] = [
         path
         for child in target_path.iterdir()
         for path in walk(child, exclude)
     ]
-    if dirname in ansible_paths:
+    dirname: str = basename(target_path)
+    if dirname in ansible_dirnames or \
+        dirname in cfn_lint_dirnames:
         files.append(str(target_path))
     return files
 
@@ -83,19 +108,20 @@ def run() -> None:
         print(
             '             ' +
             '\u2022 Ansible   ' +
-            '\u2022 AsciiDoc           ' +
-            '\u2022 Batch   ' +
-            '\u2022 Dotenv',
+            '\u2022 AsciiDoc   ' +
+            '\u2022 Batch              ' +
+            '\u2022 CloudFormation',
         )
         print(
             '             ' +
-            '\u2022 INI       ' +
+            '\u2022 Dotenv    ' +
+            '\u2022 INI        ' +
             '\u2022 reStructuredText   ' +
-            '\u2022 SQL     ' +
-            '\u2022 TOML',
+            '\u2022 SQL',
         )
         print(
             '             ' +
+            '\u2022 TOML      ' +
             '\u2022 YAML',
         )
         print(f'   {magenta('dir')}       Recursively find files in this directory')
@@ -109,26 +135,27 @@ def run() -> None:
         )
         print(
             '                                     ' +
-            f'\u2022 {Linter.ANSIBLE_LINT.value.binary}   ' +
+            f'\u2022 {Linter.ANSIBLE_LINT.value.binary}            ' +
             f'\u2022 {Linter.ASCIIDOC_LINTER.value.binary}',
         )
         print(
             '                                     ' +
-            f'\u2022 {Linter.BLINTER.value.binary}        ' +
-            f'\u2022 {Linter.DOTENV_LINTER.value.binary}',
+            f'\u2022 {Linter.BLINTER.value.binary}                 ' +
+            f'\u2022 {Linter.CFN_LINT.value.binary}',
         )
         print(
             '                                     ' +
-            f'\u2022 {Linter.PYINILINT.value.binary}      ' +
-            f'\u2022 {Linter.RESTRUCTUREDTEXT_LINT.value.binary}',
+            f'\u2022 {Linter.DOTENV_LINTER.value.binary}           ' +
+            f'\u2022 {Linter.PYINILINT.value.binary}',
         )
         print(
             '                                     ' +
-            f'\u2022 {Linter.SQLFLUFF.value.binary}       ' +
-            f'\u2022 {Linter.TAPLO.value.binary}',
+            f'\u2022 {Linter.RESTRUCTUREDTEXT_LINT.value.binary}   ' +
+            f'\u2022 {Linter.SQLFLUFF.value.binary}',
         )
         print(
             '                                     ' +
+            f'\u2022 {Linter.TAPLO.value.binary}                   ' +
             f'\u2022 {Linter.YAMLLINT.value.binary}',
         )
         print(
@@ -170,18 +197,26 @@ def run() -> None:
     ):
         filename: Path = Path(target_path)
         if filename.is_dir():
-            if filename.name in ansible_paths:
-                for child in filename.iterdir():
-                    if child.is_dir():
+            if filename.name in ansible_dirnames and \
+                any((filename / f).exists() for f in ansible_site_filenames):
+                for target_path2 in walk(Path(target_path), exclude):
+                    filename2: Path = Path(target_path2)
+                    if filename2.suffix.lower() not in {'.yaml', '.yml'}:
                         continue
-                    ext: str = child.suffix.lower()
-                    if ext not in ('.yaml', '.yml'):
+                    register(commands, Linter.ANSIBLE_LINT, str(filename2))
+            if filename.name in cfn_lint_dirnames:
+                for target_path2 in walk(Path(target_path), exclude):
+                    filename2: Path = Path(target_path2)
+                    if filename2.suffix.lower() not in {'.json', '.yaml', '.yml'}:
                         continue
-                    child_str: str = str(child)
-                    register(commands, Linter.ANSIBLE_LINT, child_str)
+                    register(commands, Linter.CFN_LINT, str(filename2))
             continue
-        if filename.name == '.env' or \
-            filename.name.startswith('.env.'):
+        if filename.is_file() and \
+            filename.name in ansible_filenames:
+            register(commands, Linter.ANSIBLE_LINT, target_path)
+            continue
+        if filename.name == dotenv_filename or \
+            filename.name.startswith(f'{dotenv_filename}.'):
             register(commands, Linter.DOTENV_LINTER, target_path)
             continue
         match filename.suffix.lower():

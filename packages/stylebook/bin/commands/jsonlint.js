@@ -15,7 +15,7 @@ class JsonlintCommand extends Command {
     // eslint-disable-next-line no-unused-vars
     execute(rootDir, targetPaths, quiet) {
         let hasErrors = false;
-        const config = JSON.parse(readFileSync(this.configFile, 'UTF-8'));
+        const config = JSON.parse(readFileSync(this.configFile, 'utf-8'));
         const parserOptions = {
             mode: config.mode,
             ignoreBOM: config.bom,
@@ -28,9 +28,8 @@ class JsonlintCommand extends Command {
         };
         for (const path of targetPaths) {
             try {
-                const source = readFileSync(path, 'UTF-8');
-                const parsed = parse(source, parserOptions);
-                let output = JSON.stringify(parsed, null, config.indent);
+                const source = readFileSync(path, 'utf-8');
+                let output = JSON.stringify(parse(source, parserOptions), null, config.indent);
                 const hasTrailingNewline = !source.split(/\r?\n/).at(-1);
                 if (config.trailingNewline === true ||
                     (config.trailingNewline !== false && hasTrailingNewline)) {

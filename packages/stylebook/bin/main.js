@@ -10,27 +10,38 @@ import Command from './commands/command.js';
 import { Linter, NAMES } from './commands/index.js';
 import { getConfigFile } from './files.js';
 
+const lockfileFilenames =
+    new Set([
+        'package-lock.json',
+        'npm-shrink.json',
+        'yarn.lock',
+    ]);
+
+// https://github.com/tektoncd/pipeline
+const tektonDirname = '.tekton';
+
 /**
  * Recursively traverse directories to collect files.
  *
- * @param {string} path
+ * @param {string} targetPath
  * @param {string[]} exclude
  * @returns {path[]|*[]}
  */
-function walk(path, exclude) {
-    if (path.split(/[\\/]/).some(part => exclude.has(part)) ||
-        !existsSync(path)) {
+function walk(targetPath, exclude) {
+    if (targetPath.split(/[\\/]/).some(part => exclude.has(part)) ||
+        !existsSync(targetPath)) {
         return [];
     }
-    const stats = statSync(path);
-    if (stats.isFile()) {
-        return [path];
+    if (!statSync(targetPath).isDirectory()) {
+        return [targetPath];
     }
-    if (stats.isDirectory()) {
-        return readdirSync(path)
-            .flatMap(child => walk(join(path, child), exclude));
+    const files =
+        readdirSync(targetPath)
+            .flatMap(child => walk(join(targetPath, child), exclude));
+    if (basename(targetPath) === tektonDirname) {
+        files.push(targetPath);
     }
-    return [];
+    return files;
 }
 
 /**
@@ -81,7 +92,7 @@ if (unsupportedDisable.size) {
     process.exit(1);
 }
 if (!exclude.size) {
-    readFileSync(getConfigFile('stylebookrc'), 'UTF-8')
+    readFileSync(getConfigFile('stylebookrc'), 'utf-8')
         .split(/\r?\n/)
         .forEach(line => {
             line = line.trim();
@@ -104,16 +115,21 @@ if (inputArgs.includes('-h') ||
     process.stdout.write(`   ${magenta('file')}      Supports file types and their variants:\n`);
     process.stdout.write(
         '             ' +
+        '\u2022 Amazon State Language   ' +
         '\u2022 CSS        ' +
         '\u2022 GraphQL    ' +
-        '\u2022 HTML      ' +
-        '\u2022 JSON\n',
+        '\u2022 HTML\n',
     );
     process.stdout.write(
         '             ' +
+        '\u2022 JSON                    ' +
         '\u2022 Lockfile   ' +
         '\u2022 Markdown   ' +
         '\u2022 Mermaid\n',
+    );
+    process.stdout.write(
+        '             ' +
+        '\u2022 Tekton\n',
     );
     process.stdout.write(`   ${magenta('dir')}       Recursively find files in this directory\n`);
     process.stdout.write(
@@ -128,22 +144,27 @@ if (inputArgs.includes('-h') ||
     );
     process.stdout.write(
         '                                     ' +
-        `\u2022 ${Linter.GRAPHQL_SCHEMA_LINTER.binary}   ` +
-        `\u2022 ${Linter.HTMLHINT.binary}\n`,
+        `\u2022 ${Linter.ASL_VALIDATOR.binary}   ` +
+        `\u2022 ${Linter.GRAPHQL_SCHEMA_LINTER.binary}\n`,
     );
     process.stdout.write(
         '                                     ' +
-        `\u2022 ${Linter.JSONLINT.binary}                ` +
-        `\u2022 ${Linter.LOCKFILE_LINT.binary}\n`,
+        `\u2022 ${Linter.HTMLHINT.binary}        ` +
+        `\u2022 ${Linter.JSONLINT.binary}\n`,
     );
     process.stdout.write(
         '                                     ' +
-        `\u2022 ${Linter.MARKDOWNLINT.binary}            ` +
+        `\u2022 ${Linter.LOCKFILE_LINT.binary}   ` +
         `\u2022 ${Linter.MAID.binary}\n`,
     );
     process.stdout.write(
         '                                     ' +
+        `\u2022 ${Linter.MARKDOWNLINT.binary}    ` +
         `\u2022 ${Linter.STYLELINT.binary}\n`,
+    );
+    process.stdout.write(
+        '                                     ' +
+        `\u2022 ${Linter.TEKTON_LINT.binary}\n`,
     );
     process.stdout.write(
         `   ${blue('-e')}, ${blue('--exclude=[ARGUMENTS]')} ${empty}   ` +
@@ -195,13 +216,20 @@ inputArgs
     .filter((path, index, self) => self.indexOf(path) === index)
     .forEach(targetPath => {
         const filename = basename(targetPath);
-        if (filename === 'package-lock.json' ||
-            filename === 'npm-shrink.json' ||
-            filename === 'yarn.lock') {
+        if (statSync(targetPath).isDirectory()) {
+            if (filename === tektonDirname) {
+                walk(targetPath, exclude)
+                    .filter(path => ['.yaml', '.yml'].includes(extname(path).toLowerCase()))
+                    .forEach(targetPath2 => register(commands, Linter.TEKTON_LINT, targetPath2));
+            }
+            return;
+        }
+        if (lockfileFilenames.has(filename)) {
             register(commands, Linter.LOCKFILE_LINT, targetPath);
             return;
         }
-        switch (extname(targetPath).toLowerCase()) {
+        const extension = extname(targetPath).toLowerCase();
+        switch (extension) {
             case '.css':
                 register(commands, Linter.STYLELINT, targetPath);
                 break;
@@ -222,6 +250,12 @@ inputArgs
             case '.jsonc':
             case '.cjson':
             case '.json5':
+                if (extension === '.json' &&
+                    filename
+                        .substring(filename.indexOf('.'), filename.lastIndexOf(extension))
+                        .toLowerCase() === '.asl') {
+                    register(commands, Linter.ASL_VALIDATOR, targetPath);
+                }
                 register(commands, Linter.JSONLINT, targetPath);
                 break;
 
@@ -234,6 +268,15 @@ inputArgs
             case '.mermaid':
                 register(commands, Linter.MAID, targetPath);
                 break;
+
+            case '.yaml':
+            case '.yml':
+                if (filename
+                    .substring(filename.indexOf('.'), filename.lastIndexOf(extension))
+                    .toLowerCase() !== '.asl') {
+                    return;
+                }
+                register(commands, Linter.ASL_VALIDATOR, targetPath);
         }
     });
 

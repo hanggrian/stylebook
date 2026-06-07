@@ -1,0 +1,299 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  # no-resourceversion
+  labels:
+    # no-deprecated-resource
+    tekton.dev/deprecated: false
+  # no-invalid-name
+  # prefer-kebab-case
+  name: bad-task
+spec:
+  # no-duplicate-param
+  params:
+  - name: my-param
+    type: string
+  - name: other-param
+    # no-invalid-param-type
+    default: "42"
+    type: string
+  # no-unused-param
+  - name: used-param
+    type: string
+  results:
+  - name: my-result
+    description: A result for pipeline to reference
+  # no-undefined-volume
+  volumes:
+  - name: data-volume
+    emptyDir: {}
+  steps:
+  # no-latest-image
+  - image: ubuntu:22.04
+    name: build
+    command:
+    - echo
+    - $(params.my-param)
+    - $(params.other-param)
+    - $(params.used-param)
+    # no-duplicate-env
+    env:
+    - name: FOO
+      value: bar
+    - name: BAR
+      value: baz
+    volumeMounts:
+    - mountPath: /data
+      name: data-volume
+---
+# prefer-beta
+apiVersion: tekton.dev/v1beta1
+# no-duplicate-resource
+kind: Task
+metadata:
+  name: good-task
+spec:
+  params:
+  - name: required-param
+    type: string
+  - name: optional-param
+    default: default-value
+    type: string
+  results:
+  - name: output
+    description: An output result
+  steps:
+  # no-missing-hashbang
+  - image: alpine:3.19
+    name: step-one
+    script: |
+      #!/bin/sh
+      echo "$(params.required-param) $(params.optional-param)"
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: upstream-task
+spec:
+  results:
+  - name: valid-result
+    description: A valid result
+  steps:
+  - image: alpine:3.19
+    name: step-one
+    script: |
+      #!/bin/sh
+      echo "upstream"
+  workspaces:
+  - name: my-workspace
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: nonexistent-task
+spec:
+  steps:
+  - image: alpine:3.19
+    name: step-one
+    script: |
+      #!/bin/sh
+      echo "now-defined"
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: nonexistent-upstream-task
+spec:
+  steps:
+  - image: alpine:3.19
+    name: step-one
+    script: |
+      #!/bin/sh
+      echo "defined"
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: test-pipeline
+spec:
+  params:
+  - name: pipeline-param
+    default: default-pipeline-value
+    type: string
+  - name: branch
+    default: main
+    type: string
+  workspaces:
+  - name: pipeline-workspace
+  tasks:
+  # no-missing-resource
+  - name: missing-task
+    taskRef:
+      name: nonexistent-task
+    workspaces:
+    - name: my-workspace
+      workspace: pipeline-workspace
+  - name: nonexistent-upstream-task
+    taskRef:
+      name: nonexistent-upstream-task
+  # no-pipeline-missing-task
+  - name: task-with-bad-dependency
+    runAfter:
+    - nonexistent-upstream-task
+    taskRef:
+      name: good-task
+    params:
+    - name: required-param
+      # no-undefined-param
+      value: $(params.pipeline-param)
+    - name: optional-param
+      value: supplied-value
+    workspaces:
+    - name: my-workspace
+      workspace: pipeline-workspace
+  # no-pipeline-task-cycle
+  - name: task-a
+    runAfter:
+    - missing-task
+    taskRef:
+      name: upstream-task
+    workspaces:
+    - name: my-workspace
+      workspace: pipeline-workspace
+  - name: task-b
+    runAfter:
+    - task-a
+    taskRef:
+      name: upstream-task
+    workspaces:
+    - name: my-workspace
+      workspace: pipeline-workspace
+  - name: task-c
+    runAfter:
+    - task-b
+    taskRef:
+      name: upstream-task
+    workspaces:
+    - name: my-workspace
+      workspace: pipeline-workspace
+  # no-extra-param
+  # no-missing-param
+  - name: param-issue-task
+    params:
+    - name: required-param
+      value: $(params.pipeline-param)
+    - name: optional-param
+      value: supplied-value
+    taskRef:
+      name: good-task
+    workspaces:
+    - name: my-workspace
+      workspace: pipeline-workspace
+  # no-undefined-result
+  - name: result-ref-task
+    taskRef:
+      name: upstream-task
+    workspaces:
+    - name: my-workspace
+      workspace: pipeline-workspace
+  # prefer-when-expression
+  - name: guarded-task
+    when:
+    - input: $(params.branch)
+      operator: in
+      values:
+      - main
+    taskRef:
+      name: upstream-task
+    workspaces:
+    - name: my-workspace
+      workspace: pipeline-workspace
+  # no-missing-workspace
+  - name: workspace-issue-task
+    taskRef:
+      name: upstream-task
+    workspaces:
+    - name: my-workspace
+      workspace: pipeline-workspace
+  - name: undefined-param-task
+    taskRef:
+      name: upstream-task
+    workspaces:
+    - name: my-workspace
+      workspace: pipeline-workspace
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: test-trigger-template
+spec:
+  params:
+  - name: trigger-param
+    type: string
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      name: test-pipeline-run
+      generateName: $(params.trigger-param)-
+    spec:
+      # no-pipeline-missing-parameters
+      params:
+      - name: pipeline-param
+        value: $(tt.params.trigger-param)
+      - name: branch
+        value: main
+      pipelineRef:
+        name: test-pipeline
+      workspaces:
+      - name: pipeline-workspace
+        emptyDir: {}
+---
+apiVersion: triggers.tekton.dev/v1beta1
+# no-duplicate-param
+# no-invalid-param-type
+kind: TriggerBinding
+metadata:
+  name: test-trigger-binding
+spec:
+  params:
+  - name: binding-param
+    value: $(body.value)
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: nonexistent-binding
+spec:
+  params:
+  - name: param
+    value: $(body.value)
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: nonexistent-template
+spec:
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      name: placeholder-run
+    spec:
+      pipelineRef:
+        name: test-pipeline
+      workspaces:
+      - name: pipeline-workspace
+        emptyDir: {}
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: test-event-listener
+spec:
+  triggers:
+  - binding:
+      name: nonexistent-binding
+    template:
+      name: nonexistent-template

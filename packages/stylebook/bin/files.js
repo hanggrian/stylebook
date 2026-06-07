@@ -11,7 +11,8 @@ import { fileURLToPath } from 'node:url';
  */
 function getConfigFile(configFile) {
     const localConfigFile = join(process.cwd(), `.${configFile}`);
-    return existsSync(localConfigFile) && statSync(localConfigFile).isFile()
+    return existsSync(localConfigFile) &&
+    statSync(localConfigFile).isFile()
         ? localConfigFile
         : join(
             dirname(fileURLToPath(import.meta.url)),

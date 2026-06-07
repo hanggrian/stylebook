@@ -1,0 +1,88 @@
+{
+  "Comment": "Sample ASL testing asl-validator rules",
+  "StartAt": "MakeChoice",
+  "States": {
+    "MakeChoice": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.action",
+          "StringEquals": "parallel",
+          "Next": "ParallelWork"
+        },
+        {
+          "Variable": "$.action",
+          "StringEquals": "map",
+          "Next": "MapWork"
+        }
+      ],
+      "Default": "DoTask"
+    },
+    "DoTask": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Next": "WaitState"
+    },
+    "WaitState": {
+      "Type": "Wait",
+      "Seconds": 10,
+      "Next": "ParallelWork"
+    },
+    "ParallelWork": {
+      "Type": "Parallel",
+      "Branches": [
+        {
+          "StartAt": "BranchPass",
+          "States": {
+            "BranchPass": {
+              "Type": "Pass",
+              "End": true
+            }
+          }
+        }
+      ],
+      "Next": "MapWork"
+    },
+    "MapWork": {
+      "Type": "Map",
+      "Iterator": {
+        "StartAt": "MapPass",
+        "States": {
+          "MapPass": {
+            "Type": "Pass",
+            "End": true
+          }
+        }
+      },
+      "Next": "SucceedState"
+    },
+    "SucceedState": {
+      "Type": "Succeed"
+    },
+    "FailState": {
+      "Type": "Fail",
+      "Error": "InternalError",
+      "Cause": "Error occurred"
+    },
+    "PayloadTask": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "End": true
+    },
+    "MapWorkFanOut": {
+      "Type": "Map",
+      "ItemsPath": "$.items",
+      "MaxConcurrency": 10,
+      "Iterator": {
+        "StartAt": "InnerPass",
+        "States": {
+          "InnerPass": {
+            "Type": "Pass",
+            "End": true
+          }
+        }
+      },
+      "End": true
+    }
+  }
+}

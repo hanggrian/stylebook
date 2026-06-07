@@ -14,12 +14,16 @@ max_line_length = 80
 [*.bat]
 end_of_line = crlf
 
-[*.{go,mod,Makefile,cpp,h,py,js,ts,tsx}]
+[*.{go,mod,cpp,h,py,js,ts,tsx}]
 indent_size = 4
 max_line_length = 100
 
-[*.{go,mod,Makefile,tsv}]
+[*.{go,mod,tsv}]
 indent_style = tab
+
+[Makefile]
+indent_style = tab
+indent_size = 4
 
 [*.tsv]
 indent_size = 4

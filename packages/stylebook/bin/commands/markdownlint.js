@@ -21,7 +21,7 @@ class MarkdownlintCommand extends Command {
         let hasErrors = false;
         for (const [filePath, errors] of Object.entries(
             lint({
-                config: JSON.parse(readFileSync(this.configFile, 'UTF-8')),
+                config: JSON.parse(readFileSync(this.configFile, 'utf-8')),
                 customRules: stylebookMarkdown,
                 markdownItFactory: () => markdownIt({ html: true }),
                 files: targetPaths,

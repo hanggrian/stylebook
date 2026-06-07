@@ -1,0 +1,24 @@
+rules:
+  no-deprecated-resource: error
+  no-duplicate-env: error
+  no-duplicate-param: error
+  no-duplicate-resource: error
+  no-extra-param: error
+  no-invalid-name: error
+  no-invalid-param-type: error
+  no-latest-image: error
+  no-missing-hashbang: error
+  no-missing-param: error
+  no-missing-resource: error
+  no-missing-workspace: error
+  no-pipeline-missing-task: error
+  no-pipeline-task-cycle: error
+  no-resourceversion: error
+  no-undefined-param: error
+  no-undefined-result: error
+  no-undefined-volume: error
+  no-unused-param: error
+  prefer-beta: error
+  prefer-camel-kebab-case: error
+  prefer-kebab-case: error
+  prefer-when-expression: error
