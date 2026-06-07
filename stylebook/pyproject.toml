@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "stylebook"
-version = "0.2.0"
+version = "0.3.0"
 description = "Comprehensive linter aggregator for data and tooling formats"
 keywords = [
   "sql",
@@ -25,17 +25,20 @@ classifiers = [
 dependencies = [
   # main
   "colorama",
-  "ansible-lint==26.4.0",
-  "asciidoc-linter @ git+https://github.com/docToolchain/asciidoc-linter.git",
-  "Blinter==1.0.112",
-  "dotenv-linter==0.7.0",
-  "pyinilint==0.17",
-  "restructuredtext_lint==2.0.2",
-  "sqlfluff==4.2.1",
-  "taplo==0.9.3",
-  "yamllint==1.38.0",
-  "PyYAML==6.0.3",
+  "PyYAML==6.0.3"
 ]
+
+[project.optional-dependencies]
+ansible-lint = ["ansible-lint==26.4.0"]
+asciidoc-linter = ["asciidoc-linter @ git+https://github.com/docToolchain/asciidoc-linter.git"]
+blinter = ["Blinter==1.0.112"]
+cfn-lint = ["cfn-lint==1.51.4"]
+dotenv-linter = ["dotenv-linter==0.7.0"]
+pyinilint = ["pyinilint==0.17"]
+restructuredtext-lint = ["restructuredtext_lint==2.0.2"]
+sqlfluff = ["sqlfluff==4.2.2"]
+taplo = ["taplo==0.9.3"]
+yamllint = ["yamllint==1.38.0"]
 
 [project.urls]
 "Source Code" = "https://github.com/hanggrian/stylebook"

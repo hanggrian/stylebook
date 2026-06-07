@@ -14,7 +14,7 @@ class AnsibleLintCommand(Command):
         super().__init__('ansible-lint')
 
     def execute(self, target_paths: list[str], quiet: bool) -> int:
-        opts: Options = \
+        options: Options = \
             Options(
                 lintables=target_paths,
                 quiet=quiet,
@@ -24,10 +24,10 @@ class AnsibleLintCommand(Command):
         for match in get_matches(
             RulesCollection(
                 app=get_app(offline=None, cached=True),
-                options=opts,
+                options=options,
                 rulesdirs=[DEFAULT_RULESDIR],
             ),
-            opts,
+            options,
         ).matches:
             has_errors = True
             print(

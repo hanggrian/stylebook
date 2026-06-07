@@ -24,7 +24,6 @@ broken images.
       <th>Runner</th>
       <th>File type</th>
       <th>Linter</th>
-      <th>Config file</th>
     </tr>
   </thead>
   <tbody>
@@ -40,7 +39,6 @@ broken images.
           RFC 4180
         </a>
       </td>
-      <td></td>
     </tr>
     <tr>
       <td>Dockerfile</td>
@@ -53,7 +51,6 @@ broken images.
           Docker Build Best Practices
         </a>
       </td>
-      <td><code>.hadolint.yaml</code></td>
     </tr>
     <tr>
       <td>GitHub Actions</td>
@@ -62,7 +59,6 @@ broken images.
           actionlint
         </a>
       </td>
-      <td></td>
     </tr>
     <tr>
       <td>Go Module</td>
@@ -71,7 +67,6 @@ broken images.
           gomoddirectives
         </a>
       </td>
-      <td></td>
     </tr>
     <tr>
       <td>Kubernetes</td>
@@ -80,7 +75,6 @@ broken images.
           kube-linter
         </a>
       </td>
-      <td><code>.kubelinter-config.yaml</code></td>
     </tr>
     <tr>
       <td>LaTeX</td>
@@ -89,7 +83,6 @@ broken images.
           ChkTeX
         </a>
       </td>
-      <td><code>.chktexrc</code></td>
     </tr>
     <tr>
       <td>Makefile</td>
@@ -98,7 +91,6 @@ broken images.
           checkmake
         </a>
       </td>
-      <td><code>.checkmake.ini</code></td>
     </tr>
     <tr>
       <td>Properties</td>
@@ -107,7 +99,6 @@ broken images.
           propertieslint
         </a>
       </td>
-      <td><code>.propertieslint.json</code></td>
     </tr>
     <tr>
       <td>Protobuf</td>
@@ -120,7 +111,6 @@ broken images.
           Protobuf Style Guide
         </a>
       </td>
-      <td><code>.buf.yaml</code></td>
     </tr>
     <tr>
       <td>Shell</td>
@@ -129,7 +119,6 @@ broken images.
           ShellCheck
         </a>
       </td>
-      <td><code>.shellcheckrc</code></td>
     </tr>
     <tr>
       <td>Terraform</td>
@@ -142,7 +131,6 @@ broken images.
           Terraform Style Guide
         </a>
       </td>
-      <td><code>.tflint.hcl</code></td>
     </tr>
     <tr>
       <td>XML</td>
@@ -151,17 +139,15 @@ broken images.
           libxml2
         </a>
       </td>
-      <td></td>
     </tr>
     <tr>
-      <td rowspan="9">Python</td>
+      <td rowspan="10">Python</td>
       <td>Ansible</td>
       <td>
         <a href="https://github.com/ansible/ansible-lint/">
           ansible-lint
         </a>
       </td>
-      <td></td>
     </tr>
     <tr>
       <td>AsciiDoc</td>
@@ -170,7 +156,14 @@ broken images.
           AsciiDoc-Linter
         </a>
       </td>
-      <td></td>
+    </tr>
+    <tr>
+      <td>AWS CloudFormation</td>
+      <td>
+        <a href="https://github.com/aws-cloudformation/cfn-lint/">
+          CloudFormation Linter
+        </a>
+      </td>
     </tr>
     <tr>
       <td>Batch</td>
@@ -179,7 +172,6 @@ broken images.
           Blinter
         </a>
       </td>
-      <td><code>blinter.ini</code></td>
     </tr>
     <tr>
       <td>Dotenv</td>
@@ -188,7 +180,6 @@ broken images.
           dotenv-linter
         </a>
       </td>
-      <td></td>
     </tr>
     <tr>
       <td>INI</td>
@@ -197,7 +188,14 @@ broken images.
           PyINILint
         </a>
       </td>
-      <td></td>
+    </tr>
+    <tr>
+      <td>reStructuredText</td>
+      <td>
+        <a href="https://github.com/twolfson/restructuredtext-lint/">
+          restructuredtext-lint
+        </a>
+      </td>
     </tr>
     <tr>
       <td>SQL</td>
@@ -210,7 +208,6 @@ broken images.
           Mozilla SQL Style Guide
         </a>
       </td>
-      <td><code>.sqlfluff</code></td>
     </tr>
     <tr>
       <td>TOML</td>
@@ -223,7 +220,6 @@ broken images.
           TOML Quick Tour
         </a>
       </td>
-      <td><code>.taplo.toml</code></td>
     </tr>
     <tr>
       <td>YAML</td>
@@ -236,19 +232,17 @@ broken images.
           YAML Best Practices
         </a>
       </td>
-      <td><code>.yamllintrc.yaml</code></td>
     </tr>
     <tr>
-      <td>reStructuredText</td>
+      <td rowspan="9">Node</td>
+      <td>Amazon State Language</td>
       <td>
-        <a href="https://github.com/twolfson/restructuredtext-lint/">
-          restructuredtext-lint
+        <a href="https://github.com/ChristopheBougere/asl-validator/">
+          asl-validator
         </a>
       </td>
-      <td></td>
     </tr>
     <tr>
-      <td rowspan="7">Node</td>
       <td>CSS</td>
       <td>
         <a href="https://github.com/stylelint/stylelint/">
@@ -259,11 +253,6 @@ broken images.
           Mozilla CSS Coding Guide
         </a>
       </td>
-      <td>
-        <a href="https://stylelint.io/user-guide/configure/">
-          Stylelint Configuration
-        </a>
-      </td>
     </tr>
     <tr>
       <td>GraphQL</td>
@@ -272,7 +261,6 @@ broken images.
           graphql-schema-linter
         </a>
       </td>
-      <td><code>.graphql-schema-linterrc</code></td>
     </tr>
     <tr>
       <td>HTML</td>
@@ -285,7 +273,6 @@ broken images.
           Mozilla HTML Style Guide
         </a>
       </td>
-      <td><code>.htmlhintrc</code></td>
     </tr>
     <tr>
       <td>JSON</td>
@@ -294,7 +281,6 @@ broken images.
           JSON Lint
         </a>
       </td>
-      <td><code>.jsonlintrc.json</code></td>
     </tr>
     <tr>
       <td>Lockfile</td>
@@ -303,7 +289,6 @@ broken images.
           lockfile-lint
         </a>
       </td>
-      <td></td>
     </tr>
     <tr>
       <td>Markdown</td>
@@ -316,7 +301,6 @@ broken images.
           Adobe Markdown Basics
         </a>
       </td>
-      <td><code>.markdownlint.json</code></td>
     </tr>
     <tr>
       <td>Mermaid</td>
@@ -325,7 +309,14 @@ broken images.
           Maid
         </a>
       </td>
-      <td></td>
+    </tr>
+    <tr>
+      <td>Tekton</td>
+      <td>
+        <a href="https://github.com/IBM/tekton-lint/">
+          tekton-lint
+        </a>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -354,20 +345,34 @@ go install github.com/terraform-linters/tflint@latest
 
 ### PyPI
 
-PyPI transitively brings linter dependencies.
+All linters are brought in as optional dependencies, exclude the ones you don't
+need.
 
 ```sh
-pip install stylebook
+pip install "stylebook[ \
+  ansible-lint, \
+  asciidoc-linter, \
+  blinter, \
+  cfn-lint, \
+  dotenv-linter, \
+  pyinilint, \
+  sqlfluff, \
+  taplo, \
+  yamllint, \
+  restructuredtext-lint \
+]"
 ```
 
 ### NPM
 
-Most linters are brought in as dependencies, except for Stylelint, which needs
-to be installed in the root `package.json`.
+Most linters are brought in as optional dependencies, except for Stylelint,
+which needs to be installed in the root `package.json`.
 
 ```sh
 npm i @hanggrian/stylebook \
-  stylelint @stylistic/stylelint-plugin stylelint-config-recommended --save-dev
+  stylelint \
+  @stylistic/stylelint-plugin \
+  stylelint-config-recommended --save-dev
 ```
 
 ## Usage

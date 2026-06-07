@@ -1,0 +1,96 @@
+Comment: Sample ASL testing asl-validator rules
+StartAt: MakeChoice
+States:
+  MakeChoice:
+    Type: Choice
+    Choices:
+    - Variable: $.action
+      StringEquals: parallel
+      Next: ParallelWork
+    - Variable: $.action
+      StringEquals: map
+      Next: MapWork
+    Default: DoTask
+  # duplicate-state-names-errors
+  MakeChoiceCopy:
+    Type: Pass
+    End: true
+  # missing-transition-target-errors
+  # task-timeout
+  # task-heartbeat
+  DoTask:
+    Type: Task
+    Resource: arn:aws:states:::lambda:invoke
+    # missing-transition-target-errors
+    Next: NonexistentState
+    # task-timeout
+    TimeoutSeconds: 300
+    TimeoutSecondsPath: $.timeout
+    # task-heartbeat
+    HeartbeatSeconds: 60
+    HeartbeatSecondsPath: $.heartbeat
+  # wait-duration
+  WaitState:
+    Type: Wait
+    # wait-duration
+    Seconds: 10
+    SecondsPath: $.wait
+  # branch-outbound-transition-target
+  ParallelWork:
+    Type: Parallel
+    Branches:
+    - StartAt: BranchPass
+      States:
+        BranchPass:
+          Type: Pass
+          # branch-outbound-transition-target
+          Next: OutsideState
+    Next: SucceedState
+  # map-outbound-transition-target
+  MapWork:
+    Type: Map
+    Iterator:
+      StartAt: MapPass
+      States:
+        MapPass:
+          Type: Pass
+          # map-outbound-transition-target
+          Next: OutsideState
+    Next: SucceedState
+  # terminal-state-with-next
+  SucceedState:
+    Type: Succeed
+    # terminal-state-with-next
+    Next: OtherState
+  # fail-cause-property
+  # fail-error-property
+  # schema-validation-failed
+  FailState:
+    Type: Fail
+    # fail-cause-property
+    # fail-error-property
+    Cause: Error occurred
+  # duplicate-payload-template-fields
+  PayloadTask:
+    Type: Task
+    Resource: arn:aws:states:::lambda:invoke
+    Parameters:
+      # duplicate-payload-template-fields
+      key.$: $.someValue
+      key: staticValue
+    End: true
+  # map-items-error
+  # map-concurrency-error
+  MapWorkBroken:
+    Type: Map
+    # map-items-error
+    ItemsPath: $.items
+    # map-concurrency-error
+    MaxConcurrency: 0
+    Iterator:
+      StartAt: InnerPass
+      States:
+        InnerPass:
+          Type: Pass
+          End: true
+    End: true

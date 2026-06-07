@@ -14,8 +14,24 @@ import (
 	"github.com/hanggrian/stylebook/cmd/files"
 )
 
-var githubActionsPaths = []string{".github"}
-var kubernetesPaths = []string{"k8s", "kubernetes", "manifests", "deploy"}
+var makefileFilenames = []string{
+	"Makefile",
+	"makefile",
+	"GNUmakefile",
+}
+
+var dockerFilenames = []string{
+	"Containerfile",
+	"Dockerfile",
+}
+
+// https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax/
+const githubActionsDirname = ".github"
+
+const gomoduleFilename = "go.mod"
+
+// https://dev.to/itsmecharan7/kubernetes-project-folder-structure-32ai/
+const kubernetesDirname = "manifests"
 
 // Recursively traverse directories to collect files.
 func walk(targetPath string, exclude []string) []string {
@@ -23,12 +39,12 @@ func walk(targetPath string, exclude []string) []string {
 	parts := strings.SplitSeq(cleaned, string(os.PathSeparator))
 	for part := range parts {
 		if slices.Contains(exclude, part) {
-			return nil
+			return []string{}
 		}
 	}
 	info, err := os.Stat(cleaned)
 	if err != nil {
-		return nil
+		return []string{}
 	}
 	if !info.IsDir() {
 		return []string{cleaned}
@@ -36,14 +52,14 @@ func walk(targetPath string, exclude []string) []string {
 	var files []string
 	entries, err := os.ReadDir(cleaned)
 	if err != nil {
-		return nil
+		return []string{}
 	}
 	for _, entry := range entries {
 		files = append(files, walk(filepath.Join(cleaned, entry.Name()), exclude)...)
 	}
 	dirname := filepath.Base(cleaned)
-	if slices.Contains(githubActionsPaths, dirname) ||
-		slices.Contains(kubernetesPaths, dirname) {
+	if dirname == githubActionsDirname ||
+		dirname == kubernetesDirname {
 		files = append(files, cleaned)
 	}
 	return files
@@ -53,25 +69,6 @@ func walk(targetPath string, exclude []string) []string {
 func register(commands map[string][]string, linter command.Linter, path string) {
 	if _, found := commands[linter.GetBinary()]; found {
 		commands[linter.GetBinary()] = append(commands[linter.GetBinary()], path)
-	}
-}
-
-// Insert all files in a directory to map if the linter key exists and extension matches.
-func registerDir(commands map[string][]string, linter command.Linter, path string, exts []string) {
-	entries, err := os.ReadDir(path)
-	if err != nil {
-		return
-	}
-	for _, entry := range entries {
-		if entry.IsDir() {
-			continue
-		}
-		name := entry.Name()
-		ext := filepath.Ext(name)
-		if !slices.Contains(exts, ext) {
-			continue
-		}
-		register(commands, linter, filepath.Join(path, name))
 	}
 }
 
@@ -306,42 +303,43 @@ func Execute() error {
 				continue
 			}
 			if info.IsDir() {
-				if slices.Contains(githubActionsPaths, filename) {
+				if filename == githubActionsDirname {
 					workflowsDir := filepath.Join(targetPath, "workflows")
 					if _, err := os.Stat(workflowsDir); err != nil {
 						continue
 					}
-					registerDir(
-						commands,
-						&command.Actionlint,
-						workflowsDir,
-						[]string{".yml", ".yaml"},
-					)
+					for _, targetPath2 := range walk(workflowsDir, exclude) {
+						if slices.Contains(
+							[]string{".yaml", ".yml"},
+							strings.ToLower(filepath.Ext(targetPath2)),
+						) {
+							register(commands, &command.Actionlint, targetPath2)
+						}
+					}
 				}
-				if slices.Contains(kubernetesPaths, filename) {
-					registerDir(
-						commands,
-						&command.KubeLinter,
-						targetPath,
-						[]string{".yml", ".yaml"},
-					)
+				if filename == kubernetesDirname {
+					for _, targetPath2 := range walk(targetPath, exclude) {
+						if slices.Contains(
+							[]string{".yaml", ".yml"},
+							strings.ToLower(filepath.Ext(targetPath2)),
+						) {
+							register(commands, &command.KubeLinter, targetPath2)
+						}
+					}
 				}
 				continue
 			}
-			if filename == "Makefile" ||
-				filename == "makefile" ||
-				filename == "GNUmakefile" {
+			if slices.Contains(makefileFilenames, filename) {
 				register(commands, &command.Checkmake, targetPath)
 				continue
 			}
-			if filename == "Containerfile" ||
-				filename == "Dockerfile" ||
+			if slices.Contains(dockerFilenames, filename) ||
 				strings.HasPrefix(filename, "Containerfile.") ||
 				strings.HasPrefix(filename, "Dockerfile.") {
 				register(commands, &command.Hadolint, targetPath)
 				continue
 			}
-			if filename == "go.mod" {
+			if filename == gomoduleFilename {
 				register(commands, &command.Gomoddirectives, targetPath)
 				continue
 			}

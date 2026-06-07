@@ -108,19 +108,30 @@ nav:
   - TOML rules: rules/toml.md
   - YAML rules: rules/yaml.md
   - External links:
+    - actionlint rules: https://github.com/rhysd/actionlint/blob/main/docs/checks.md?ext
+    - Ansible Lint rules: https://docs.ansible.com/projects/lint/rules/?ext
+    - AsciiDoc-Linter rules: https://doctoolchain.org/asciidoc-linter/manual/rules.html?ext
+    - asl-validator rules: https://github.com/ChristopheBougere/asl-validator/tree/main/src/checks/?ext
     - Blinter rules: https://github.com/tboy1337/Blinter/blob/main/docs/Batch-File-Linter-Requirements.md?ext
+    - CloudFormation Lint rules: https://github.com/aws-cloudformation/cfn-lint/blob/main/docs/rules.md?ext
     - Checkmake rules: https://github.com/checkmake/checkmake/tree/main/rules/?ext
-    - Hadolint rules: https://github.com/hadolint/hadolint#rules?ext
+    - dotenv-linter rules: https://dotenv-linter.readthedocs.io/en/latest/pages/violations/index.html?ext
+    - graphql-schema-linter rules: https://github.com/cjoudrey/graphql-schema-linter/tree/master/src/rules/?ext
+    - Hadolint rules: https://github.com/hadolint/hadolint/#rules?ext
     - HTMLHint rules: https://htmlhint.com/rules/?ext
-    - PyINILint rules: https://gitlab.com/danieljrmay/pyinilint/?ext
     - JSON Lint rules: https://www.npmjs.com/package/@prantlf/jsonlint/?ext
+    - KubeLinter rules: https://docs.kubelinter.io/#/generated/checks?ext
+    - lockfile-lint rules: https://github.com/lirantal/lockfile-lint/tree/main/packages/lockfile-lint-api/src/validators/?ext
     - markdownlint rules: https://github.com/DavidAnson/markdownlint/tree/main/doc/?ext
-    - propertieslint rules: https://github.com/hanggrian/propertieslint/?ext
+    - propertieslint rules: https://hanggrian.github.io/propertieslint/book/?ext
     - protolint rules: https://github.com/yoheimuta/protolint/?ext
+    - PyINILint rules: https://gitlab.com/danieljrmay/pyinilint/?ext
+    - ShellCheck rules: https://www.shellcheck.net/wiki/?ext
     - SQLFluff rules: https://docs.sqlfluff.com/en/stable/reference/rules.html?ext
     - Stylelint rules: https://stylelint.io/user-guide/rules/?ext
-    - TFLint rules: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/main/docs/rules/README.md?ext
     - Taplo rules: https://taplo.tamasfe.dev/configuration/formatter-options.html?ext
+    - tekton-lint rules: https://github.com/IBM/tekton-lint/#rules?ext
+    - TFLint rules: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/main/docs/rules/README.md?ext
     - yamllint rules: https://yamllint.readthedocs.io/en/stable/rules.html?ext
 - GoDoc: api/godoc
 - Pydoc: api/pydoc

@@ -4,7 +4,7 @@ type ChktexCommand struct {
 	BaseCommand
 }
 
-// CLI executor for [ChkTeX](https://www.nongnu.org/chktex/).
+// CLI executor for [ChkTeX](https://ctan.org/pkg/chktex/).
 var Chktex = ChktexCommand{
 	BaseCommand: BaseCommand{
 		Binary:     "chktex",

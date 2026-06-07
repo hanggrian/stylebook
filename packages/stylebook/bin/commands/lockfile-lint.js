@@ -30,13 +30,12 @@ class LockfileLintCommand extends Command {
                     : LockfileLintCommand.NPM_HOST;
             const parser = new ParseLockfile({ lockfilePath: path });
             const lockfile = parser.parseSync();
-            const validators = [
+            for (const validator of [
                 new ValidateHost({ packages: lockfile.object }),
                 new ValidatePackageNames({ packages: lockfile.object }),
                 new ValidateScheme({ packages: lockfile.object }),
                 new ValidateIntegrity({ packages: lockfile.object }),
-            ];
-            for (const validator of validators) {
+            ]) {
                 try {
                     let result;
                     if (validator instanceof ValidateHost) {

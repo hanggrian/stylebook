@@ -25,7 +25,7 @@ class GraphqlSchemaLinterCommand extends Command {
                 '',
                 '',
                 '-r',
-                JSON.parse(readFileSync(this.configFile, 'UTF-8')).rules.join(','),
+                JSON.parse(readFileSync(this.configFile, 'utf-8')).rules.join(','),
                  ...targetPaths,
             ],
         );

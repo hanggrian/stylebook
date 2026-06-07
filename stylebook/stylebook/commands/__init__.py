@@ -3,6 +3,7 @@ from enum import Enum
 from stylebook.commands.ansible_lint import AnsibleLintCommand
 from stylebook.commands.asciidoc_linter import AsciidocLinterCommand
 from stylebook.commands.blinter import BlinterCommand
+from stylebook.commands.cfn_lint import CfnLintCommand
 from stylebook.commands.command import Command
 from stylebook.commands.dotenv_linter import DotenvLinterCommand
 from stylebook.commands.pyinilint import PyinilintLinterCommand
@@ -16,6 +17,7 @@ class Linter(Enum):
     ANSIBLE_LINT = AnsibleLintCommand()
     ASCIIDOC_LINTER = AsciidocLinterCommand()
     BLINTER = BlinterCommand()
+    CFN_LINT = CfnLintCommand()
     DOTENV_LINTER = DotenvLinterCommand()
     PYINILINT = PyinilintLinterCommand()
     RESTRUCTUREDTEXT_LINT = RestructuredtextLintCommand()

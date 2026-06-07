@@ -1,15 +1,21 @@
+# schema-validation
+# no-extensions-v1beta
 apiVersion: v1
+# sorted-keys
 data:
   apple: "1"
   monkey: "2"
   zebra: "3"
 kind: ConfigMap
 metadata:
+  # required-annotation-email
   annotations:
     email: admin@example.com
+  # required-label-owner
   labels:
     owner: dev-team
   name: demo-config
+  # use-namespace
   namespace: demo
 ---
 apiVersion: v1
@@ -32,10 +38,13 @@ metadata:
   name: demo-deployment
   namespace: demo
 spec:
+  # minimum-three-replicas
   replicas: 3
+  # mismatching-selector
   selector:
     matchLabels:
       app: demo
+  # no-rolling-update-strategy
   strategy:
     type: RollingUpdate
   template:
@@ -46,7 +55,9 @@ spec:
         app: demo
         owner: dev-team
     spec:
+      # no-anti-affinity
       affinity:
+        # no-node-affinity
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
@@ -65,23 +76,37 @@ spec:
                 - demo
             topologyKey: kubernetes.io/hostname
       containers:
+      # duplicate-env-var
+      # env-var-secret
+      # read-secret-from-env-var
+      # env-value-from
       - env:
         - name: DB_HOST
           value: localhost
+        # latest-tag
         image: nginx:1.27
+        # no-liveness-probe
         livenessProbe:
           httpGet:
             path: /health
+            # liveness-port
             port: 8080
         name: nginx
         ports:
+        # invalid-target-ports
         - containerPort: 8080
           name: http
           protocol: TCP
+        # privileged-ports
+        # ssh-port
+        # no-readiness-probe
         readinessProbe:
           httpGet:
             path: /ready
+            # readiness-port
             port: 8080
+        # unset-cpu-requirements
+        # unset-memory-requirements
         resources:
           limits:
             cpu: 200m
@@ -89,28 +114,50 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
+        # privileged-container
+        # privilege-escalation-container
+        # no-read-only-root-fs
+        # run-as-non-root
         securityContext:
           allowPrivilegeEscalation: false
+          # drop-net-raw-capability
           capabilities:
             drop:
             - ALL
             - NET_RAW
           privileged: false
           readOnlyRootFilesystem: true
+        # startup-port
+        # docker-sock
+        # sensitive-host-mounts
+        # writable-host-mount
+        # unsafe-sysctls
+        # unsafe-proc-mount
         startupProbe:
           httpGet:
             path: /startup
             port: 8080
+      # dnsconfig-options
       dnsConfig:
         options:
         - name: ndots
           value: "2"
+      # host-ipc
+      # host-network
+      # host-pid
+      # priority-class-name
+      priorityClassName: system-cluster-critical
+      # restart-policy
       restartPolicy: Always
+      # default-service-account
+      # deprecated-service-account-field
+      # non-existent-service-account
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
       serviceAccountName: demo-service-account
 ---
+# dangling-horizontalpodautoscaler
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -122,6 +169,7 @@ metadata:
   namespace: demo
 spec:
   maxReplicas: 10
+  # hpa-minimum-three-replicas
   minReplicas: 3
   scaleTargetRef:
     apiVersion: apps/v1
@@ -138,6 +186,8 @@ metadata:
   name: demo-job
   namespace: demo
 spec:
+  # job-ttl-seconds-after-finished
+  ttlSecondsAfterFinished: 3600
   template:
     spec:
       containers:
@@ -176,8 +226,10 @@ spec:
           value: "2"
       restartPolicy: OnFailure
       serviceAccountName: demo-service-account
-  ttlSecondsAfterFinished: 3600
 ---
+# dangling-networkpolicy
+# dangling-networkpolicypeer-podselector
+# non-isolated-pod
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -199,6 +251,9 @@ spec:
   policyTypes:
   - Ingress
 ---
+# pdb-max-unavailable
+# pdb-min-available
+# pdb-unhealthy-pod-eviction-policy
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
@@ -215,12 +270,14 @@ spec:
       app: demo
   unhealthyPodEvictionPolicy: AlwaysAllow
 ---
+# dangling-service
 apiVersion: v1
 kind: Service
 metadata:
   annotations:
     email: admin@example.com
   labels:
+    app: demo
     owner: dev-team
   name: demo-service
   namespace: demo
@@ -232,4 +289,93 @@ spec:
     targetPort: 8080
   selector:
     app: demo
+  # exposed-services
   type: ClusterIP
+---
+# dangling-ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    email: admin@example.com
+  labels:
+    owner: dev-team
+  name: demo-ingress
+  namespace: demo
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: demo-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+---
+# dangling-servicemonitor
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  annotations:
+    email: admin@example.com
+  labels:
+    owner: dev-team
+  name: demo-servicemonitor
+  namespace: demo
+spec:
+  endpoints:
+  - port: http
+  selector:
+    matchLabels:
+      app: demo
+---
+# access-to-create-pods
+# access-to-secrets
+# wildcard-in-rules
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    email: admin@example.com
+  labels:
+    owner: dev-team
+  name: demo-clusterrole
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+---
+# cluster-admin-role-binding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  annotations:
+    email: admin@example.com
+  labels:
+    owner: dev-team
+  name: demo-clusterrole-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: demo-clusterrole
+subjects:
+- kind: ServiceAccount
+  name: demo-service-account
+  namespace: demo
+---
+# scc-deny-privileged-container
+allowPrivilegedContainer: false
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  annotations:
+    email: admin@example.com
+  labels:
+    owner: dev-team
+  name: demo-scc

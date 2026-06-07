@@ -20,11 +20,11 @@ class HtmlhintCommand extends Command {
     // eslint-disable-next-line no-unused-vars
     execute(rootDir, targetPaths, quiet) {
         let hasErrors = false;
-        const config = JSON.parse(readFileSync(this.configFile, 'UTF-8'));
+        const config = JSON.parse(readFileSync(this.configFile, 'utf-8'));
         HTMLHint.addRule(trailingNewlineRule);
         HTMLHint.addRule(unnecessaryLeadingBlankLineRule);
         for (const path of targetPaths) {
-            const messages = HTMLHint.verify(readFileSync(path, 'UTF-8'), config);
+            const messages = HTMLHint.verify(readFileSync(path, 'utf-8'), config);
             if (messages.length <= 0) {
                 continue;
             }

@@ -1,6 +1,6 @@
 install CLEAN="false":
-    make install CLEAN={{ if CLEAN == "true" { "true" } else { "false" } }}
-    uv sync {{ if CLEAN == "true" { "--locked" } else { "" } }}
+    make install CLEAN={{ CLEAN }}
+    uv sync --all-extras {{ if CLEAN == "true" { "--locked" } else { "" } }}
     pnpm install {{ if CLEAN == "true" { "--frozen-lockfile" } else { "" } }}
 
 [private]
