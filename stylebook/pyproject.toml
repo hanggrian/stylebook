@@ -32,7 +32,7 @@ dependencies = [
 ansible-lint = ["ansible-lint==26.4.0"]
 asciidoc-linter = ["asciidoc-linter @ git+https://github.com/docToolchain/asciidoc-linter.git"]
 blinter = ["Blinter==1.0.112"]
-cfn-lint = ["cfn-lint==1.51.4"]
+cfn-lint = ["cfn-lint==1.56.3"]
 dotenv-linter = ["dotenv-linter==0.7.0"]
 pyinilint = ["pyinilint==0.17"]
 restructuredtext-lint = ["restructuredtext_lint==2.0.2"]
