@@ -109,14 +109,6 @@ wheels = [
 ]
 
 [[package]]
-name = "asciidoc-linter"
-version = "0.1.0"
-source = { git = "https://github.com/docToolchain/asciidoc-linter.git#ea57b2904960cd009e41acfb1fda50c5f08bf7b2" }
-dependencies = [
-    { name = "pyyaml" },
-]
-
-[[package]]
 name = "astroid"
 version = "4.3.4"
 source = { registry = "https://pypi.org/simple" }
@@ -1500,7 +1492,7 @@ wheels = [
 
 [[package]]
 name = "stylebook"
-version = "0.3.0"
+version = "0.3.1"
 source = { editable = "stylebook" }
 dependencies = [
     { name = "colorama" },
@@ -1511,9 +1503,6 @@ dependencies = [
 ansible-lint = [
     { name = "ansible-core", version = "2.22.0rc1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.15'" },
     { name = "ansible-lint" },
-]
-asciidoc-linter = [
-    { name = "asciidoc-linter" },
 ]
 blinter = [
     { name = "blinter" },
@@ -1544,7 +1533,6 @@ yamllint = [
 requires-dist = [
     { name = "ansible-core", marker = "python_full_version >= '3.15' and extra == 'ansible-lint'", specifier = "==2.22.0rc1" },
     { name = "ansible-lint", marker = "extra == 'ansible-lint'", specifier = "==26.10.1" },
-    { name = "asciidoc-linter", marker = "extra == 'asciidoc-linter'", git = "https://github.com/docToolchain/asciidoc-linter.git" },
     { name = "blinter", marker = "extra == 'blinter'", specifier = "==1.1.42" },
     { name = "cfn-lint", marker = "extra == 'cfn-lint'", specifier = "==1.57.2" },
     { name = "colorama" },
@@ -1556,7 +1544,7 @@ requires-dist = [
     { name = "taplo", marker = "extra == 'taplo'", specifier = "==0.9.3" },
     { name = "yamllint", marker = "extra == 'yamllint'", specifier = "==1.38.0" },
 ]
-provides-extras = ["ansible-lint", "asciidoc-linter", "blinter", "cfn-lint", "dotenv-linter", "pyinilint", "restructuredtext-lint", "sqlfluff", "taplo", "yamllint"]
+provides-extras = ["ansible-lint", "blinter", "cfn-lint", "dotenv-linter", "pyinilint", "restructuredtext-lint", "sqlfluff", "taplo", "yamllint"]
 
 [[package]]
 name = "subprocess-tee"

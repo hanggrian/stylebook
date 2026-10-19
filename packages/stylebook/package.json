@@ -1,6 +1,6 @@
 {
   "name": "@hanggrian/stylebook",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Comprehensive linter aggregator for data and tooling formats",
   "keywords": [
     "css",
