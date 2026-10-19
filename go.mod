@@ -2,7 +2,7 @@ module github.com/hanggrian/stylebook
 
 go 1.26.0
 
-toolchain go1.26.4
+toolchain go1.27.2
 
 require github.com/fatih/color v1.19.0
 
@@ -10,22 +10,22 @@ require github.com/rhysd/actionlint v1.7.12
 
 require github.com/Clever/csvlint v0.3.0
 
-require github.com/ldez/gomoddirectives v0.9.0
+require github.com/ldez/gomoddirectives v0.10.0
 
 require github.com/hanggrian/propertieslint v0.1.2
 
-require github.com/yoheimuta/protolint v0.56.4
+require github.com/yoheimuta/protolint v0.58.0
 
 require golang.stackrox.io/kube-linter v0.8.3
 
 require (
 	github.com/spf13/viper v1.21.0
 	github.com/yoheimuta/go-protoparser/v4 v4.14.2
-	golang.org/x/mod v0.36.0
+	golang.org/x/mod v0.42.0
 )
 
 require (
-	cel.dev/expr v0.25.1 // indirect
+	cel.dev/expr v0.25.2 // indirect
 	dario.cat/mergo v1.0.2 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20250102033503-faa5f7b0171c // indirect
 	github.com/BurntSushi/toml v1.6.0 // indirect
@@ -86,9 +86,9 @@ require (
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-hclog v1.6.3 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
-	github.com/hashicorp/go-plugin v1.6.3 // indirect
+	github.com/hashicorp/go-plugin v1.8.0 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.8 // indirect
-	github.com/hashicorp/yamux v0.1.1 // indirect
+	github.com/hashicorp/yamux v0.1.2 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jmoiron/sqlx v1.4.0 // indirect
@@ -114,7 +114,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.3-0.20250322232337-35a7c28c31ee // indirect
 	github.com/monochromegane/go-gitignore v0.0.0-20200626010858-205db1a8cc00 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
-	github.com/oklog/run v1.0.0 // indirect
+	github.com/oklog/run v1.1.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.1 // indirect
 	github.com/openshift/api v0.0.0-20230406152840-ce21e3fe5da2 // indirect
@@ -135,28 +135,28 @@ require (
 	github.com/spf13/cast v1.10.0 // indirect
 	github.com/spf13/cobra v1.10.2 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
-	github.com/stretchr/testify v1.11.1 // indirect
+	github.com/stretchr/testify v1.12.1 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	github.com/xlab/treeprint v1.2.0 // indirect
 	github.com/yannh/kubeconform v0.7.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
-	go.yaml.in/yaml/v3 v3.0.4 // indirect
+	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	go.yaml.in/yaml/v4 v4.0.0-rc.3 // indirect
-	golang.org/x/crypto v0.51.0 // indirect
+	golang.org/x/crypto v0.57.0 // indirect
 	golang.org/x/exp v0.0.0-20250718183923-645b1fa84792 // indirect
-	golang.org/x/net v0.54.0 // indirect
-	golang.org/x/oauth2 v0.31.0 // indirect
-	golang.org/x/sync v0.20.0 // indirect
-	golang.org/x/sys v0.44.0 // indirect
-	golang.org/x/term v0.43.0 // indirect
-	golang.org/x/text v0.37.0 // indirect
+	golang.org/x/net v0.59.0 // indirect
+	golang.org/x/oauth2 v0.36.0 // indirect
+	golang.org/x/sync v0.23.0 // indirect
+	golang.org/x/sys v0.48.0 // indirect
+	golang.org/x/term v0.46.0 // indirect
+	golang.org/x/text v0.42.0 // indirect
 	golang.org/x/time v0.13.0 // indirect
-	golang.org/x/tools v0.45.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20250721164621-a45f3dfb1074 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250929231259-57b25ae835d4 // indirect
-	google.golang.org/grpc v1.75.1 // indirect
-	google.golang.org/protobuf v1.36.10 // indirect
+	golang.org/x/tools v0.51.0 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20260526163538-3dc84a4a5aaa // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260526163538-3dc84a4a5aaa // indirect
+	google.golang.org/grpc v1.83.2 // indirect
+	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/evanphx/json-patch.v4 v4.13.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect

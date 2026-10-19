@@ -14,3 +14,10 @@ class BlinterCommand(Command):
 
     def get_arguments(self, target_paths: list[str], quiet: bool) -> list[str]:
         return target_paths
+
+    def execute(self, target_paths: list[str], quiet: bool) -> int:
+        has_errors: bool = False
+        for target_path in target_paths:
+            if super().execute([target_path], quiet) != 0:
+                has_errors = True
+        return 1 if has_errors else 0

@@ -3,3 +3,5 @@ include_checks:
 - E
 - W
 include_experimental: true
+ignore_checks:
+- I4010

@@ -38,23 +38,23 @@
     "node": ">=12.0.0"
   },
   "dependencies": {
-    "chalk": "^5.6.2",
+    "chalk": "^6.0.1",
     "cli-progress": "^3.12.0",
-    "yaml": "^2.9.0"
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
-    "@types/node": "25.9.1"
+    "@types/node": "26.6.5"
   },
   "optionalDependencies": {
-    "@ibm/tekton-lint": "^1.2.0",
+    "@ibm/tekton-lint": "^1.2.4",
     "@prantlf/jsonlint": "^17.0.1",
     "@probelabs/maid": "^0.0.29",
-    "@stylistic/stylelint-plugin": "^5.2.0",
+    "@stylistic/stylelint-plugin": "^5.3.1",
     "asl-validator": "^4.0.0",
     "graphql-schema-linter": "^3.0.1",
     "htmlhint": "^1.9.2",
-    "lockfile-lint-api": "^5.9.2",
-    "markdown-it": "^14.2.0",
-    "markdownlint": "^0.40.0"
+    "lockfile-lint-api": "^5.10.0",
+    "markdown-it": "^15.0.3",
+    "markdownlint": "^0.42.0"
   }
 }

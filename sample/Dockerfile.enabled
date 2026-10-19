@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install telnet -y
 EXPOSE 65535
 
 # DL3012: No duplicate HEALTHCHECK
-HEALTHCHECK CMD /bin/healthcheck
+HEALTHCHECK CMD ["/bin/healthcheck"]
 
 # DL3017: Do not use apk upgrade
 # DL3019: Use the --no-cache switch to avoid the need to use --update
@@ -98,8 +98,8 @@ LABEL valid-key.label="bar"
 # DL3060: Clean yarn after install
 RUN yarn install
 
-# DL3063: Reserved word
-FROM debian:bullseye AS scratch
+# DL3063: Reserved words are not allowed as stage names
+FROM debian:bullseye AS build-stage
 
 # DL4001: Pick wget or curl
 RUN wget --progress=dot:giga http://google.com && \

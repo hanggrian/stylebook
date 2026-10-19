@@ -1,7 +1,7 @@
 @ECHO OFF
 
 REM P004: need to use !variables!
-SETLOCAL EnableDelayedExpansion
+SETLOCAL ENABLEDELAYEDEXPANSION
 
 REM E001: proper parentheses nesting
 IF EXIST "file.txt" (
@@ -44,10 +44,10 @@ IF NOT ERRORLEVEL 1 (
 )
 
 REM E017: valid percent-tilde syntax
-ECHO %~n1
+ECHO "%~n1"
 
 REM E019: percent-tilde on parameter
-ECHO %~f1
+ECHO "%~f1"
 
 REM E020: double percent in batch FOR loop
 FOR %%i IN (*.txt) DO ECHO %%i

@@ -95,7 +95,7 @@ CREATE OR REPLACE TABLE sample_table (
   is_active BOOLEAN,
   created_at TIMESTAMP,
   metadata VARIANT,
-  tags ARRAY,
+  tag_list ARRAY,
   details OBJECT
 );
 
