@@ -21,20 +21,18 @@ if "%FOO%"=="Bar" echo Match
 
 GOTO :main
 
-REM S018: missing subroutine documentation
-:first
-ECHO First
-EXIT /b 0
-
-:second
-ECHO Second
-EXIT /b 0
-
 :main
 REM SEC003: confirmation before dangerous command
 SET /p confirm="Delete all files? (y/n): "
-IF /i "%confirm%"=="y" DEL *.* /q 2>nul
+IF /i "%confirm%"=="y" CALL :delete_all
 PAUSE
+GOTO :eof
+
+REM SEC003: dangerous command is isolated in a named subroutine
+:delete_all
+DEL *.tmp /q 2>nul
+IF ERRORLEVEL 1 ECHO Unable to delete temporary files
+EXIT /b 0
 
 REM SEC006: hardcoded path
 SET "PROGRAM_FILES=%ProgramFiles%"
@@ -47,11 +45,14 @@ REM W028: SET in .bat/.cmd
 SET "user_input=hello world"
 
 REM W010: architecture-aware registry operation
+REM Query the architecture-specific registry location and report failures.
 IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+    REM Query the 32-bit registry view on 64-bit Windows.
     REG QUERY "HKLM\SOFTWARE\Wow6432Node\MyApp" >nul 2>&1
     IF ERRORLEVEL 1 ECHO Registry key not found
     EXIT /b 0
 ) ELSE (
+    REM Query the native registry view on other architectures.
     REG QUERY "HKLM\SOFTWARE\MyApp" >nul 2>&1
     IF ERRORLEVEL 1 ECHO Registry key not found
     EXIT /b 0

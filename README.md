@@ -327,10 +327,18 @@ broken images.
 
 Several linters must be installed separatedly, preferably at OS level:
 
-- ChkTeX
-- Hadolint
-- ShellCheck
-- libxml2
+- ChkTeX<sup>[AUR](https://archlinux.org/packages/extra/x86_64/texlive-bin)
+  [BREW](https://formulae.brew.sh/formula/texlive)
+  </sup>
+- Hadolint<sup>[AUR](https://aur.archlinux.org/packages/hadolint)
+  [BREW](https://formulae.brew.sh/formula/hadolint)
+  </sup>
+- ShellCheck<sup>[AUR](https://aur.archlinux.org/packages/shellcheck-bin)
+  [BREW](https://formulae.brew.sh/formula/shellcheck)
+  </sup>
+- libxml2<sup>[AUR](https://archlinux.org/packages/core/x86_64/libxml2)
+  [BREW](https://formulae.brew.sh/formula/libxml2)
+  </sup>
 
 ### Go
 
@@ -387,8 +395,8 @@ qualifying file types and spawn the corresponding linter processes.
 
 ```sh
 stylebook . # Go binary
-npx @hanggrian/stylebook some-folder/ some-file.sql
-source .venv/bin/activate && stylebook **/*
+npx @hanggrian/stylebook some-folder/ some-file.sql # Node script
+source .venv/bin/activate && stylebook **/* # Python script
 ```
 
 ### Configuration

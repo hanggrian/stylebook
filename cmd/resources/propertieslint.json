@@ -1,11 +1,6 @@
 {
-  "duplicate-blank-line": true,
-  "duplicate-key": true,
-  "invalid-escape": true,
-  "missing-key-value-separator": true,
-  "missing-value": true,
-  "no-leading-blank-line": true,
-  "trailing-newline": true,
-  "unterminated-line-continuation": true,
-  "untrimmed-entry": true
+  "pair": {
+    "key-order": false,
+    "no-empty-value": false
+  }
 }

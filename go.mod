@@ -12,7 +12,7 @@ require github.com/Clever/csvlint v0.3.0
 
 require github.com/ldez/gomoddirectives v0.10.0
 
-require github.com/hanggrian/propertieslint v0.1.2
+require github.com/hanggrian/propertieslint v0.2.0
 
 require github.com/yoheimuta/protolint v0.58.0
 

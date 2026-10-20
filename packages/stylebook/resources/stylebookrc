@@ -31,3 +31,8 @@ Gemfile.lock
 
 # MkDocs
 site/
+
+# Hugo
+public/
+static/
+assets/
