@@ -1,9 +1,3 @@
-from ansiblelint.app import get_app
-from ansiblelint.config import Options
-from ansiblelint.constants import DEFAULT_RULESDIR
-from ansiblelint.rules import RulesCollection
-from ansiblelint.runner import get_matches
-
 from stylebook.commands.command import Command
 
 
@@ -14,6 +8,13 @@ class AnsibleLintCommand(Command):
         super().__init__('ansible-lint')
 
     def execute(self, target_paths: list[str], quiet: bool) -> int:
+        # pylint: disable=import-outside-toplevel
+        from ansiblelint.app import get_app
+        from ansiblelint.config import Options
+        from ansiblelint.constants import DEFAULT_RULESDIR
+        from ansiblelint.rules import RulesCollection
+        from ansiblelint.runner import get_matches
+
         options: Options = \
             Options(
                 lintables=target_paths,

@@ -1,7 +1,5 @@
 from importlib.util import find_spec
 
-from restructuredtext_lint import lint_file
-
 from stylebook.commands.command import Command
 
 
@@ -18,6 +16,9 @@ class RestructuredtextLintCommand(Command):
         return find_spec('restructuredtext_lint') is not None
 
     def execute(self, target_paths: list[str], quiet: bool) -> int:
+        # pylint: disable=import-outside-toplevel
+        from restructuredtext_lint import lint_file
+
         has_errors: bool = False
         for target_path in target_paths:
             errors: list = lint_file(target_path)

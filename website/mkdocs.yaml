@@ -50,9 +50,9 @@ copyright: >
       src="https://shields.io/github/go-mod/go-version/hanggrian/stylebook"
       alt="Go"/>
   </a>
-  <a href="https://docs.python.org/3.10/">
+  <a href="https://docs.python.org/3.11/">
     <img
-      src="https://shields.io/badge/python-3.10+-informational"
+      src="https://shields.io/badge/python-3.11+-informational"
       alt="Python"/>
   </a>
   <a href="https://nodejs.org/en/blog/release/v12.0.0/">

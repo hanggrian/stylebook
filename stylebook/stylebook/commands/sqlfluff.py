@@ -3,8 +3,6 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
-import sqlfluff
-
 from stylebook.commands.command import Command
 
 
@@ -18,6 +16,9 @@ class SqlfluffCommand(Command):
         return find_spec(self.binary) is not None
 
     def execute(self, target_paths: list[str], quiet: bool) -> int:
+        # pylint: disable=import-outside-toplevel
+        import sqlfluff
+
         has_errors: bool = False
         for path in target_paths:
             violations: list[dict[str, Any]] = \
@@ -29,11 +30,10 @@ class SqlfluffCommand(Command):
                 continue
             has_errors = True
             for violation in (SimpleNamespace(**violation) for violation in violations):
-                print(
-                    f'{self.embed_path(
-                        path,
-                        violation.start_line_no,
-                        violation.start_line_pos,
-                    )} {violation.description} ({violation.code})',
+                location: str = self.embed_path(
+                    path,
+                    violation.start_line_no,
+                    violation.start_line_pos,
                 )
+                print(f'{location} {violation.description} ({violation.code})')
         return 1 if has_errors else 0

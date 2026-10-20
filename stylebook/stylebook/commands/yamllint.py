@@ -1,9 +1,6 @@
 from importlib.util import find_spec
 from typing import Any
 
-from yamllint import linter
-from yamllint.config import YamlLintConfig
-
 from stylebook.commands.command import Command
 
 
@@ -17,6 +14,10 @@ class YamllintCommand(Command):
         return find_spec(self.binary) is not None
 
     def execute(self, target_paths: list[str], quiet: bool) -> int:
+        # pylint: disable=import-outside-toplevel
+        from yamllint import linter
+        from yamllint.config import YamlLintConfig
+
         config: YamlLintConfig = YamlLintConfig(file=self.config_file)
         has_errors: bool = False
         for path in target_paths:

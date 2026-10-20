@@ -1,9 +1,5 @@
 from importlib.util import find_spec
 
-from cfnlint.config import ConfigMixIn
-from cfnlint.match import Match
-from cfnlint.runner import Runner
-
 from stylebook.commands.command import Command
 
 
@@ -20,6 +16,11 @@ class CfnLintCommand(Command):
         return find_spec(self.binary) is not None
 
     def execute(self, target_paths: list[str], quiet: bool) -> int:
+        # pylint: disable=import-outside-toplevel
+        from cfnlint.config import ConfigMixIn
+        from cfnlint.match import Match
+        from cfnlint.runner import Runner
+
         has_errors: bool = False
         for path in target_paths:
             matches: list[Match] = \
@@ -39,11 +40,6 @@ class CfnLintCommand(Command):
                 continue
             has_errors = True
             for m in matches:
-                print(
-                    f'{self.embed_path(
-                        path,
-                        m.linenumber,
-                        m.columnnumber,
-                    )} {m.message} ({m.rule.id})',
-                )
+                location: str = self.embed_path(path, m.linenumber, m.columnnumber)
+                print(f'{location} {m.message} ({m.rule.id})')
         return 1 if has_errors else 0

@@ -28,3 +28,6 @@ test-report.junit.xml
 # Ruby
 _site/
 Gemfile.lock
+
+# MkDocs
+site/

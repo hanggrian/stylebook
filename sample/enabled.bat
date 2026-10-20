@@ -1,7 +1,8 @@
 @ECHO OFF
 
-REM P004: need to use !variables!
 SETLOCAL ENABLEDELAYEDEXPANSION
+
+REM P004: need to use !variables!
 
 REM E001: proper parentheses nesting
 IF EXIST "file.txt" (
@@ -13,6 +14,7 @@ IF EXIST "file.txt" (
 
 REM E002: GOTO points to existing label
 GOTO start
+
 :start
 
 REM E003: proper IF formatting
@@ -93,6 +95,7 @@ ECHO Copy successful
 
 REM W004: loop with exit condition
 SET /a counter=0
+
 :loop
 SET /a counter+=1
 IF "%counter%" LSS "10" GOTO loop
@@ -105,8 +108,8 @@ REM W006: network operation with timeout
 PING -n 4 google.com >nul 2>&1
 IF ERRORLEVEL 1 ECHO Ping failed
 
-REM W008: temporary PATH modification
-SET "PATH=%PATH%;C:\MyApp"
+REM W067: prefer a local variable over overwriting PATH
+SET "MYAPP_PATH=%PATH%;C:\MyApp"
 
 REM W009: compatible input method
 SET /p answer="Continue? (y/n): "
@@ -115,10 +118,17 @@ REM W012: ASCII characters only
 ECHO Hello World
 
 REM W013: unique labels
+GOTO first
+
 :first
 ECHO First
+GOTO second
+
 :second
 ECHO Second
+GOTO after_labels
+
+:after_labels
 
 REM W017: unambiguous errorlevel check
 IF NOT ERRORLEVEL 1 (
@@ -127,6 +137,7 @@ IF NOT ERRORLEVEL 1 (
 
 REM W019: GOTO to existing label with CRLF line endings
 GOTO aftergoto
+
 :aftergoto
 
 REM W021: quoted IF comparison
@@ -135,8 +146,6 @@ IF "%username%"=="admin" ECHO admin
 REM W024: modern alternatives to deprecated commands
 powershell -Command "Get-WmiObject Win32_OperatingSystem" >nul 2>&1
 IF ERRORLEVEL 1 ECHO PowerShell query failed
-ICACLS file.txt /grant user:F >nul 2>&1
-IF ERRORLEVEL 1 ECHO ICACLS failed
 NET SESSION >nul 2>&1 || ^
   SCHTASKS /create /tn "Task" /tr script.bat daily >nul 2>&1
 IF ERRORLEVEL 1 ECHO Task creation failed
@@ -151,7 +160,7 @@ FOR /F "usebackq tokens=*" %%i IN (`dir /b`) DO ECHO %%i
 
 REM W035: FOR /F with explicit delimiters
 REM W036: FOR /F with skip for headers
-FOR /F "skip=1 tokens=* delims=," %%i IN (data.csv) DO ECHO %%i %%j
+FOR /F "skip=1 tokens=* delims=," %%i IN (data.csv) DO ECHO %%i
 
 REM W041: error handling for external commands
 NET SESSION >nul 2>&1
@@ -181,6 +190,9 @@ TIMEOUT /t "%TIMEOUT_SECONDS%" /NOBREAK >nul
 REM S016: safe REM comment instead of double-colon
 REM This comment is always safe
 
+CALL :MyFunction
+GOTO after_function
+
 REM Function: MyFunction
 REM Purpose: Demonstrates a documented subroutine
 REM Parameters: none
@@ -188,6 +200,8 @@ REM Returns: nothing
 :MyFunction
 ECHO Processing
 GOTO :EOF
+
+:after_function
 
 REM S020: long line split with continuation
 COPY "%USERPROFILE%\Very\Long\Path\With\Many\Directories\file.txt" ^

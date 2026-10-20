@@ -90,7 +90,7 @@ def run() -> None:
                 continue
             exclude.add(a)
     if unsupported_disable:
-        print(red(f'Unsupported linters: {b(', '.join(unsupported_disable))}'))
+        print(red('Unsupported linters: ' + b(', '.join(unsupported_disable))))
         exit2(1)
     if not exclude:
         with open(get_config_file('stylebookrc'), 'r', encoding='UTF-8') as file:
@@ -101,10 +101,13 @@ def run() -> None:
     if '-h' in input_args or \
         '--help' in input_args:
         print('Python runner for Stylebook linter aggregator\n')
-        print(f'\U0001f680 {b(cyan('Usage:'))}')
-        print(f'   {cyan('stylebook')} {magenta('[PATHS]')} {blue('[OPTIONS]')}\n')
-        print(f'\U0001f4c4 {b(magenta('Paths:'))}')
-        print(f'   {magenta('file')}      Supports file types and their variants:')
+        print('\U0001f680 ' + b(cyan('Usage:')))
+        print(
+            '   ' + cyan('stylebook') + ' ' + magenta('[PATHS]') + ' ' +
+            blue('[OPTIONS]') + '\n',
+        )
+        print('\U0001f4c4 ' + b(magenta('Paths:')))
+        print('   ' + magenta('file') + '      Supports file types and their variants:')
         print(
             '             ' +
             '\u2022 Ansible   ' +
@@ -124,13 +127,17 @@ def run() -> None:
             '\u2022 TOML      ' +
             '\u2022 YAML',
         )
-        print(f'   {magenta('dir')}       Recursively find files in this directory')
-        print(f'   {magenta('pattern')}   For example, {i('*.bat')} for all Batch files in this')
-        print(f'             directory, {i('**/*')} for all files\n')
-        print(f'\u2699\ufe0f  {b(blue('Options:'))}')
+        print('   ' + magenta('dir') + '       Recursively find files in this directory')
+        print(
+            '   ' + magenta('pattern') + '   For example, ' + i('*.bat') +
+            ' for all Batch files in this',
+        )
+        print('             directory, ' + i('**/*') + ' for all files\n')
+        print('\u2699\ufe0f  ' + b(blue('Options:')))
         empty: str = d(blue('(=[])'))
         print(
-            f'   {blue('-d')}, {blue('--disable=[LINTERS]')} {empty}     ' +
+            '   ' + blue('-d') + ', ' + blue('--disable=[LINTERS]') + ' ' +
+            empty + '     ' +
             'List of linters to deactivate:',
         )
         print(
@@ -159,19 +166,20 @@ def run() -> None:
             f'\u2022 {Linter.YAMLLINT.value.binary}',
         )
         print(
-            f'   {blue('-e')}, {blue('--exclude=[ARGUMENTS]')} {empty}   ' +
+            '   ' + blue('-e') + ', ' + blue('--exclude=[ARGUMENTS]') + ' ' +
+            empty + '   ' +
             'List of files or directories to ignore',
         )
         print(
-            f'   {blue('-h')}, {blue('--help')}                        ' +
+            '   ' + blue('-h') + ', ' + blue('--help') + '                        ' +
             'Display this message',
         )
         print(
-            f'   {blue('-q')}, {blue('--quiet')}                       ' +
+            '   ' + blue('-q') + ', ' + blue('--quiet') + '                       ' +
             'Disable verbose output',
         )
         print(
-            f'   {blue('-v')}, {blue('--version')}                     ' +
+            '   ' + blue('-v') + ', ' + blue('--version') + '                     ' +
             'Show app version',
         )
         exit2(0)
@@ -180,7 +188,7 @@ def run() -> None:
         quiet = True
     if '-v' in input_args or \
         '--version' in input_args:
-        print(f'stylebook {b(version('stylebook'))}')
+        print('stylebook ' + b(version('stylebook')))
         exit2(0)
 
     # insert target paths to corresponding command
@@ -273,14 +281,15 @@ def run() -> None:
         if command.value.execute(paths, quiet) != 0:
             violating_linters.append(command.value.binary)
     if violating_linters:
+        violations_text: str = ', '.join(violating_linters) + '.'
         print(
-            '\u274c\ufe0f '
-            f'{red(f'Linter(s) reported violations: {b(f'{', '.join(violating_linters)}.')}')}',
+            '\u274c\ufe0f ' +
+            red(f'Linter(s) reported violations: {b(violations_text)}'),
         )
         exit2(1)
     if empty:
-        print(f'\U0001f47b {yellow('No files to lint.')}')
+        print('\U0001f47b ' + yellow('No files to lint.'))
         exit2(1)
     if not quiet:
-        print(f'\U0001f389 {green('All linters passed, no violation found.')}')
+        print('\U0001f389 ' + green('All linters passed, no violation found.'))
     exit2(0)

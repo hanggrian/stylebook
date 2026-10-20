@@ -38,6 +38,7 @@ class Command:
 
     @staticmethod
     def embed_path(file_path: str, line: int | None, col: int | None) -> str:
+        link_text: str = f'{file_path}:{line}:{col}'
         return f'\x1b]8;;file://{file_path}' + \
             (f'#L{line}:C{col}' if line and col else (f'#L{line}' if line else '')) + \
-            f'\x1b\\{u(blue(f'{file_path}:{line}:{col}'))}\x1b]8;;\x1b\\'
+            f'\x1b\\{u(blue(link_text))}\x1b]8;;\x1b\\'

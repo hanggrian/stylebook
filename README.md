@@ -6,7 +6,7 @@
 [![TestPyPI](https://shields.io/pypi/v/stylebook?label=testpypi&pypiBaseUrl=https://test.pypi.org)](https://test.pypi.org/project/stylebook/)
 [![NPM](https://shields.io/npm/v/@hanggrian/stylebook)](https://npmjs.com/package/@hanggrian/stylebook/)\
 [![Go](https://shields.io/github/go-mod/go-version/hanggrian/stylebook)](https://go.dev/doc/go1.26/)
-[![Python](https://shields.io/badge/python-3.10+-informational)](https://docs.python.org/3.10/)
+[![Python](https://shields.io/badge/python-3.11+-informational)](https://docs.python.org/3.11/)
 [![Node](https://shields.io/badge/node-12+-informational)](https://nodejs.org/en/blog/release/v12.0.0/)
 
 # Stylebook
