@@ -33,7 +33,7 @@ ansible-lint = ["ansible-lint==26.10.1", "ansible-core==2.22.0rc1; python_versio
 # Direct VSC dependency is not supported by hatchling
 # asciidoc-linter = ["asciidoc-linter @ git+https://github.com/docToolchain/asciidoc-linter.git"]
 blinter = ["Blinter==1.1.43"]
-cfn-lint = ["cfn-lint==1.57.2; python_version < '3.15'"]
+cfn-lint = ["cfn-lint==1.58.0; python_version < '3.15'"]
 dotenv-linter = ["dotenv-linter==0.9.0"]
 pyinilint = ["pyinilint==0.17"]
 restructuredtext-lint = ["restructuredtext-lint==2.0.2"]
