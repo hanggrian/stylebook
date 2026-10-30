@@ -32,7 +32,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "ansible-core", version = "2.19.14", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "ansible-core", version = "2.21.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12' and python_full_version < '3.15'" },
-    { name = "ansible-core", version = "2.22.0rc1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.15'" },
+    { name = "ansible-core", version = "2.22.0rc2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.15'" },
     { name = "jsonschema" },
     { name = "packaging" },
     { name = "pyyaml" },
@@ -84,7 +84,7 @@ wheels = [
 
 [[package]]
 name = "ansible-core"
-version = "2.22.0rc1"
+version = "2.22.0rc2"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "python_full_version >= '3.15'",
@@ -96,9 +96,9 @@ dependencies = [
     { name = "pyyaml" },
     { name = "resolvelib" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/94/bb/5b3403e57f7bb44527532c2c226835698cc556cc028129e4d1f981c64225/ansible_core-2.22.0rc1.tar.gz", hash = "sha256:51d6903d48636b3e627bd312b4f97bd4d8945e35d4e1b1809c7648cf0e978947", size = 3479506, upload-time = "2026-10-13T23:16:32.865Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/40/c1/9ddb841072bbbec1ae0915f5afb670937f05d5edefbbe6fb6187b6173ecc/ansible_core-2.22.0rc2.tar.gz", hash = "sha256:16799131f8b2e2176b2e07a8d42dca3e9c852ef07f71fe3d1ebb0e4ceb0d2921", size = 3481732, upload-time = "2026-10-27T18:54:11.333Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b8/be/c28612d93ca4e52a3846fa260500a23cd01d72a2409d88ffeba4a603f3d2/ansible_core-2.22.0rc1-py3-none-any.whl", hash = "sha256:88ac5f8c91a3dbeb2ee756649550d7e1097f2ced2ac53dd21597989d3a1686cb", size = 2488454, upload-time = "2026-10-13T23:16:31.098Z" },
+    { url = "https://files.pythonhosted.org/packages/e2/35/67f76eb2de26c886a77f0e00a77c05bd97e0016698e13bf0a3181a6090ad/ansible_core-2.22.0rc2-py3-none-any.whl", hash = "sha256:7914e7bdcd32ee928ae57fb815d6982f225e561d7fc7b81f97eb2cc247fd4077", size = 2488608, upload-time = "2026-10-27T18:54:09.609Z" },
 ]
 
 [[package]]
@@ -109,7 +109,7 @@ dependencies = [
     { name = "ansible-compat" },
     { name = "ansible-core", version = "2.19.14", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "ansible-core", version = "2.21.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12' and python_full_version < '3.15'" },
-    { name = "ansible-core", version = "2.22.0rc1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.15'" },
+    { name = "ansible-core", version = "2.22.0rc2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.15'" },
     { name = "black" },
     { name = "cffi" },
     { name = "cryptography" },
@@ -1682,7 +1682,7 @@ dependencies = [
 
 [package.optional-dependencies]
 ansible-lint = [
-    { name = "ansible-core", version = "2.22.0rc1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.15'" },
+    { name = "ansible-core", version = "2.22.0rc2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.15'" },
     { name = "ansible-lint" },
 ]
 blinter = [
@@ -1712,7 +1712,7 @@ yamllint = [
 
 [package.metadata]
 requires-dist = [
-    { name = "ansible-core", marker = "python_full_version >= '3.15' and extra == 'ansible-lint'", specifier = "==2.22.0rc1" },
+    { name = "ansible-core", marker = "python_full_version >= '3.15' and extra == 'ansible-lint'", specifier = "==2.22.0rc2" },
     { name = "ansible-lint", marker = "extra == 'ansible-lint'", specifier = "==26.10.1" },
     { name = "blinter", marker = "extra == 'blinter'", specifier = "==1.1.43" },
     { name = "cfn-lint", marker = "python_full_version < '3.15' and extra == 'cfn-lint'", specifier = "==1.57.2" },
