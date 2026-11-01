@@ -187,14 +187,14 @@ wheels = [
 
 [[package]]
 name = "blinter"
-version = "1.1.43"
+version = "1.1.54"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "charset-normalizer" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/39/2c/527e3485140fe2af5cc9828c78b59c61f6d485b18f05d8110c30157a6b29/blinter-1.1.43.tar.gz", hash = "sha256:fc51ecf034fd297e64a9cf49763ef7574167445d1e0d8038b77ab19aeb9a8b08", size = 167883, upload-time = "2026-10-19T21:06:27.947Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/fa/f4/6f30c2aee584a322f6f82cc5ae6e97d03a4f39c2cf1a5353ca756ea5a0c8/blinter-1.1.54.tar.gz", hash = "sha256:429b8f4d532efdc09ab3fac050854b7e3c8ab818fc71b003ab4e8811bd72a4d4", size = 180904, upload-time = "2026-10-31T19:36:36.338Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/9c/a0/6ad733023e22ccb49511a8e67b138a41d75df17f2b8b78a77fe1735ca0d2/blinter-1.1.43-py3-none-any.whl", hash = "sha256:5cc1ee6f4bbd9abd0608a9462aebf53d0a2dd59c76f4e559e85f30e8339f74f5", size = 183622, upload-time = "2026-10-19T21:06:26.419Z" },
+    { url = "https://files.pythonhosted.org/packages/4d/6a/c30a923043b1115c566843ddcdb1bd30ff0a28fdcce721fb175b98e1184a/blinter-1.1.54-py3-none-any.whl", hash = "sha256:6cbf82abcadc127bf3a375bb50de0eca222c52bf0d04d55e7ab2af5d95eddaa3", size = 195446, upload-time = "2026-10-31T19:36:34.955Z" },
 ]
 
 [[package]]
@@ -1714,7 +1714,7 @@ yamllint = [
 requires-dist = [
     { name = "ansible-core", marker = "python_full_version >= '3.15' and extra == 'ansible-lint'", specifier = "==2.22.0rc1" },
     { name = "ansible-lint", marker = "extra == 'ansible-lint'", specifier = "==26.10.1" },
-    { name = "blinter", marker = "extra == 'blinter'", specifier = "==1.1.43" },
+    { name = "blinter", marker = "extra == 'blinter'", specifier = "==1.1.54" },
     { name = "cfn-lint", marker = "python_full_version < '3.15' and extra == 'cfn-lint'", specifier = "==1.57.2" },
     { name = "colorama" },
     { name = "dotenv-linter", marker = "extra == 'dotenv-linter'", specifier = "==0.9.0" },
