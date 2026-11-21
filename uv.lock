@@ -306,7 +306,7 @@ wheels = [
 
 [[package]]
 name = "cfn-lint"
-version = "1.57.2"
+version = "1.61.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jsonpatch" },
@@ -317,9 +317,9 @@ dependencies = [
     { name = "sympy" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/41/93/996a8c4a8916ed10b71207de4276c7dbec4d13ad0f9a21830f9eed04f771/cfn_lint-1.57.2.tar.gz", hash = "sha256:7e859164badf01d2bd62c6d362284ab6e814d036f0a64249ba6a05287d787d68", size = 5000546, upload-time = "2026-10-06T19:29:15.939Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9a/cd/82bc68b69eb8a1a6a09a88ad6a0b54e1990ea127665e4c9faa8b1ea0f4c9/cfn_lint-1.61.0.tar.gz", hash = "sha256:a408e1ae0a059b1e8cdcd581c01545ebc99a40961e2edd2a1c0a77e463dcc922", size = 5243970, upload-time = "2026-11-19T22:48:21.77Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2e/02/523307f365b693ee8e55564a13bef7767f5b6650fd22958dcd3d0390136e/cfn_lint-1.57.2-py3-none-any.whl", hash = "sha256:7007b30215ffb204bf1c669aeb68689253d23cddd21ef1a904fd424df13851cc", size = 5611048, upload-time = "2026-10-06T19:29:13.348Z" },
+    { url = "https://files.pythonhosted.org/packages/12/ee/19b224f0c957d748ed8ed22ecb615f099d5fdc4a9d8c488fae546d423f82/cfn_lint-1.61.0-py3-none-any.whl", hash = "sha256:0fe32c20bce54dde16b777f453c071b633a76de75e6ee32e5bb7fc12e052856e", size = 5862112, upload-time = "2026-11-19T22:48:19.509Z" },
 ]
 
 [[package]]
@@ -1715,7 +1715,7 @@ requires-dist = [
     { name = "ansible-core", marker = "python_full_version >= '3.15' and extra == 'ansible-lint'", specifier = "==2.22.0rc1" },
     { name = "ansible-lint", marker = "extra == 'ansible-lint'", specifier = "==26.10.1" },
     { name = "blinter", marker = "extra == 'blinter'", specifier = "==1.1.43" },
-    { name = "cfn-lint", marker = "python_full_version < '3.15' and extra == 'cfn-lint'", specifier = "==1.57.2" },
+    { name = "cfn-lint", marker = "python_full_version < '3.15' and extra == 'cfn-lint'", specifier = "==1.61.0" },
     { name = "colorama" },
     { name = "dotenv-linter", marker = "extra == 'dotenv-linter'", specifier = "==0.9.0" },
     { name = "pyinilint", marker = "extra == 'pyinilint'", specifier = "==0.17" },
